@@ -106,8 +106,6 @@ private slots:
     void on_actionLocateInFileManager_triggered();
     void on_actionQuitApp_triggered();
 
-    void doCloseWindow();
-
 private:
     bool updateFileWatcher(const QString & basePath = QString());
     void updateGalleryButtonsVisibility();

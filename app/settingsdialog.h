@@ -23,7 +23,6 @@ public slots:
 
 private:
     QCheckBox * m_stayOnTop = nullptr;
-    QCheckBox * m_useBuiltInCloseAnimation = nullptr;
     QCheckBox * m_useLightCheckerboard = nullptr;
     QCheckBox * m_loopGallery = nullptr;
     QCheckBox * m_svgTiny12Only = nullptr;
