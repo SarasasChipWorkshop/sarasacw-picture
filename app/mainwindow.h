@@ -75,7 +75,6 @@ protected:
 
 private slots:
     void on_actionOpen_triggered();
-    void on_actionSaveAs_triggered();
 
     void on_actionActualSize_triggered();
     void on_actionToggleMaximize_triggered();

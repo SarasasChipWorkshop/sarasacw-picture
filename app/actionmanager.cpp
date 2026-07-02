@@ -55,7 +55,6 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     CREATE_NEW_ACTION(mainWindow, actionAnimationNextFrame);
 
     CREATE_NEW_THEMEICON_ACTION(mainWindow, actionOpen, document-open);
-    CREATE_NEW_THEMEICON_ACTION(mainWindow, actionSaveAs, document-save-as);
     CREATE_NEW_ACTION(mainWindow, actionHorizontalFlip);
     CREATE_NEW_ACTION(mainWindow, actionFitInView);
     CREATE_NEW_ACTION(mainWindow, actionFitByWidth);
@@ -85,7 +84,6 @@ void ActionManager::retranslateUi(MainWindow *mainWindow)
     Q_UNUSED(mainWindow);
 
     actionOpen->setText(QCoreApplication::translate("MainWindow", "&Open...", nullptr));
-    actionSaveAs->setText(QCoreApplication::translate("MainWindow", "Save &As...", nullptr));
 
     actionActualSize->setText(QCoreApplication::translate("MainWindow", "Actual size", nullptr));
     actionToggleMaximize->setText(QCoreApplication::translate("MainWindow", "Toggle maximize", nullptr));
@@ -131,7 +129,6 @@ void ActionManager::retranslateUi(MainWindow *mainWindow)
 void ActionManager::setupShortcuts()
 {
     actionOpen->setShortcut(QKeySequence::Open);
-    actionSaveAs->setShortcut(QKeySequence::SaveAs);
     actionActualSize->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_0));
     actionZoomIn->setShortcut(QKeySequence::ZoomIn);
     actionZoomOut->setShortcut(QKeySequence::ZoomOut);
