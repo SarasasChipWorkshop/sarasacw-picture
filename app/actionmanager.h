@@ -41,7 +41,6 @@ public:
     QAction *actionHorizontalFlip;
     QAction *actionFitInView;
     QAction *actionFitByWidth;
-    QAction *actionFitLongImage;
     QAction *actionCopyPixmap;
     QAction *actionCopyFilePath;
     QAction *actionPaste;

@@ -65,11 +65,6 @@ bool Settings::loopGallery() const
     return m_qsettings->value("loop_gallery", true).toBool();
 }
 
-bool Settings::autoLongImageMode() const
-{
-    return m_qsettings->value("auto_long_image_mode", true).toBool();
-}
-
 bool Settings::svgTiny12Only() const
 {
     // Qt 6.7.0's SVG support is terrible caused by huge memory usage, see QTBUG-124287
@@ -132,12 +127,6 @@ void Settings::setUseLightCheckerboard(bool light)
 void Settings::setLoopGallery(bool on)
 {
     m_qsettings->setValue("loop_gallery", on);
-    m_qsettings->sync();
-}
-
-void Settings::setAutoLongImageMode(bool on)
-{
-    m_qsettings->setValue("auto_long_image_mode", on);
     m_qsettings->sync();
 }
 

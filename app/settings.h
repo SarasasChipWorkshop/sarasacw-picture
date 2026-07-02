@@ -38,7 +38,6 @@ public:
     bool useBuiltInCloseAnimation() const;
     bool useLightCheckerboard() const;
     bool loopGallery() const;
-    bool autoLongImageMode() const;
     bool svgTiny12Only() const;
     DoubleClickBehavior doubleClickBehavior() const;
     MouseWheelBehavior mouseWheelBehavior() const;
@@ -49,7 +48,6 @@ public:
     void setUseBuiltInCloseAnimation(bool on);
     void setUseLightCheckerboard(bool light);
     void setLoopGallery(bool on);
-    void setAutoLongImageMode(bool on);
     void setSvgTiny12Only(bool on);
     void setDoubleClickBehavior(DoubleClickBehavior dcb);
     void setMouseWheelBehavior(MouseWheelBehavior mwb);

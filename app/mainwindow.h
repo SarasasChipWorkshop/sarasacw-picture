@@ -93,7 +93,6 @@ private slots:
     void on_actionHorizontalFlip_triggered();
     void on_actionFitInView_triggered();
     void on_actionFitByWidth_triggered();
-    void on_actionFitLongImage_triggered();
     void on_actionCopyPixmap_triggered();
     void on_actionCopyFilePath_triggered();
     void on_actionPaste_triggered();
