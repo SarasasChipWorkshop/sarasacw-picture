@@ -272,12 +272,6 @@ endif()
 
 if (WIN32)
     install(
-        FILES dist/passoc/ppic.pacfg
-        DESTINATION ${CMAKE_INSTALL_BINDIR}
-        RENAME default-assoc.pacfg
-    )
-
-    install(
         FILES
             dist/passoc/generic.ico
             dist/passoc/jpeg.ico
