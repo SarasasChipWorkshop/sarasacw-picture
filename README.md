@@ -1,4 +1,17 @@
-Yet another image viewer.
+# Sarasas Chip Workshop Picture
+
+Yet another legacy Windows Photo Viewer with cross-platform support.
+
+> [!IMPORTANT]
+> SarasaCW Picture are still in refactoring. Please do not use it until this message removes.
+
+## Summary
+
+Sarasas Chip Workshop Picture (abbr. SarasaCW Picture) is a lightweight image viewer that has cross-platform support and similar user interface about legacy Windows Photo Viewer. It allows you view JPEG, PNG, GIF, SVG, PSD, KRA, XCF, TGA, HDR, AVIF and some other frequently used image formats files quickly and easily without changing your long-term Windows usage experience.
+
+SarasaCW Picture is the **hard fork** of [Pineapple Pictures](https://github.com/BLumia/pineapple-pictures) since Pineapple Pictures 1.4.1 version.
+
+<!--
 
 |CI|Build Status|
 |---|---|
@@ -7,10 +20,6 @@ Yet another image viewer.
 |Ubuntu Build|[![Ubuntu CI](https://github.com/BLumia/pineapple-pictures/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/BLumia/pineapple-pictures/actions/workflows/ubuntu.yml)|
 
 ![Pineapple Pictures - Main Window](https://repository-images.githubusercontent.com/211888654/e8697600-e370-11eb-9b2a-b71e05262954)
-
-## Summary
-
-Pineapple Pictures is a lightweight image viewer that allows you view JPEG, PNG, GIF, SVG, PSD, KRA, XCF, TGA, HDR, AVIF and some other frequently used image formats files quickly and easily, and also provide a Stay-on-Top window setting that allows you pin the window so you can use it to pin a reference image at the top and then you can work with other software.
 
 ## Get it!
 
@@ -71,3 +80,5 @@ It's possible to build it under Windows, Linux, macOS, and maybe other desktop p
 ## License
 
 Pineapple Pictures as a whole is licensed under MIT license. Individual files may have a different, but compatible license.
+
+-->
