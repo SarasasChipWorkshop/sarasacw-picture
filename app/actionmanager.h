@@ -9,6 +9,8 @@
 
 class MainWindow;
 
+/// Action Manager is separated from Main Window
+/// to manage all actions specifically.
 class ActionManager
 {
 public:
@@ -16,7 +18,6 @@ public:
     ~ActionManager() = default;
 
     void setupAction(MainWindow * mainWindow);
-    void retranslateUi(MainWindow *MainWindow);
     void setupShortcuts();
     void enablePrevNextPictureAction(bool enablePrevPictureAction, bool enableNextPictureAction);
 

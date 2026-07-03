@@ -10,12 +10,6 @@
 #include <QSvgRenderer>
 #include <QPainter>
 
-#define ICON_NAME(name)\
-    QStringLiteral(":/icons/" #name ".svg")
-
-#define ACTION_NAME(s) QStringLiteral(STRIFY(s))
-#define STRIFY(s) #s
-
 QIcon ActionManager::loadHidpiIcon(const QString &resp, QSize sz)
 {
     QSvgRenderer r(resp);
@@ -29,6 +23,14 @@ QIcon ActionManager::loadHidpiIcon(const QString &resp, QSize sz)
 
 void ActionManager::setupAction(MainWindow *mainWindow)
 {
+    // region: Action and Its Icon Creation
+
+    #define ICON_NAME(name)\
+        QStringLiteral(":/icons/" #name ".svg")
+
+    #define ACTION_NAME(s) QStringLiteral(STRIFY(s))
+    #define STRIFY(s) #s
+
     auto create_action = [] (QWidget *w, QAction **a, QString i, QString an, bool iconFromTheme = false) {
         *a = new QAction(w);
         if (!i.isNull())
@@ -36,6 +38,7 @@ void ActionManager::setupAction(MainWindow *mainWindow)
         (*a)->setObjectName(an);
         w->addAction(*a);
     };
+
     #define CREATE_NEW_ICON_ACTION(w, a, i) create_action(w, &a, ICON_NAME(i), ACTION_NAME(a))
     CREATE_NEW_ICON_ACTION(mainWindow, actionActualSize, zoom-original);
     CREATE_NEW_ICON_ACTION(mainWindow, actionToggleMaximize, view-fullscreen);
@@ -71,14 +74,13 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     #undef CREATE_NEW_ACTION
     #undef CREATE_NEW_THEMEICON_ACTION
 
-    retranslateUi(mainWindow);
+    #undef STRIFY
+    #undef ACTION_NAME
+    #undef ICON_NAME
 
-    QMetaObject::connectSlotsByName(mainWindow);
-}
+    // endregion
 
-void ActionManager::retranslateUi(MainWindow *mainWindow)
-{
-    Q_UNUSED(mainWindow);
+    // region: Action Translatable Text Setup
 
     actionOpen->setText(QCoreApplication::translate("MainWindow", "&Open...", nullptr));
 
@@ -111,13 +113,17 @@ void ActionManager::retranslateUi(MainWindow *mainWindow)
         QCoreApplication::translate(
             "MainWindow", "Show in File Explorer",
             "File Explorer is the name of explorer.exe under Windows"
-        )
-    );
+            )
+        );
 #else
     actionLocateInFileManager->setText(QCoreApplication::translate("MainWindow", "Show in directory", nullptr));
 #endif // Q_OS_WIN
     actionProperties->setText(QCoreApplication::translate("MainWindow", "Properties", nullptr));
     actionQuitApp->setText(QCoreApplication::translate("MainWindow", "Quit", nullptr));
+
+    // endregion
+
+    QMetaObject::connectSlotsByName(mainWindow);
 }
 
 void ActionManager::setupShortcuts()
