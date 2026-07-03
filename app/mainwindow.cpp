@@ -5,7 +5,6 @@
 #include "mainwindow.h"
 
 #include "settings.h"
-#include "toolbutton.h"
 #include "bottombuttongroup.h"
 #include "graphicsview.h"
 #include "navigatorview.h"

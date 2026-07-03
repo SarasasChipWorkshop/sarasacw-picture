@@ -19,7 +19,6 @@ QT_END_NAMESPACE
 
 class ActionManager;
 class PlaylistManager;
-class ToolButton;
 class GraphicsView;
 class NavigatorView;
 class BottomButtonGroup;

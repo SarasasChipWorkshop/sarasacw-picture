@@ -21,8 +21,6 @@ public:
     void setupShortcuts();
     void enablePrevNextPictureAction(bool enablePrevPictureAction, bool enableNextPictureAction);
 
-    static QIcon loadHidpiIcon(const QString &resp, QSize sz = QSize(32, 32));
-
 public:
     QAction *actionOpen;
 

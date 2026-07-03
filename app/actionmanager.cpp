@@ -10,7 +10,7 @@
 #include <QSvgRenderer>
 #include <QPainter>
 
-QIcon ActionManager::loadHidpiIcon(const QString &resp, QSize sz)
+static QIcon loadHidpiIcon(const QString &resp, QSize sz = QSize(32, 32))
 {
     QSvgRenderer r(resp);
     QPixmap pm = QPixmap(sz * qApp->devicePixelRatio());
@@ -34,7 +34,7 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     auto create_action = [] (QWidget *w, QAction **a, QString i, QString an, bool iconFromTheme = false) {
         *a = new QAction(w);
         if (!i.isNull())
-            (*a)->setIcon(iconFromTheme ? QIcon::fromTheme(i) : ActionManager::loadHidpiIcon(i));
+            (*a)->setIcon(iconFromTheme ? QIcon::fromTheme(i) : loadHidpiIcon(i));
         (*a)->setObjectName(an);
         w->addAction(*a);
     };
