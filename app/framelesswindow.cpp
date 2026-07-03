@@ -11,32 +11,11 @@
 #include <QVBoxLayout>
 #include <QWindow>
 
-#ifdef Q_OS_WIN
-#include "windows.h"
-void fixWindowStyle(QWidget * that)
-{
-    HWND hwnd = (HWND)that->winId();
-
-    LONG style = GetWindowLong(hwnd, GWL_STYLE);
-    style |= WS_THICKFRAME | WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU;
-    SetWindowLong(hwnd, GWL_STYLE, style);
-
-    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
-                 SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE |
-                     SWP_NOZORDER | SWP_NOACTIVATE);
-}
-#endif
-
 FramelessWindow::FramelessWindow(QWidget *parent)
     : QWidget(parent)
     , m_centralLayout(new QVBoxLayout(this))
-    , m_oldCursorShape(Qt::ArrowCursor)
-    , m_oldEdges()
 {
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinMaxButtonsHint);
-    this->setMouseTracking(true);
-    this->setAttribute(Qt::WA_Hover, true);
-    this->installEventFilter(this);
+    this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
 
     m_centralLayout->setContentsMargins(QMargins());
 }
@@ -51,110 +30,3 @@ void FramelessWindow::setCentralWidget(QWidget *widget)
     m_centralLayout->addWidget(widget);
     m_centralWidget = widget;
 }
-
-void FramelessWindow::installResizeCapture(QObject* widget)
-{
-    widget->installEventFilter(this);
-}
-
-void FramelessWindow::showEvent(QShowEvent *event)
-{
-#ifdef Q_OS_WIN
-    fixWindowStyle(this);
-#endif // Q_OS_WIN
-    return QWidget::showEvent(event);
-}
-
-bool FramelessWindow::eventFilter(QObject* o, QEvent* e)
-{
-    switch (e->type()) {
-    case QEvent::HoverMove:
-    {
-        QWidget* wg = qobject_cast<QWidget*>(o);
-        if (wg != nullptr)
-            return mouseHover(static_cast<QHoverEvent*>(e), wg);
-
-        break;
-    }
-    case QEvent::MouseButtonPress:
-        return mousePress(static_cast<QMouseEvent*>(e));
-    }
-
-    return QWidget::eventFilter(o, e);
-}
-
-bool FramelessWindow::mouseHover(QHoverEvent* event, QWidget* wg)
-{
-    if (!isMaximized() && !isFullScreen()) {
-        QWindow* win = window()->windowHandle();
-        Qt::Edges edges = this->getEdgesByPos(wg->mapToGlobal(event->oldPos()), win->frameGeometry());
-
-        // backup & restore cursor shape
-        if (edges && !m_oldEdges)
-            // entering the edge. backup cursor shape
-            m_oldCursorShape = win->cursor().shape();
-        if (!edges && m_oldEdges)
-            // leaving the edge. restore cursor shape
-            win->setCursor(m_oldCursorShape);
-
-        // save the latest edges status
-        m_oldEdges = edges;
-
-        // show resize cursor shape if cursor is within border
-        if (edges) {
-            win->setCursor(this->getCursorByEdge(edges, Qt::ArrowCursor));
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool FramelessWindow::mousePress(QMouseEvent* event)
-{
-    if (event->buttons() & Qt::LeftButton && !isMaximized() && !isFullScreen()) {
-        QWindow* win = window()->windowHandle();
-        Qt::Edges edges = this->getEdgesByPos(event->globalPosition().toPoint(), win->frameGeometry());
-        if (edges) {
-            win->startSystemResize(edges);
-            return true;
-        }
-    }
-
-    return false;
-}
-
-Qt::CursorShape FramelessWindow::getCursorByEdge(const Qt::Edges& edges, Qt::CursorShape default_cursor)
-{
-    if ((edges == (Qt::TopEdge | Qt::LeftEdge)) || (edges == (Qt::RightEdge | Qt::BottomEdge)))
-        return Qt::SizeFDiagCursor;
-    else if ((edges == (Qt::TopEdge | Qt::RightEdge)) || (edges == (Qt::LeftEdge | Qt::BottomEdge)))
-        return Qt::SizeBDiagCursor;
-    else if (edges & (Qt::TopEdge | Qt::BottomEdge))
-        return Qt::SizeVerCursor;
-    else if (edges & (Qt::LeftEdge | Qt::RightEdge))
-        return Qt::SizeHorCursor;
-    else
-        return default_cursor;
-}
-
-Qt::Edges FramelessWindow::getEdgesByPos(const QPoint gpos, const QRect& winrect)
-{
-    const int borderWidth = 8;
-    Qt::Edges edges;
-
-    int x = gpos.x() - winrect.x();
-    int y = gpos.y() - winrect.y();
-
-    if (x < borderWidth)
-        edges |= Qt::LeftEdge;
-    if (x > (winrect.width() - borderWidth))
-        edges |= Qt::RightEdge;
-    if (y < borderWidth)
-        edges |= Qt::TopEdge;
-    if (y > (winrect.height() - borderWidth))
-        edges |= Qt::BottomEdge;
-
-    return edges;
-}
-

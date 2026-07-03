@@ -163,12 +163,6 @@ MainWindow::MainWindow(QWidget *parent)
         Settings::instance()->applyUserShortcuts(this);
     });
 
-    // allow some mouse events can go through these widgets for resizing window.
-    installResizeCapture(m_closeButton);
-    installResizeCapture(m_graphicsView);
-    installResizeCapture(m_graphicsView->viewport());
-    installResizeCapture(m_gv);
-    installResizeCapture(m_gv->viewport());
 }
 
 MainWindow::~MainWindow()
