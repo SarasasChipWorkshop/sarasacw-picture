@@ -119,7 +119,6 @@ private:
     QPropertyAnimation *m_floatUpAnimation;
     QParallelAnimationGroup *m_exitAnimationGroup;
     QFileSystemWatcher *m_fileSystemWatcher;
-    ToolButton *m_closeButton;
     ToolButton *m_prevButton;
     ToolButton *m_nextButton;
     GraphicsView *m_graphicsView;

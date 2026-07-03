@@ -104,14 +104,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_graphicsView, &GraphicsView::viewportRectChanged,
             m_gv, &NavigatorView::updateMainViewportRegion);
 
-    m_closeButton = new ToolButton(true, m_graphicsView);
-    m_closeButton->setIconSize(QSize(32, 32));
-    m_closeButton->setFixedSize(QSize(50, 50));
-    m_closeButton->setIconResourcePath(":/icons/window-close.svg");
-
-    connect(m_closeButton, &QAbstractButton::clicked,
-            this, &MainWindow::closeWindow);
-
     m_prevButton = new ToolButton(false, m_graphicsView);
     m_prevButton->setIconSize(QSize(75, 75));
     m_prevButton->setIconResourcePath(":/icons/go-previous.svg");
@@ -141,7 +133,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_bottomButtonGroup->setOpacity(0, false);
     m_gv->setOpacity(0, false);
-    m_closeButton->setOpacity(0, false);
 
     connect(m_pm, &PlaylistManager::totalCountChanged, this, &MainWindow::updateGalleryButtonsVisibility);
 
@@ -321,7 +312,6 @@ void MainWindow::enterEvent(QEnterEvent *event)
     m_bottomButtonGroup->setOpacity(1);
     m_gv->setOpacity(1);
 
-    m_closeButton->setOpacity(1);
     m_prevButton->setOpacity(1);
     m_nextButton->setOpacity(1);
 
@@ -333,7 +323,6 @@ void MainWindow::leaveEvent(QEvent *event)
     m_bottomButtonGroup->setOpacity(0);
     m_gv->setOpacity(0);
 
-    m_closeButton->setOpacity(0);
     m_prevButton->setOpacity(0);
     m_nextButton->setOpacity(0);
 
@@ -600,7 +589,6 @@ void MainWindow::closeWindow()
 
 void MainWindow::updateWidgetsPosition()
 {
-    m_closeButton->move(width() - m_closeButton->width(), 0);
     m_prevButton->move(25, (height() - m_prevButton->sizeHint().height()) / 2);
     m_nextButton->move(width() - m_nextButton->sizeHint().width() - 25,
                        (height() - m_prevButton->sizeHint().height()) / 2);
@@ -612,7 +600,6 @@ void MainWindow::updateWidgetsPosition()
 void MainWindow::toggleProtectedMode()
 {
     m_protectedMode = !m_protectedMode;
-    m_closeButton->setVisible(!m_protectedMode);
     updateGalleryButtonsVisibility();
 }
 
