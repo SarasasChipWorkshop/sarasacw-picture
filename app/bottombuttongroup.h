@@ -10,18 +10,13 @@
 #include <QAbstractButton>
 #include <QGroupBox>
 
-class OpacityHelper;
 class BottomButtonGroup : public QGroupBox
 {
     Q_OBJECT
 public:
     explicit BottomButtonGroup(const std::vector<QAction *> & actionList, QWidget *parent = nullptr);
 
-    void setOpacity(qreal opacity, bool animated = true);
     void addButton(QAbstractButton *button);
-
-private:
-    OpacityHelper * m_opacityHelper;
 };
 
 #endif // BOTTOMBUTTONGROUP_H

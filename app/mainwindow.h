@@ -12,7 +12,6 @@
 #include <QPushButton>
 
 QT_BEGIN_NAMESPACE
-class QGraphicsOpacityEffect;
 class QGraphicsView;
 class QFileSystemWatcher;
 QT_END_NAMESPACE

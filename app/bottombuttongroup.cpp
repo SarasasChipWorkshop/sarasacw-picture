@@ -4,15 +4,12 @@
 
 #include "bottombuttongroup.h"
 
-#include "opacityhelper.h"
-
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <QDebug>
 
 BottomButtonGroup::BottomButtonGroup(const std::vector<QAction *> &actionList, QWidget *parent)
     : QGroupBox (parent)
-    , m_opacityHelper(new OpacityHelper(this))
 {
     QHBoxLayout * mainLayout = new QHBoxLayout(this);
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
@@ -43,11 +40,6 @@ BottomButtonGroup::BottomButtonGroup(const std::vector<QAction *> &actionList, Q
     for (QAction * action : actionList) {
         addButton(newActionBtn(action));
     }
-}
-
-void BottomButtonGroup::setOpacity(qreal opacity, bool animated)
-{
-    m_opacityHelper->setOpacity(opacity, animated);
 }
 
 void BottomButtonGroup::addButton(QAbstractButton *button)

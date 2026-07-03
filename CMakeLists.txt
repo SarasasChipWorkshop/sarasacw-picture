@@ -45,7 +45,6 @@ set (PPIC_CPP_FILES
     app/graphicsscene.cpp
     app/bottombuttongroup.cpp
     app/navigatorview.cpp
-    app/opacityhelper.cpp
     app/settings.cpp
     app/settingsdialog.cpp
     app/aboutdialog.cpp
@@ -65,7 +64,6 @@ set (PPIC_HEADER_FILES
     app/graphicsscene.h
     app/bottombuttongroup.h
     app/navigatorview.h
-    app/opacityhelper.h
     app/settings.h
     app/settingsdialog.h
     app/aboutdialog.h

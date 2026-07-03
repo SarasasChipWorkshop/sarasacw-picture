@@ -5,7 +5,6 @@
 #include "navigatorview.h"
 
 #include "graphicsview.h"
-#include "opacityhelper.h"
 
 #include <QMouseEvent>
 #include <QDebug>
@@ -14,7 +13,6 @@
 NavigatorView::NavigatorView(QWidget *parent)
     : QGraphicsView (parent)
     , m_viewportRegion(this->rect())
-    , m_opacityHelper(new OpacityHelper(this))
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -26,11 +24,6 @@ NavigatorView::NavigatorView(QWidget *parent)
 void NavigatorView::setMainView(GraphicsView *mainView)
 {
     m_mainView = mainView;
-}
-
-void NavigatorView::setOpacity(qreal opacity, bool animated)
-{
-    m_opacityHelper->setOpacity(opacity, animated);
 }
 
 void NavigatorView::updateMainViewportRegion()

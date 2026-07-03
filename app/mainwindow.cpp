@@ -95,9 +95,6 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionRotateClockwise
     }, this);
 
-    m_bottomButtonGroup->setOpacity(0, false);
-    m_gv->setOpacity(0, false);
-
     connect(m_pm, &PlaylistManager::totalCountChanged, this, &MainWindow::updateGalleryButtonsVisibility);
 
     connect(m_pm->model(), &PlaylistModel::modelReset, this, std::bind(&MainWindow::galleryCurrent, this, false, false));
@@ -273,17 +270,11 @@ void MainWindow::showEvent(QShowEvent *event)
 
 void MainWindow::enterEvent(QEnterEvent *event)
 {
-    m_bottomButtonGroup->setOpacity(1);
-    m_gv->setOpacity(1);
-
     return FramelessWindow::enterEvent(event);
 }
 
 void MainWindow::leaveEvent(QEvent *event)
 {
-    m_bottomButtonGroup->setOpacity(0);
-    m_gv->setOpacity(0);
-
     return FramelessWindow::leaveEvent(event);
 }
 
