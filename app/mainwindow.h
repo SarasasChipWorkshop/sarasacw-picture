@@ -115,9 +115,6 @@ private:
     PlaylistManager *m_pm;
 
     QPoint m_oldMousePos;
-    QPropertyAnimation *m_fadeOutAnimation;
-    QPropertyAnimation *m_floatUpAnimation;
-    QParallelAnimationGroup *m_exitAnimationGroup;
     QFileSystemWatcher *m_fileSystemWatcher;
     ToolButton *m_prevButton;
     ToolButton *m_nextButton;

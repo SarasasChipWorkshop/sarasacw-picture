@@ -64,23 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_pm->setAutoLoadFilterSuffixes(supportedImageFormats());
 
-    m_fadeOutAnimation = new QPropertyAnimation(this, "windowOpacity"_ba);
-    m_fadeOutAnimation->setDuration(300);
-    m_fadeOutAnimation->setStartValue(1);
-    m_fadeOutAnimation->setEndValue(0);
-    m_floatUpAnimation = new QPropertyAnimation(this, "geometry"_ba);
-    m_floatUpAnimation->setDuration(300);
-    m_floatUpAnimation->setEasingCurve(QEasingCurve::OutCirc);
-    m_exitAnimationGroup = new QParallelAnimationGroup(this);
-    m_exitAnimationGroup->addAnimation(m_fadeOutAnimation);
-    m_exitAnimationGroup->addAnimation(m_floatUpAnimation);
-    connect(m_exitAnimationGroup, &QParallelAnimationGroup::finished,
-#ifdef Q_OS_MAC
-            this, &QWidget::hide);
-#else
-            this, &QWidget::close);
-#endif
-
     GraphicsScene * scene = new GraphicsScene(this);
 
     m_graphicsView = new GraphicsView(this);
@@ -579,12 +562,6 @@ void MainWindow::centerWindow()
 
 void MainWindow::closeWindow()
 {
-    QRect windowRect(this->geometry());
-    m_floatUpAnimation->setStartValue(windowRect);
-    m_floatUpAnimation->setEndValue(windowRect.adjusted(0, -80, 0, 0));
-    m_floatUpAnimation->setStartValue(QRect(this->geometry().x(), this->geometry().y(), this->geometry().width(), this->geometry().height()));
-    m_floatUpAnimation->setEndValue(QRect(this->geometry().x(), this->geometry().y()-80, this->geometry().width(), this->geometry().height()));
-    m_exitAnimationGroup->start();
 }
 
 void MainWindow::updateWidgetsPosition()
