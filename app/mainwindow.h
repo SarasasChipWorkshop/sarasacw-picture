@@ -61,7 +61,6 @@ protected slots:
     void centerWindow();
     void closeWindow();
     void updateWidgetsPosition();
-    void toggleProtectedMode();
     void toggleAvoidResetTransform();
     bool canPaste() const;
     void quitAppAction(bool force = false);
@@ -95,7 +94,6 @@ private slots:
     void on_actionCopyFilePath_triggered();
     void on_actionPaste_triggered();
     void on_actionTrash_triggered();
-    void on_actionToggleProtectMode_triggered();
     void on_actionToggleAvoidResetTransform_triggered();
     void on_actionSettings_triggered();
     void on_actionHelp_triggered();
@@ -118,7 +116,6 @@ private:
     GraphicsView *m_graphicsView;
     NavigatorView *m_gv;
     BottomButtonGroup *m_bottomButtonGroup;
-    bool m_protectedMode = false;
     bool m_clickedOnWindow = false;
 };
 

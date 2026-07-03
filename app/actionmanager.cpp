@@ -62,7 +62,6 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     CREATE_NEW_ACTION(mainWindow, actionCopyFilePath);
     CREATE_NEW_THEMEICON_ACTION(mainWindow, actionPaste, edit-paste);
     CREATE_NEW_THEMEICON_ACTION(mainWindow, actionTrash, edit-delete);
-    CREATE_NEW_ACTION(mainWindow, actionToggleProtectMode);
     CREATE_NEW_ACTION(mainWindow, actionToggleAvoidResetTransform);
     CREATE_NEW_ACTION(mainWindow, actionSettings);
     CREATE_NEW_THEMEICON_ACTION(mainWindow, actionHelp, system-help);
@@ -104,7 +103,6 @@ void ActionManager::retranslateUi(MainWindow *mainWindow)
     actionCopyFilePath->setText(QCoreApplication::translate("MainWindow", "Copy &File Path", nullptr));
     actionPaste->setText(QCoreApplication::translate("MainWindow", "&Paste", nullptr));
     actionTrash->setText(QCoreApplication::translate("MainWindow", "Move to Trash", nullptr));
-    actionToggleProtectMode->setText(QCoreApplication::translate("MainWindow", "Protected mode", nullptr));
     actionToggleAvoidResetTransform->setText(QCoreApplication::translate("MainWindow", "Keep transformation", "The 'transformation' means the flip/rotation status that currently applied to the image view"));
     actionSettings->setText(QCoreApplication::translate("MainWindow", "Configure...", nullptr));
     actionHelp->setText(QCoreApplication::translate("MainWindow", "Help", nullptr));

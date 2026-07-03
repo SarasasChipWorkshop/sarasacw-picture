@@ -441,10 +441,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
     QAction * trash = m_am->actionTrash;
 
-    QAction * protectedMode = m_am->actionToggleProtectMode;
-    protectedMode->setCheckable(true);
-    protectedMode->setChecked(m_protectedMode);
-
     QAction * avoidResetTransform = m_am->actionToggleAvoidResetTransform;
     avoidResetTransform->setCheckable(true);
     avoidResetTransform->setChecked(m_graphicsView->avoidResetTransform());
@@ -475,7 +471,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(m_am->actionFitByWidth);
 #endif // 0
     menu->addSeparator();
-    menu->addAction(protectedMode);
     menu->addAction(avoidResetTransform);
     menu->addSeparator();
     menu->addAction(toggleSettings);
@@ -565,12 +560,6 @@ void MainWindow::updateWidgetsPosition()
     m_gv->move(width() - m_gv->width(), height() - m_gv->height());
 }
 
-void MainWindow::toggleProtectedMode()
-{
-    m_protectedMode = !m_protectedMode;
-    updateGalleryButtonsVisibility();
-}
-
 void MainWindow::toggleAvoidResetTransform()
 {
     m_graphicsView->setAvoidResetTransform(!m_graphicsView->avoidResetTransform());
@@ -596,9 +585,7 @@ bool MainWindow::canPaste() const
 
 void MainWindow::quitAppAction(bool force)
 {
-    if (!m_protectedMode || force) {
-        closeWindow();
-    }
+    closeWindow();
 }
 
 void MainWindow::toggleFullscreen()
@@ -780,11 +767,6 @@ void MainWindow::on_actionAnimationNextFrame_triggered()
     m_graphicsView->scene()->skipAnimationFrame(1);
 }
 
-void MainWindow::on_actionToggleProtectMode_triggered()
-{
-    toggleProtectedMode();
-}
-
 void MainWindow::on_actionToggleAvoidResetTransform_triggered()
 {
     toggleAvoidResetTransform();
@@ -869,8 +851,8 @@ void MainWindow::updateGalleryButtonsVisibility()
 {
     const int galleryFileCount = m_pm->totalCount();
     const bool loopGallery = Settings::instance()->loopGallery();
-    m_prevButton->setVisible(!m_protectedMode && galleryFileCount > 1);
-    m_nextButton->setVisible(!m_protectedMode && galleryFileCount > 1);
+    m_prevButton->setVisible(galleryFileCount > 1);
+    m_nextButton->setVisible(galleryFileCount > 1);
     m_prevButton->setEnabled(loopGallery || !m_pm->isFirstIndex());
     m_nextButton->setEnabled(loopGallery || !m_pm->isLastIndex());
 }
