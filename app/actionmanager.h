@@ -45,7 +45,6 @@ public:
     QAction *actionCopyFilePath;
     QAction *actionPaste;
     QAction *actionTrash;
-    QAction *actionToggleStayOnTop;
     QAction *actionToggleProtectMode;
     QAction *actionToggleAvoidResetTransform;
     QAction *actionSettings;

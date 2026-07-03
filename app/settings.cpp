@@ -45,11 +45,6 @@ Settings *Settings::instance()
     return m_settings_instance;
 }
 
-bool Settings::stayOnTop() const
-{
-    return m_qsettings->value("stay_on_top", true).toBool();
-}
-
 bool Settings::useLightCheckerboard() const
 {
     return m_qsettings->value("use_light_checkerboard", false).toBool();
@@ -99,12 +94,6 @@ Qt::HighDpiScaleFactorRoundingPolicy Settings::hiDpiScaleFactorBehavior() const
     QString result = m_qsettings->value("hidpi_scale_factor_behavior", "PassThrough").toString();
 
     return QEnumHelper::fromString<Qt::HighDpiScaleFactorRoundingPolicy>(result, Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-}
-
-void Settings::setStayOnTop(bool on)
-{
-    m_qsettings->setValue("stay_on_top", on);
-    m_qsettings->sync();
 }
 
 void Settings::setUseLightCheckerboard(bool light)

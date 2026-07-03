@@ -34,7 +34,6 @@ public:
 
     static Settings *instance();
 
-    bool stayOnTop() const;
     bool useLightCheckerboard() const;
     bool loopGallery() const;
     bool svgTiny12Only() const;
@@ -43,7 +42,6 @@ public:
     WindowSizeBehavior initWindowSizeBehavior() const;
     Qt::HighDpiScaleFactorRoundingPolicy hiDpiScaleFactorBehavior() const;
 
-    void setStayOnTop(bool on);
     void setUseLightCheckerboard(bool light);
     void setLoopGallery(bool on);
     void setSvgTiny12Only(bool on);

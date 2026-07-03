@@ -62,9 +62,7 @@ protected slots:
     void closeWindow();
     void updateWidgetsPosition();
     void toggleProtectedMode();
-    void toggleStayOnTop();
     void toggleAvoidResetTransform();
-    bool stayOnTop() const;
     bool canPaste() const;
     void quitAppAction(bool force = false);
     void toggleFullscreen();
@@ -97,7 +95,6 @@ private slots:
     void on_actionCopyFilePath_triggered();
     void on_actionPaste_triggered();
     void on_actionTrash_triggered();
-    void on_actionToggleStayOnTop_triggered();
     void on_actionToggleProtectMode_triggered();
     void on_actionToggleAvoidResetTransform_triggered();
     void on_actionSettings_triggered();

@@ -52,10 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_pm(new PlaylistManager(this))
     , m_fileSystemWatcher(new QFileSystemWatcher(this))
 {
-    if (Settings::instance()->stayOnTop()) {
-        this->setWindowFlag(Qt::WindowStaysOnTopHint);
-    }
-
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setMinimumSize(350, 330);
     this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
@@ -445,10 +441,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
     QAction * trash = m_am->actionTrash;
 
-    QAction * stayOnTopMode = m_am->actionToggleStayOnTop;
-    stayOnTopMode->setCheckable(true);
-    stayOnTopMode->setChecked(stayOnTop());
-
     QAction * protectedMode = m_am->actionToggleProtectMode;
     protectedMode->setCheckable(true);
     protectedMode->setChecked(m_protectedMode);
@@ -483,7 +475,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(m_am->actionFitByWidth);
 #endif // 0
     menu->addSeparator();
-    menu->addAction(stayOnTopMode);
     menu->addAction(protectedMode);
     menu->addAction(avoidResetTransform);
     menu->addSeparator();
@@ -580,20 +571,9 @@ void MainWindow::toggleProtectedMode()
     updateGalleryButtonsVisibility();
 }
 
-void MainWindow::toggleStayOnTop()
-{
-    setWindowFlag(Qt::WindowStaysOnTopHint, !stayOnTop());
-    show();
-}
-
 void MainWindow::toggleAvoidResetTransform()
 {
     m_graphicsView->setAvoidResetTransform(!m_graphicsView->avoidResetTransform());
-}
-
-bool MainWindow::stayOnTop() const
-{
-    return windowFlags().testFlag(Qt::WindowStaysOnTopHint);
 }
 
 bool MainWindow::canPaste() const
@@ -798,11 +778,6 @@ void MainWindow::on_actionTogglePauseAnimation_triggered()
 void MainWindow::on_actionAnimationNextFrame_triggered()
 {
     m_graphicsView->scene()->skipAnimationFrame(1);
-}
-
-void MainWindow::on_actionToggleStayOnTop_triggered()
-{
-    toggleStayOnTop();
 }
 
 void MainWindow::on_actionToggleProtectMode_triggered()
