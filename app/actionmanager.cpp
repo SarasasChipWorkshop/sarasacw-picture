@@ -43,13 +43,13 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     CREATE_NEW_ICON_ACTION(mainWindow, actionZoomOut, zoom-out);
     CREATE_NEW_ICON_ACTION(mainWindow, actionToggleCheckerboard, view-background-checkerboard);
     CREATE_NEW_ICON_ACTION(mainWindow, actionRotateClockwise, object-rotate-right);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionPrevPicture, go-previous);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionNextPicture, go-next);
     #undef CREATE_NEW_ICON_ACTION
 
     #define CREATE_NEW_ACTION(w, a) create_action(w, &a, QString(), ACTION_NAME(a))
     #define CREATE_NEW_THEMEICON_ACTION(w, a, i) create_action(w, &a, QLatin1String(STRIFY(i)), ACTION_NAME(a), true)
     CREATE_NEW_ACTION(mainWindow, actionRotateCounterClockwise);
-    CREATE_NEW_ACTION(mainWindow, actionPrevPicture);
-    CREATE_NEW_ACTION(mainWindow, actionNextPicture);
 
     CREATE_NEW_ACTION(mainWindow, actionTogglePauseAnimation);
     CREATE_NEW_ACTION(mainWindow, actionAnimationNextFrame);
@@ -145,5 +145,11 @@ void ActionManager::setupShortcuts()
         QKeySequence(Qt::Key_Space),
         QKeySequence(Qt::Key_Escape)
     });
+}
+
+void ActionManager::enablePrevNextPictureAction(bool enablePrevPictureAction, bool enableNextPictureAction)
+{
+    actionPrevPicture->setEnabled(enablePrevPictureAction);
+    actionNextPicture->setEnabled(enableNextPictureAction);
 }
 

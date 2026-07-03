@@ -83,22 +83,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_graphicsView, &GraphicsView::viewportRectChanged,
             m_gv, &NavigatorView::updateMainViewportRegion);
 
-    m_prevButton = new ToolButton(false, m_graphicsView);
-    m_prevButton->setIconSize(QSize(75, 75));
-    m_prevButton->setIconResourcePath(":/icons/go-previous.svg");
-    m_prevButton->setVisible(false);
-    m_prevButton->setOpacity(0, false);
-    m_nextButton = new ToolButton(false, m_graphicsView);
-    m_nextButton->setIconSize(QSize(75, 75));
-    m_nextButton->setIconResourcePath(":/icons/go-next.svg");
-    m_nextButton->setVisible(false);
-    m_nextButton->setOpacity(0, false);
-
-    connect(m_prevButton, &QAbstractButton::clicked,
-            this, &MainWindow::galleryPrev);
-    connect(m_nextButton, &QAbstractButton::clicked,
-            this, &MainWindow::galleryNext);
-
     m_am->setupAction(this);
 
     m_bottomButtonGroup = new BottomButtonGroup({
@@ -106,6 +90,8 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionToggleMaximize,
         m_am->actionZoomIn,
         m_am->actionZoomOut,
+        m_am->actionPrevPicture,
+        m_am->actionNextPicture,
         m_am->actionToggleCheckerboard,
         m_am->actionRotateClockwise
     }, this);
@@ -291,9 +277,6 @@ void MainWindow::enterEvent(QEnterEvent *event)
     m_bottomButtonGroup->setOpacity(1);
     m_gv->setOpacity(1);
 
-    m_prevButton->setOpacity(1);
-    m_nextButton->setOpacity(1);
-
     return FramelessWindow::enterEvent(event);
 }
 
@@ -301,9 +284,6 @@ void MainWindow::leaveEvent(QEvent *event)
 {
     m_bottomButtonGroup->setOpacity(0);
     m_gv->setOpacity(0);
-
-    m_prevButton->setOpacity(0);
-    m_nextButton->setOpacity(0);
 
     return FramelessWindow::leaveEvent(event);
 }
@@ -552,9 +532,6 @@ void MainWindow::closeWindow()
 
 void MainWindow::updateWidgetsPosition()
 {
-    m_prevButton->move(25, (height() - m_prevButton->sizeHint().height()) / 2);
-    m_nextButton->move(width() - m_nextButton->sizeHint().width() - 25,
-                       (height() - m_prevButton->sizeHint().height()) / 2);
     m_bottomButtonGroup->move((width() - m_bottomButtonGroup->width()) / 2,
                               height() - m_bottomButtonGroup->height());
     m_gv->move(width() - m_gv->width(), height() - m_gv->height());
@@ -851,8 +828,7 @@ void MainWindow::updateGalleryButtonsVisibility()
 {
     const int galleryFileCount = m_pm->totalCount();
     const bool loopGallery = Settings::instance()->loopGallery();
-    m_prevButton->setVisible(galleryFileCount > 1);
-    m_nextButton->setVisible(galleryFileCount > 1);
-    m_prevButton->setEnabled(loopGallery || !m_pm->isFirstIndex());
-    m_nextButton->setEnabled(loopGallery || !m_pm->isLastIndex());
+    m_am->enablePrevNextPictureAction(
+        galleryFileCount > 1 && (loopGallery || !m_pm->isFirstIndex()),
+        galleryFileCount > 1 && (loopGallery || !m_pm->isLastIndex()));
 }

@@ -111,8 +111,6 @@ private:
 
     QPoint m_oldMousePos;
     QFileSystemWatcher *m_fileSystemWatcher;
-    ToolButton *m_prevButton;
-    ToolButton *m_nextButton;
     GraphicsView *m_graphicsView;
     NavigatorView *m_gv;
     BottomButtonGroup *m_bottomButtonGroup;
