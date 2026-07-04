@@ -278,47 +278,6 @@ void MainWindow::leaveEvent(QEvent *event)
     return FramelessWindow::leaveEvent(event);
 }
 
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    if (event->buttons() & Qt::LeftButton && !isMaximized()) {
-        m_clickedOnWindow = true;
-        m_oldMousePos = event->pos();
-//        qDebug() << m_oldMousePos << m_graphicsView->transform().m11()
-//                 << m_graphicsView->transform().m22() << m_graphicsView->matrix().m12();
-        event->accept();
-    }
-
-    return FramelessWindow::mousePressEvent(event);
-}
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    if (event->buttons() & Qt::LeftButton && m_clickedOnWindow && !isMaximized() && !isFullScreen()) {
-        if (!window()->windowHandle()->startSystemMove()) {
-            move(event->globalPosition().toPoint() - m_oldMousePos);
-        }
-        event->accept();
-    }
-
-    return FramelessWindow::mouseMoveEvent(event);
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *event)
-{
-    m_clickedOnWindow = false;
-
-    // It seems the forward/back mouse button won't generate a key event [1] so we can't use
-    // QShortcut or QKeySequence to indicate these shortcuts, so we do it here.
-    // Reference:
-    // [1]: https://codereview.qt-project.org/c/qt/qtbase/+/177475
-    if (event->button() == Qt::ForwardButton || event->button() == Qt::BackButton) {
-        event->button() == Qt::BackButton ? galleryPrev() : galleryNext();
-        event->accept();
-    }
-
-    return FramelessWindow::mouseReleaseEvent(event);
-}
-
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
     // The forward/back mouse button can also used to trigger a mouse double-click event

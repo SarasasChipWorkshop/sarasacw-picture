@@ -45,9 +45,6 @@ protected slots:
     void showEvent(QShowEvent *event) override;
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
@@ -107,12 +104,10 @@ private:
     ActionManager *m_am;
     PlaylistManager *m_pm;
 
-    QPoint m_oldMousePos;
     QFileSystemWatcher *m_fileSystemWatcher;
     GraphicsView *m_graphicsView;
     NavigatorView *m_gv;
     BottomButtonGroup *m_bottomButtonGroup;
-    bool m_clickedOnWindow = false;
 };
 
 #endif // MAINWINDOW_H
