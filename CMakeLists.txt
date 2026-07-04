@@ -16,6 +16,7 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTORCC ON)
+set (CMAKE_AUTOUIC ON)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
 
@@ -73,6 +74,10 @@ set (PPIC_HEADER_FILES
     app/fileopeneventhandler.h
 )
 
+set (PPIC_UI_FILES
+    app/settingsdialog.ui
+)
+
 set (PPIC_QRC_FILES
     assets/resources.qrc
 )
@@ -95,6 +100,7 @@ endif ()
 add_executable (${EXE_NAME}
     ${PPIC_HEADER_FILES}
     ${PPIC_CPP_FILES}
+    ${PPIC_UI_FILES}
     ${PPIC_QRC_FILES}
     ${PPIC_RC_FILES}
 )

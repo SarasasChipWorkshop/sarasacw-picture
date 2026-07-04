@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Settings</string>
+  </property>
+  <layout class="QHBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QTabWidget" name="settingsTabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="optionsTab">
+      <attribute name="title">
+       <string>Options</string>
+      </attribute>
+      <layout class="QFormLayout" name="settingsForm">
+        <item row="0" column="0" colspan="2">
+         <widget class="QCheckBox" name="m_useLightCheckerboard">
+          <property name="text">
+           <string>Use light-color checkerboard</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QCheckBox" name="m_loopGallery">
+          <property name="text">
+           <string>Loop the loaded gallery</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QCheckBox" name="m_svgTiny12Only">
+          <property name="text">
+           <string>Limit SVG support to SVG Tiny 1.2</string>
+          </property>
+         </widget>
+        </item>
+       <item row="3" column="0">
+         <widget class="QLabel" name="m_doubleClickBehaviorLabel">
+         <property name="text">
+          <string>Double-click behavior</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="m_doubleClickBehavior"/>
+       </item>
+       <item row="4" column="0">
+         <widget class="QLabel" name="m_mouseWheelBehaviorLabel">
+         <property name="text">
+          <string>Mouse wheel behavior</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="m_mouseWheelBehavior"/>
+       </item>
+       <item row="5" column="0">
+         <widget class="QLabel" name="m_initWindowSizeBehaviorLabel">
+         <property name="text">
+          <string>Default window size</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="m_initWindowSizeBehavior"/>
+       </item>
+       <item row="6" column="0">
+         <widget class="QLabel" name="m_hiDpiRoundingPolicyBehaviorLabel">
+         <property name="text">
+          <string>HiDPI scale factor rounding policy</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QComboBox" name="m_hiDpiRoundingPolicyBehavior"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

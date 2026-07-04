@@ -3,112 +3,107 @@
 // SPDX-License-Identifier: MIT
 
 #include "settingsdialog.h"
+#include "ui_settingsdialog.h"
 
 #include "settings.h"
 
-#include <QAction>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QFormLayout>
-#include <QKeySequenceEdit>
-#include <QScrollArea>
-#include <QSplitter>
+#include <QApplication>
+#include <QTimer>
 #include <QStringListModel>
-#include <QMessageBox>
+#include <type_traits>
+
+template <typename E, typename = std::enable_if_t<std::is_enum_v<E>>>
+class EnumComboBoxTransformer {
+public:
+    using Pair = QPair<E, QString>;
+    using Pairs = QList<QPair<E, QString>>;
+
+    EnumComboBoxTransformer(Pairs &&pairs) : pairs(std::move(pairs)) {}
+    ~EnumComboBoxTransformer() = default;
+    Q_DISABLE_COPY_MOVE(EnumComboBoxTransformer)
+
+    /// Build Qt model used for QComboBox
+    QStringListModel* buildComboBoxModel(QObject *parent = nullptr) const {
+        QStringList dropDownEntries;
+        for (const auto& pair : std::as_const(this->pairs)) {
+            dropDownEntries.append(pair.second);
+        }
+        return new QStringListModel(dropDownEntries, parent);
+    }
+    /// Convert QComboBox index to enum value.
+    E to_value(int index) const {
+        return this->pairs.at(static_cast<qsizetype>(index)).first;
+    }
+    /// Convert enum value to QComboBox index.
+    int to_index(E value) const {
+        for (qsizetype i = 0; i < pairs.size(); ++i) {
+            if (pairs.at(i).first == value) {
+                return static_cast<int>(i);
+            }
+        }
+        // Value not found
+        throw std::invalid_argument("invalid enum value for finding index");
+    }
+
+private:
+    Pairs pairs;
+};
+
+static EnumComboBoxTransformer<Settings::DoubleClickBehavior> DC_OPTIONS {
+    {
+        {Settings::DoubleClickBehavior::Ignore, QCoreApplication::translate("SettingsDialog", "Do nothing")},
+        {Settings::DoubleClickBehavior::Close, QCoreApplication::translate("SettingsDialog", "Close the window")},
+        {Settings::DoubleClickBehavior::Maximize, QCoreApplication::translate("SettingsDialog", "Toggle maximize")},
+        {Settings::DoubleClickBehavior::FullScreen, QCoreApplication::translate("SettingsDialog", "Toggle fullscreen")}
+    }
+};
+
+static EnumComboBoxTransformer<Settings::MouseWheelBehavior, QString> MW_OPTIONS {
+    {
+        { Settings::MouseWheelBehavior::Zoom, QCoreApplication::translate("SettingsDialog", "Zoom in and out") },
+        { Settings::MouseWheelBehavior::Switch, QCoreApplication::translate("SettingsDialog", "View next or previous item") }
+    }
+};
+
+static EnumComboBoxTransformer<Settings::WindowSizeBehavior, QString> IWS_OPTIONS {
+    {
+        { Settings::WindowSizeBehavior::Auto, QCoreApplication::translate("SettingsDialog", "Auto size") },
+        { Settings::WindowSizeBehavior::Maximized, QCoreApplication::translate("SettingsDialog", "Maximized") },
+        { Settings::WindowSizeBehavior::Windowed, QCoreApplication::translate("SettingsDialog", "Windowed") }
+    }
+};
+
+static EnumComboBoxTransformer<Qt::HighDpiScaleFactorRoundingPolicy, QString> HIDPI_OPTIONS {
+    {
+        { Qt::HighDpiScaleFactorRoundingPolicy::Round, QCoreApplication::translate("SettingsDialog", "Round (Integer scaling)", "This option means round up for .5 and above") },
+        { Qt::HighDpiScaleFactorRoundingPolicy::Ceil, QCoreApplication::translate("SettingsDialog", "Ceil (Integer scaling)", "This option means always round up") },
+        { Qt::HighDpiScaleFactorRoundingPolicy::Floor, QCoreApplication::translate("SettingsDialog", "Floor (Integer scaling)", "This option means always round down") },
+        { Qt::HighDpiScaleFactorRoundingPolicy::PassThrough, QCoreApplication::translate("SettingsDialog", "Follow system (Fractional scaling)", "This option means don't round") }
+    }
+};
 
 SettingsDialog::SettingsDialog(QWidget *parent)
-    : QDialog(parent)
-    , m_useLightCheckerboard(new QCheckBox)
-    , m_loopGallery(new QCheckBox)
-    , m_svgTiny12Only(new QCheckBox)
-    , m_doubleClickBehavior(new QComboBox)
-    , m_mouseWheelBehavior(new QComboBox)
-    , m_initWindowSizeBehavior(new QComboBox)
-    , m_hiDpiRoundingPolicyBehavior(new QComboBox)
+    : QDialog(parent), ui(new Ui::SettingsDialog)
 {
-    this->setWindowTitle(tr("Settings"));
+    ui->setupUi(this);
+    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 
-    QHBoxLayout * mainLayout = new QHBoxLayout(this);
-    QTabWidget * settingsTabs = new QTabWidget(this);
-    mainLayout->addWidget(settingsTabs);
-
-    QWidget * settingsFormHolder = new QWidget;
-    QFormLayout * settingsForm = new QFormLayout(settingsFormHolder);
-    settingsTabs->addTab(settingsFormHolder, tr("Options"));
-
-    static QList< QPair<Settings::DoubleClickBehavior, QString> > _dc_options {
-        { Settings::DoubleClickBehavior::Ignore, tr("Do nothing") },
-        { Settings::DoubleClickBehavior::Close, tr("Close the window") },
-        { Settings::DoubleClickBehavior::Maximize, tr("Toggle maximize") },
-        { Settings::DoubleClickBehavior::FullScreen, tr("Toggle fullscreen") }
-    };
-
-    static QList< QPair<Settings::MouseWheelBehavior, QString> > _mw_options {
-        { Settings::MouseWheelBehavior::Zoom, tr("Zoom in and out") },
-        { Settings::MouseWheelBehavior::Switch, tr("View next or previous item") }
-    };
-
-    static QList< QPair<Settings::WindowSizeBehavior, QString> > _iws_options {
-        { Settings::WindowSizeBehavior::Auto, tr("Auto size") },
-        { Settings::WindowSizeBehavior::Maximized, tr("Maximized") },
-        { Settings::WindowSizeBehavior::Windowed, tr("Windowed") }
-    };
-
-    static QList< QPair<Qt::HighDpiScaleFactorRoundingPolicy, QString> > _hidpi_options {
-        { Qt::HighDpiScaleFactorRoundingPolicy::Round, tr("Round (Integer scaling)", "This option means round up for .5 and above") },
-        { Qt::HighDpiScaleFactorRoundingPolicy::Ceil, tr("Ceil (Integer scaling)", "This option means always round up") },
-        { Qt::HighDpiScaleFactorRoundingPolicy::Floor, tr("Floor (Integer scaling)", "This option means always round down") },
-        { Qt::HighDpiScaleFactorRoundingPolicy::PassThrough, tr("Follow system (Fractional scaling)", "This option means don't round") }
-    };
-
-    QStringList dcbDropDown;
-    for (const QPair<Settings::DoubleClickBehavior, QString> & dcOption : _dc_options) {
-        dcbDropDown.append(dcOption.second);
-    }
-
-    QStringList mwbDropDown;
-    for (const QPair<Settings::MouseWheelBehavior, QString> & mwOption : _mw_options) {
-        mwbDropDown.append(mwOption.second);
-    }
-
-    QStringList iwsbDropDown;
-    for (const QPair<Settings::WindowSizeBehavior, QString> & iwsOption : _iws_options) {
-        iwsbDropDown.append(iwsOption.second);
-    }
-
-    QStringList hidpiDropDown;
-    for (const QPair<Qt::HighDpiScaleFactorRoundingPolicy, QString> & hidpiOption : _hidpi_options) {
-        hidpiDropDown.append(hidpiOption.second);
-    }
-
-    settingsForm->addRow(tr("Use light-color checkerboard"), m_useLightCheckerboard);
-    settingsForm->addRow(tr("Loop the loaded gallery"), m_loopGallery);
-    settingsForm->addRow(tr("Limit SVG support to SVG Tiny 1.2"), m_svgTiny12Only);
-    settingsForm->addRow(tr("Double-click behavior"), m_doubleClickBehavior);
-    settingsForm->addRow(tr("Mouse wheel behavior"), m_mouseWheelBehavior);
-    settingsForm->addRow(tr("Default window size"), m_initWindowSizeBehavior);
-    settingsForm->addRow(tr("HiDPI scale factor rounding policy"), m_hiDpiRoundingPolicyBehavior);
-
-    m_useLightCheckerboard->setChecked(Settings::instance()->useLightCheckerboard());
-    m_loopGallery->setChecked(Settings::instance()->loopGallery());
-    m_svgTiny12Only->setChecked(Settings::instance()->svgTiny12Only());
-    m_doubleClickBehavior->setModel(new QStringListModel(dcbDropDown));
-    Settings::DoubleClickBehavior dcb = Settings::instance()->doubleClickBehavior();
-    m_doubleClickBehavior->setCurrentIndex(static_cast<int>(dcb));
-    m_mouseWheelBehavior->setModel(new QStringListModel(mwbDropDown));
-    Settings::MouseWheelBehavior mwb = Settings::instance()->mouseWheelBehavior();
-    m_mouseWheelBehavior->setCurrentIndex(static_cast<int>(mwb));
-    m_initWindowSizeBehavior->setModel(new QStringListModel(iwsbDropDown));
-    Settings::WindowSizeBehavior iwsb = Settings::instance()->initWindowSizeBehavior();
-    m_initWindowSizeBehavior->setCurrentIndex(static_cast<int>(iwsb));
-    m_hiDpiRoundingPolicyBehavior->setModel(new QStringListModel(hidpiDropDown));
-    Qt::HighDpiScaleFactorRoundingPolicy hidpi = Settings::instance()->hiDpiScaleFactorBehavior();
-    for (int i = 0; i < _hidpi_options.count(); i++) {
-        if (_hidpi_options.at(i).first == hidpi) {
-            m_hiDpiRoundingPolicyBehavior->setCurrentIndex(i);
-            break;
-        }
-    }
+    auto* settings = Settings::instance();
+    ui->m_useLightCheckerboard->setChecked(settings->useLightCheckerboard());
+    ui->m_loopGallery->setChecked(settings->loopGallery());
+    ui->m_svgTiny12Only->setChecked(settings->svgTiny12Only());
+    ui->m_doubleClickBehavior->setModel(DC_OPTIONS.buildComboBoxModel(this));
+    Settings::DoubleClickBehavior dcb = settings->doubleClickBehavior();
+    ui->m_doubleClickBehavior->setCurrentIndex(DC_OPTIONS.to_index(dcb));
+    ui->m_mouseWheelBehavior->setModel(MW_OPTIONS.buildComboBoxModel(this));
+    Settings::MouseWheelBehavior mwb = settings->mouseWheelBehavior();
+    ui->m_mouseWheelBehavior->setCurrentIndex(MW_OPTIONS.to_index(mwb));
+    ui->m_initWindowSizeBehavior->setModel(IWS_OPTIONS.buildComboBoxModel(this));
+    Settings::WindowSizeBehavior iwsb = settings->initWindowSizeBehavior();
+    ui->m_initWindowSizeBehavior->setCurrentIndex(IWS_OPTIONS.to_index(iwsb));
+    ui->m_hiDpiRoundingPolicyBehavior->setModel(HIDPI_OPTIONS.buildComboBoxModel(this));
+    Qt::HighDpiScaleFactorRoundingPolicy hidpi = settings->hiDpiScaleFactorBehavior();
+    ui->m_hiDpiRoundingPolicyBehavior->setCurrentIndex(HIDPI_OPTIONS.to_index(hidpi));
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
 # define QCHECKBOX_CHECKSTATECHANGED QCheckBox::checkStateChanged
@@ -118,39 +113,45 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 # define QT_CHECKSTATE int
 #endif // QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
 
-    connect(m_useLightCheckerboard, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_useLightCheckerboard, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
         Settings::instance()->setUseLightCheckerboard(state == Qt::Checked);
     });
 
-    connect(m_loopGallery, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_loopGallery, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
         Settings::instance()->setLoopGallery(state == Qt::Checked);
     });
 
-    connect(m_svgTiny12Only, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_svgTiny12Only, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
         Settings::instance()->setSvgTiny12Only(state == Qt::Checked);
     });
 
-    connect(m_doubleClickBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
-        Settings::instance()->setDoubleClickBehavior(_dc_options.at(index).first);
+    connect(ui->m_doubleClickBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
+        Settings::instance()->setDoubleClickBehavior(DC_OPTIONS.to_value(index));
     });
 
-    connect(m_mouseWheelBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
-        Settings::instance()->setMouseWheelBehavior(_mw_options.at(index).first);
+    connect(ui->m_mouseWheelBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
+        Settings::instance()->setMouseWheelBehavior(MW_OPTIONS.to_value(index));
     });
 
-    connect(m_initWindowSizeBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
-        Settings::instance()->setInitWindowSizeBehavior(_iws_options.at(index).first);
+    connect(ui->m_initWindowSizeBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
+        Settings::instance()->setInitWindowSizeBehavior(IWS_OPTIONS.to_value(index));
     });
 
-    connect(m_hiDpiRoundingPolicyBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
-        Settings::instance()->setHiDpiScaleFactorBehavior(_hidpi_options.at(index).first);
+    connect(ui->m_hiDpiRoundingPolicyBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
+        Settings::instance()->setHiDpiScaleFactorBehavior(HIDPI_OPTIONS.to_value(index));
     });
 
-    adjustSize();
-    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
+    // YYC MARK:
+    // Use adjustSize() to make sure all ComboBox are expanded by its items.
+    // Because items are added after inserting them into layout.
+    // It is inviable to call this function in ctor because this relys on Qt event system.
+    // It only can be done by QTimer::singleShot().
+    QTimer::singleShot(0, this, [this](){
+        this->adjustSize();
+    });
 }
 
 SettingsDialog::~SettingsDialog()
 {
-
+    delete ui;
 }

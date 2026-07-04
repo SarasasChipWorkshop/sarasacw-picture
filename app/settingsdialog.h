@@ -8,8 +8,12 @@
 #include <QObject>
 #include <QDialog>
 
-class QCheckBox;
-class QComboBox;
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class SettingsDialog;
+}
+QT_END_NAMESPACE
+
 class SettingsDialog : public QDialog
 {
     Q_OBJECT
@@ -17,18 +21,8 @@ public:
     explicit SettingsDialog(QWidget *parent = nullptr);
     ~SettingsDialog();
 
-signals:
-
-public slots:
-
 private:
-    QCheckBox * m_useLightCheckerboard = nullptr;
-    QCheckBox * m_loopGallery = nullptr;
-    QCheckBox * m_svgTiny12Only = nullptr;
-    QComboBox * m_doubleClickBehavior = nullptr;
-    QComboBox * m_mouseWheelBehavior = nullptr;
-    QComboBox * m_initWindowSizeBehavior = nullptr;
-    QComboBox * m_hiDpiRoundingPolicyBehavior = nullptr;
+    QT_PREPEND_NAMESPACE(Ui::SettingsDialog) *ui;
 };
 
 #endif // SETTINGSDIALOG_H
