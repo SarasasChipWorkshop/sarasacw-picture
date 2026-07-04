@@ -17,7 +17,11 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 {
     this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
 
-    m_centralLayout->setContentsMargins(QMargins());
+    // YYC MARK:
+    // 72 px is the height of Windows Photo Viewer's bottom line.
+
+    // TODO: This value may be declared as a constant.
+    m_centralLayout->setContentsMargins(QMargins(0, 0, 0, 72));
 }
 
 void FramelessWindow::setCentralWidget(QWidget *widget)

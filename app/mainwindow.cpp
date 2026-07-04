@@ -66,7 +66,11 @@ MainWindow::MainWindow(QWidget *parent)
     this->setCentralWidget(m_gv);
 
     m_nav = new NavigatorView(this);
-    m_nav->setFixedSize(220, 160);
+    // YYC MARK:
+    // Blumia set original value is 220 x 160.
+    // So if we set its height to 72 for respecting the height of Windows Photo Viewer,
+    // the width should be set to 99 for keeping aspect ratio.
+    m_nav->setFixedSize(99, 72);
     m_nav->setScene(scene);
     m_nav->setMainView(m_gv);
     m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
@@ -481,7 +485,7 @@ void MainWindow::closeWindow()
 void MainWindow::updateWidgetsPosition()
 {
     m_bottomButtonGroup->move((width() - m_bottomButtonGroup->width()) / 2,
-                              height() - m_bottomButtonGroup->height());
+                              (72 - m_bottomButtonGroup->height()) / 2 + (height() - 72));
     m_nav->move(width() - m_nav->width(), height() - m_nav->height());
 }
 
