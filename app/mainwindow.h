@@ -103,10 +103,10 @@ private:
 private:
     ActionManager *m_am;
     PlaylistManager *m_pm;
+    GraphicsView *m_gv;
+    NavigatorView *m_nav;
 
     QFileSystemWatcher *m_fileSystemWatcher;
-    GraphicsView *m_graphicsView;
-    NavigatorView *m_gv;
     BottomButtonGroup *m_bottomButtonGroup;
 };
 

@@ -61,26 +61,26 @@ MainWindow::MainWindow(QWidget *parent)
 
     GraphicsScene * scene = new GraphicsScene(this);
 
-    m_graphicsView = new GraphicsView(this);
-    m_graphicsView->setScene(scene);
-    this->setCentralWidget(m_graphicsView);
-
-    m_gv = new NavigatorView(this);
-    m_gv->setFixedSize(220, 160);
+    m_gv = new GraphicsView(this);
     m_gv->setScene(scene);
-    m_gv->setMainView(m_graphicsView);
-    m_gv->fitInView(m_gv->sceneRect(), Qt::KeepAspectRatio);
+    this->setCentralWidget(m_gv);
 
-    connect(m_graphicsView, &GraphicsView::navigatorViewRequired,
+    m_nav = new NavigatorView(this);
+    m_nav->setFixedSize(220, 160);
+    m_nav->setScene(scene);
+    m_nav->setMainView(m_gv);
+    m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+
+    connect(m_gv, &GraphicsView::navigatorViewRequired,
             this, [this](bool required, const QTransform & tf){
-        m_gv->setTransform(GraphicsView::resetScale(tf));
-        m_gv->fitInView(m_gv->sceneRect(), Qt::KeepAspectRatio);
-        m_gv->setVisible(required);
-        m_gv->updateMainViewportRegion();
+        m_nav->setTransform(GraphicsView::resetScale(tf));
+        m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+        m_nav->setVisible(required);
+        m_nav->updateMainViewportRegion();
     });
 
-    connect(m_graphicsView, &GraphicsView::viewportRectChanged,
-            m_gv, &NavigatorView::updateMainViewportRegion);
+    connect(m_gv, &GraphicsView::viewportRectChanged,
+            m_nav, &NavigatorView::updateMainViewportRegion);
 
     m_am->setupAction(this);
 
@@ -134,15 +134,15 @@ void MainWindow::showUrls(const QList<QUrl> &urls)
                 return;
             }
         }
-        m_graphicsView->showFileFromPath(firstUrl.toLocalFile());
+        m_gv->showFileFromPath(firstUrl.toLocalFile());
         m_pm->loadPlaylist(urls);
     } else {
-        m_graphicsView->showText(tr("File url list is empty"));
+        m_gv->showText(tr("File url list is empty"));
         m_pm->setPlaylist(urls);
         return;
     }
 
-    m_gv->fitInView(m_gv->sceneRect(), Qt::KeepAspectRatio);
+    m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::initWindowSize()
@@ -167,10 +167,10 @@ void MainWindow::adjustWindowSizeBySceneRect()
 {
     if (m_pm->totalCount() < 1) return;
 
-    QSize sceneSize = m_graphicsView->sceneRect().toRect().size();
+    QSize sceneSize = m_gv->sceneRect().toRect().size();
     QSize sceneSizeWithMargins = sceneSize + QSize(130, 125);
 
-    if (m_graphicsView->scaleFactor() < 1 || size().expandedTo(sceneSizeWithMargins) != size()) {
+    if (m_gv->scaleFactor() < 1 || size().expandedTo(sceneSizeWithMargins) != size()) {
         // if it scaled down by the resize policy:
         QSize screenSize = qApp->screenAt(QCursor::pos())->availableSize();
         if (screenSize.expandedTo(sceneSize) == screenSize) {
@@ -184,7 +184,7 @@ void MainWindow::adjustWindowSizeBySceneRect()
             // The old window size may cause fitInView call from resize() and the
             // above resize() call won't reset the scale back to 1:1, so we
             // just call resetScale() here to ensure the thing is no longer scaled.
-            m_graphicsView->resetScale();
+            m_gv->resetScale();
             centerWindow();
         } else {
             // toggle maximum
@@ -212,7 +212,7 @@ void MainWindow::galleryPrev()
     QModelIndex index = m_pm->previousIndex();
     if (index.isValid()) {
         m_pm->setCurrentIndex(index);
-        m_graphicsView->showFileFromPath(m_pm->localFileByIndex(index));
+        m_gv->showFileFromPath(m_pm->localFileByIndex(index));
     }
 }
 
@@ -224,7 +224,7 @@ void MainWindow::galleryNext()
     QModelIndex index = m_pm->nextIndex();
     if (index.isValid()) {
         m_pm->setCurrentIndex(index);
-        m_graphicsView->showFileFromPath(m_pm->localFileByIndex(index));
+        m_gv->showFileFromPath(m_pm->localFileByIndex(index));
     }
 }
 
@@ -235,11 +235,11 @@ void MainWindow::galleryCurrent(bool showLoadImageHintWhenEmpty, bool reloadImag
     bool shouldResetfileWatcher = true;
     if (index.isValid()) {
         const QString & localFilePath(m_pm->localFileByIndex(index));
-        if (reloadImage) m_graphicsView->showFileFromPath(localFilePath);
+        if (reloadImage) m_gv->showFileFromPath(localFilePath);
         shouldResetfileWatcher = !updateFileWatcher(localFilePath);
         setWindowTitle(m_pm->urlByIndex(index).fileName());
     } else if (showLoadImageHintWhenEmpty && m_pm->totalCount() <= 0) {
-        m_graphicsView->showText(QCoreApplication::translate("GraphicsScene", "Drag image here"));
+        m_gv->showText(QCoreApplication::translate("GraphicsScene", "Drag image here"));
         setWindowTitle(QString());
     }
 
@@ -372,7 +372,7 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
     QAction * avoidResetTransform = m_am->actionToggleAvoidResetTransform;
     avoidResetTransform->setCheckable(true);
-    avoidResetTransform->setChecked(m_graphicsView->avoidResetTransform());
+    avoidResetTransform->setChecked(m_gv->avoidResetTransform());
 
     QAction * toggleSettings = m_am->actionSettings;
     QAction * helpAction = m_am->actionHelp;
@@ -444,7 +444,7 @@ void MainWindow::dropEvent(QDropEvent *event)
     if (mimeData->hasUrls()) {
         const QList<QUrl> &urls = mimeData->urls();
         if (urls.isEmpty()) {
-            m_graphicsView->showText(tr("File url list is empty"));
+            m_gv->showText(tr("File url list is empty"));
         } else {
             showUrls(urls);
         }
@@ -452,14 +452,14 @@ void MainWindow::dropEvent(QDropEvent *event)
         QImage img = qvariant_cast<QImage>(mimeData->imageData());
         QPixmap pixmap = QPixmap::fromImage(img);
         if (pixmap.isNull()) {
-            m_graphicsView->showText(tr("Image data is invalid"));
+            m_gv->showText(tr("Image data is invalid"));
         } else {
-            m_graphicsView->showImage(pixmap);
+            m_gv->showImage(pixmap);
         }
     } else if (mimeData->hasText()) {
-        m_graphicsView->showText(mimeData->text());
+        m_gv->showText(mimeData->text());
     } else {
-        m_graphicsView->showText(tr("Not supported mimedata: %1").arg(mimeData->formats().first()));
+        m_gv->showText(tr("Not supported mimedata: %1").arg(mimeData->formats().first()));
     }
 }
 
@@ -483,12 +483,12 @@ void MainWindow::updateWidgetsPosition()
 {
     m_bottomButtonGroup->move((width() - m_bottomButtonGroup->width()) / 2,
                               height() - m_bottomButtonGroup->height());
-    m_gv->move(width() - m_gv->width(), height() - m_gv->height());
+    m_nav->move(width() - m_nav->width(), height() - m_nav->height());
 }
 
 void MainWindow::toggleAvoidResetTransform()
 {
-    m_graphicsView->setAvoidResetTransform(!m_graphicsView->avoidResetTransform());
+    m_gv->setAvoidResetTransform(!m_gv->avoidResetTransform());
 }
 
 bool MainWindow::canPaste() const
@@ -550,8 +550,8 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionActualSize_triggered()
 {
-    m_graphicsView->resetScale();
-    m_graphicsView->setEnableAutoFitInView(false);
+    m_gv->resetScale();
+    m_gv->setEnableAutoFitInView(false);
 }
 
 void MainWindow::on_actionToggleMaximize_triggered()
@@ -561,36 +561,36 @@ void MainWindow::on_actionToggleMaximize_triggered()
 
 void MainWindow::on_actionZoomIn_triggered()
 {
-    if (m_graphicsView->scaleFactor() < 1000) {
-        m_graphicsView->zoomView(1.25);
+    if (m_gv->scaleFactor() < 1000) {
+        m_gv->zoomView(1.25);
     }
 }
 
 void MainWindow::on_actionZoomOut_triggered()
 {
-    m_graphicsView->zoomView(0.8);
+    m_gv->zoomView(0.8);
 }
 
 void MainWindow::on_actionHorizontalFlip_triggered()
 {
-    m_graphicsView->flipView();
+    m_gv->flipView();
 }
 
 void MainWindow::on_actionFitInView_triggered()
 {
-    m_graphicsView->fitInView(m_gv->sceneRect(), Qt::KeepAspectRatio);
-    m_graphicsView->setEnableAutoFitInView(m_graphicsView->scaleFactor() <= 1);
+    m_gv->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+    m_gv->setEnableAutoFitInView(m_gv->scaleFactor() <= 1);
 }
 
 void MainWindow::on_actionFitByWidth_triggered()
 {
-    m_graphicsView->fitByOrientation();
+    m_gv->fitByOrientation();
 }
 
 void MainWindow::on_actionCopyPixmap_triggered()
 {
     QClipboard *cb = QApplication::clipboard();
-    cb->setPixmap(m_graphicsView->scene()->renderToPixmap());
+    cb->setPixmap(m_gv->scene()->renderToPixmap());
 }
 
 void MainWindow::on_actionCopyFilePath_triggered()
@@ -625,10 +625,10 @@ void MainWindow::on_actionPaste_triggered()
 
     if (!clipboardImage.isNull()) {
         setWindowTitle(tr("Image From Clipboard"));
-        m_graphicsView->showImage(clipboardImage);
+        m_gv->showImage(clipboardImage);
         clearGallery();
     } else if (clipboardFileUrl.isValid()) {
-        m_graphicsView->showFileFromPath(clipboardFileUrl.toLocalFile());
+        m_gv->showFileFromPath(clipboardFileUrl.toLocalFile());
         m_pm->loadPlaylist(clipboardFileUrl);
     }
 }
@@ -658,19 +658,19 @@ void MainWindow::on_actionTrash_triggered()
 void MainWindow::on_actionToggleCheckerboard_triggered()
 {
     // TODO: is that okay to do this since we plan to support custom shortcuts?
-    m_graphicsView->toggleCheckerboard(QGuiApplication::queryKeyboardModifiers().testFlag(Qt::ShiftModifier));
+    m_gv->toggleCheckerboard(QGuiApplication::queryKeyboardModifiers().testFlag(Qt::ShiftModifier));
 }
 
 void MainWindow::on_actionRotateClockwise_triggered()
 {
-    m_graphicsView->rotateView();
-    m_graphicsView->displayScene();
+    m_gv->rotateView();
+    m_gv->displayScene();
 }
 
 void MainWindow::on_actionRotateCounterClockwise_triggered()
 {
-    m_graphicsView->rotateView(false);
-    m_graphicsView->displayScene();
+    m_gv->rotateView(false);
+    m_gv->displayScene();
 }
 
 void MainWindow::on_actionPrevPicture_triggered()
@@ -685,12 +685,12 @@ void MainWindow::on_actionNextPicture_triggered()
 
 void MainWindow::on_actionTogglePauseAnimation_triggered()
 {
-    m_graphicsView->scene()->togglePauseAnimation();
+    m_gv->scene()->togglePauseAnimation();
 }
 
 void MainWindow::on_actionAnimationNextFrame_triggered()
 {
-    m_graphicsView->scene()->skipAnimationFrame(1);
+    m_gv->scene()->skipAnimationFrame(1);
 }
 
 void MainWindow::on_actionToggleAvoidResetTransform_triggered()
