@@ -52,7 +52,11 @@ MainWindow::MainWindow(QWidget *parent)
     , m_fileSystemWatcher(new QFileSystemWatcher(this))
 {
     this->setAttribute(Qt::WA_TranslucentBackground, true);
-    this->setMinimumSize(350, 330);
+    // YYC MARK:
+    // Blumis set original value is 350 x 330.
+    // It is too small for modern device,
+    // so I level it up to standard VGA resolution 640 x 480.
+    this->setMinimumSize(640, 480);
     this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
     this->setMouseTracking(true);
     this->setAcceptDrops(true);
