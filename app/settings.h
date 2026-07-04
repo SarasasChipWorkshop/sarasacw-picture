@@ -50,10 +50,6 @@ public:
     void setInitWindowSizeBehavior(WindowSizeBehavior wsb);
     void setHiDpiScaleFactorBehavior(Qt::HighDpiScaleFactorRoundingPolicy hidpi);
 
-    void applyUserShortcuts(QWidget * widget);
-    bool setShortcutsForAction(QWidget * widget, const QString & objectName,
-                               QList<QKeySequence> shortcuts, bool writeConfig = true);
-
 private:
     Settings();
 

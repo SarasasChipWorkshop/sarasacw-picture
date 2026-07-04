@@ -112,7 +112,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     QTimer::singleShot(0, this, [this](){
         m_am->setupShortcuts();
-        Settings::instance()->applyUserShortcuts(this);
     });
 
 }

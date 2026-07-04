@@ -138,47 +138,6 @@ void Settings::setHiDpiScaleFactorBehavior(Qt::HighDpiScaleFactorRoundingPolicy 
     m_qsettings->sync();
 }
 
-void Settings::applyUserShortcuts(QWidget *widget)
-{
-    m_qsettings->beginGroup("shortcuts");
-    const QStringList shortcutNames = m_qsettings->allKeys();
-    for (const QString & name : shortcutNames) {
-        QList<QKeySequence> shortcuts = m_qsettings->value(name).value<QList<QKeySequence>>();
-        setShortcutsForAction(widget, name, shortcuts, false);
-    }
-    m_qsettings->endGroup();
-}
-
-bool Settings::setShortcutsForAction(QWidget *widget, const QString &objectName,
-                                     QList<QKeySequence> shortcuts, bool writeConfig)
-{
-    QAction * targetAction = nullptr;
-    for (QAction * action : widget->actions()) {
-        if (action->objectName() == objectName) {
-            targetAction = action;
-        } else {
-            for (const QKeySequence & shortcut : std::as_const(shortcuts)) {
-                if (action->shortcuts().contains(shortcut)) {
-                    return false;
-                }
-            }
-        }
-    }
-
-    if (targetAction) {
-        targetAction->setShortcuts(shortcuts);
-    }
-
-    if (targetAction && writeConfig) {
-        m_qsettings->beginGroup("shortcuts");
-        m_qsettings->setValue(objectName, QVariant::fromValue(shortcuts));
-        m_qsettings->endGroup();
-        m_qsettings->sync();
-    }
-
-    return true;
-}
-
 #if defined(FLAG_PORTABLE_MODE_SUPPORT) && defined(Q_OS_WIN)
 #include <windows.h>
 // QCoreApplication::applicationDirPath() parses the "applicationDirPath" from arg0, which...

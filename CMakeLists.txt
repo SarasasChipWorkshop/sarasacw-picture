@@ -52,7 +52,6 @@ set (PPIC_CPP_FILES
     app/metadatadialog.cpp
     app/exiv2wrapper.cpp
     app/playlistmanager.cpp
-    app/shortcutedit.cpp
     app/fileopeneventhandler.cpp
 )
 
@@ -71,7 +70,6 @@ set (PPIC_HEADER_FILES
     app/metadatadialog.h
     app/exiv2wrapper.h
     app/playlistmanager.h
-    app/shortcutedit.h
     app/fileopeneventhandler.h
 )
 
