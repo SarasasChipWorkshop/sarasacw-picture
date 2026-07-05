@@ -17,7 +17,7 @@ Settings *Settings::instance()
 {
     // SAFETY:
     // This is a global singleton and it is leaked by design.
-    static Settings* INSTANCE = new Settings();
+    static Settings* INSTANCE = new Settings(nullptr);
     return INSTANCE;
 }
 
@@ -67,29 +67,25 @@ bool Settings::svgTiny12Only() const
 
 Settings::DoubleClickBehavior Settings::doubleClickBehavior() const
 {
-    QString result = m_qsettings->value("double_click_behavior", "Close").toString();
-
-    return QEnumHelper::fromString<DoubleClickBehavior>(result, DoubleClickBehavior::Close);
+    QString result = m_qsettings->value("double_click_behavior", "").toString();
+    return QEnumHelper::fromString<DoubleClickBehavior>(result, DoubleClickBehavior::Ignore);
 }
 
 Settings::MouseWheelBehavior Settings::mouseWheelBehavior() const
 {
-    QString result = m_qsettings->value("mouse_wheel_behavior", "Zoom").toString();
-
+    QString result = m_qsettings->value("mouse_wheel_behavior", "").toString();
     return QEnumHelper::fromString<MouseWheelBehavior>(result, MouseWheelBehavior::Zoom);
 }
 
 Settings::WindowSizeBehavior Settings::initWindowSizeBehavior() const
 {
-    QString result = m_qsettings->value("init_window_size_behavior", "Auto").toString();
-
-    return QEnumHelper::fromString<WindowSizeBehavior>(result, WindowSizeBehavior::Auto);
+    QString result = m_qsettings->value("init_window_size_behavior", "").toString();
+    return QEnumHelper::fromString<WindowSizeBehavior>(result, WindowSizeBehavior::Maximized);
 }
 
 Qt::HighDpiScaleFactorRoundingPolicy Settings::hiDpiScaleFactorBehavior() const
 {
-    QString result = m_qsettings->value("hidpi_scale_factor_behavior", "PassThrough").toString();
-
+    QString result = m_qsettings->value("hidpi_scale_factor_behavior", "").toString();
     return QEnumHelper::fromString<Qt::HighDpiScaleFactorRoundingPolicy>(result, Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 }
 
