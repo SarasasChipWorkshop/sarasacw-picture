@@ -51,9 +51,7 @@ public:
     void setHiDpiScaleFactorBehavior(Qt::HighDpiScaleFactorRoundingPolicy hidpi);
 
 private:
-    Settings();
-
-    static Settings *m_settings_instance;
+    Settings(QObject *parent = nullptr);
 
     QSettings *m_qsettings;
 

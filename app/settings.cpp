@@ -13,6 +13,14 @@
 #include <QKeySequence>
 #include <QMetaEnum>
 
+Settings *Settings::instance()
+{
+    // SAFETY:
+    // This is a global singleton and it is leaked by design.
+    static Settings* INSTANCE = new Settings();
+    return INSTANCE;
+}
+
 namespace QEnumHelper
 {
     template <typename E>
@@ -32,17 +40,6 @@ namespace QEnumHelper
         const int intValue = static_cast<int>(value);
         return QString::fromUtf8(QMetaEnum::fromType<E>().valueToKey(intValue));
     }
-}
-
-Settings *Settings::m_settings_instance = nullptr;
-
-Settings *Settings::instance()
-{
-    if (!m_settings_instance) {
-        m_settings_instance = new Settings;
-    }
-
-    return m_settings_instance;
 }
 
 bool Settings::useLightCheckerboard() const
@@ -156,8 +153,8 @@ QString getApplicationDirPath()
 }
 #endif // defined(FLAG_PORTABLE_MODE_SUPPORT) && defined(Q_OS_WIN)
 
-Settings::Settings()
-    : QObject(qApp)
+Settings::Settings(QObject *parent)
+    : QObject(parent)
 {
     QString configPath;
 
