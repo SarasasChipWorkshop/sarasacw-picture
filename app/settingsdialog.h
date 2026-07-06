@@ -5,7 +5,6 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include <QObject>
 #include <QDialog>
 
 QT_BEGIN_NAMESPACE

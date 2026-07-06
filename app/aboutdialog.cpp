@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 #include "aboutdialog.h"
+#include "ui_aboutdialog.h"
 
 #include <QAbstractButton>
 #include <QDialogButtonBox>
@@ -17,16 +18,10 @@
 using namespace Qt::Literals::StringLiterals;
 
 AboutDialog::AboutDialog(QWidget *parent)
-    : QDialog(parent)
-    , m_tabWidget(new QTabWidget)
-    , m_buttonBox(new QDialogButtonBox)
-    , m_helpTextEdit(new QTextBrowser)
-    , m_aboutTextEdit(new QTextBrowser)
-    , m_specialThanksTextEdit(new QTextBrowser)
-    , m_licenseTextEdit(new QTextBrowser)
-    , m_3rdPartyLibsTextEdit(new QTextBrowser)
+    : QDialog(parent), ui(new Ui::AboutDialog)
 {
-    this->setWindowTitle(tr("About"));
+    ui->setupUi(this);
+    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 
     const QStringList helpStr {
         u"<p>%1</p>"_s.arg(tr("Launch application with image file path as argument to load the file.")),
@@ -137,42 +132,30 @@ SOFTWARE.
         u"</ul>"_s
     };
 
-    m_helpTextEdit->setText(helpStr.join('\n'));
+    ui->m_helpTextEdit->setText(helpStr.join('\n'));
 
-    m_aboutTextEdit->setText(aboutStr.join('\n'));
-    m_aboutTextEdit->setOpenExternalLinks(true);
+    ui->m_aboutTextEdit->setText(aboutStr.join('\n'));
+    ui->m_aboutTextEdit->setOpenExternalLinks(true);
 
-    m_specialThanksTextEdit->setText(specialThanksStr.join('\n'));
-    m_specialThanksTextEdit->setOpenExternalLinks(true);
+    ui->m_specialThanksTextEdit->setText(specialThanksStr.join('\n'));
+    ui->m_specialThanksTextEdit->setOpenExternalLinks(true);
 
-    m_licenseTextEdit->setText(licenseStr.join('\n').arg(qApp->applicationDisplayName(), mitLicense));
+    ui->m_licenseTextEdit->setText(licenseStr.join('\n').arg(qApp->applicationDisplayName(), mitLicense));
 
-    m_3rdPartyLibsTextEdit->setText(thirdPartyLibsStr.join('\n').arg(u"<i>%1</i>"_s).arg(qApp->applicationDisplayName()));
-    m_3rdPartyLibsTextEdit->setOpenExternalLinks(true);
+    ui->m_3rdPartyLibsTextEdit->setText(thirdPartyLibsStr.join('\n').arg(u"<i>%1</i>"_s).arg(qApp->applicationDisplayName()));
+    ui->m_3rdPartyLibsTextEdit->setOpenExternalLinks(true);
 
-    m_tabWidget->addTab(m_helpTextEdit, tr("&Help"));
-    m_tabWidget->addTab(m_aboutTextEdit, tr("&About"));
-    m_tabWidget->addTab(m_specialThanksTextEdit, tr("&Special Thanks"));
-    m_tabWidget->addTab(m_licenseTextEdit, tr("&License"));
-    m_tabWidget->addTab(m_3rdPartyLibsTextEdit, tr("&Third-party Libraries"));
-
-    m_buttonBox->setStandardButtons(QDialogButtonBox::Close);
-    connect(m_buttonBox, QOverload<QAbstractButton *>::of(&QDialogButtonBox::clicked), this, [this](){
+    connect(ui->m_buttonBox, QOverload<QAbstractButton *>::of(&QDialogButtonBox::clicked), this, [this](QAbstractButton * btn){
+        Q_UNUSED(btn)
         this->close();
     });
 
-    setLayout(new QVBoxLayout);
-
-    layout()->addWidget(m_tabWidget);
-    layout()->addWidget(m_buttonBox);
-
     setMinimumSize(361, 161); // not sure why it complain "Unable to set geometry"
-    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 }
 
 AboutDialog::~AboutDialog()
 {
-
+    delete ui;
 }
 
 QSize AboutDialog::sizeHint() const

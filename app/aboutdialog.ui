@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutDialog</class>
+ <widget class="QDialog" name="AboutDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="windowTitle">
+   <string>About</string>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>361</width>
+    <height>161</height>
+   </size>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="m_tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="helpTab">
+      <attribute name="title">
+       <string>&amp;Help</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="helpTabLayout">
+       <item>
+        <widget class="QTextBrowser" name="m_helpTextEdit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="aboutTab">
+      <attribute name="title">
+       <string>&amp;About</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="aboutTabLayout">
+       <item>
+        <widget class="QTextBrowser" name="m_aboutTextEdit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="specialThanksTab">
+      <attribute name="title">
+       <string>&amp;Special Thanks</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="specialThanksTabLayout">
+       <item>
+        <widget class="QTextBrowser" name="m_specialThanksTextEdit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="licenseTab">
+      <attribute name="title">
+       <string>&amp;License</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="licenseTabLayout">
+       <item>
+        <widget class="QTextBrowser" name="m_licenseTextEdit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="thirdPartyLibsTab">
+      <attribute name="title">
+       <string>&amp;Third-party Libraries</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="thirdPartyLibsTabLayout">
+       <item>
+        <widget class="QTextBrowser" name="m_3rdPartyLibsTextEdit"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

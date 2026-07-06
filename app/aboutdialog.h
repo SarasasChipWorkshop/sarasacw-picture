@@ -7,10 +7,11 @@
 
 #include <QDialog>
 
+
 QT_BEGIN_NAMESPACE
-class QTextBrowser;
-class QTabWidget;
-class QDialogButtonBox;
+namespace Ui {
+class AboutDialog;
+}
 QT_END_NAMESPACE
 
 class AboutDialog : public QDialog
@@ -23,14 +24,7 @@ public:
     QSize sizeHint() const override;
 
 private:
-    QTabWidget * m_tabWidget = nullptr;
-    QDialogButtonBox * m_buttonBox = nullptr;
-
-    QTextBrowser * m_helpTextEdit = nullptr;
-    QTextBrowser * m_aboutTextEdit = nullptr;
-    QTextBrowser * m_specialThanksTextEdit = nullptr;
-    QTextBrowser * m_licenseTextEdit = nullptr;
-    QTextBrowser * m_3rdPartyLibsTextEdit = nullptr;
+    QT_PREPEND_NAMESPACE(Ui::AboutDialog) *ui;
 };
 
 #endif // ABOUTDIALOG_H
