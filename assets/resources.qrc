@@ -10,6 +10,10 @@
         <file>icons/window-close.svg</file>
         <file>icons/go-next.svg</file>
         <file>icons/go-previous.svg</file>
-        <file>plain/translators.html</file>
+        <file>plain/help.html</file>
+        <file>plain/about.html</file>
+        <file>plain/special-thanks.html</file>
+        <file>plain/license.html</file>
+        <file>plain/third-party-libs.html</file>
     </qresource>
 </RCC>

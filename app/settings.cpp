@@ -80,7 +80,7 @@ Settings::MouseWheelBehavior Settings::mouseWheelBehavior() const
 Settings::WindowSizeBehavior Settings::initWindowSizeBehavior() const
 {
     QString result = m_qsettings->value("init_window_size_behavior", "").toString();
-    return QEnumHelper::fromString<WindowSizeBehavior>(result, WindowSizeBehavior::Maximized);
+    return QEnumHelper::fromString<WindowSizeBehavior>(result, WindowSizeBehavior::Windowed);
 }
 
 Qt::HighDpiScaleFactorRoundingPolicy Settings::hiDpiScaleFactorBehavior() const
