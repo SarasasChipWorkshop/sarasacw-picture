@@ -73,19 +73,10 @@ AboutDialog::AboutDialog(QWidget *parent)
         .arg(tr("Some of them are optional and might not be included with this distribution depending on the build environment."));
 
     ui->m_helpTextEdit->setHtml(HELP_HTML);
-    ui->m_helpTextEdit->setOpenExternalLinks(false);
-
     ui->m_aboutTextEdit->setHtml(ABOUT_HTML);
-    ui->m_aboutTextEdit->setOpenExternalLinks(true);
-
     ui->m_specialThanksTextEdit->setHtml(SPECIAL_THANKS_HTML);
-    ui->m_specialThanksTextEdit->setOpenExternalLinks(true);
-
     ui->m_licenseTextEdit->setHtml(LICENSE_HTML);
-    ui->m_licenseTextEdit->setOpenExternalLinks(false);
-
     ui->m_3rdPartyLibsTextEdit->setHtml(THIRD_PARTY_LIBS_HTML);
-    ui->m_3rdPartyLibsTextEdit->setOpenExternalLinks(true);
 
     connect(ui->m_buttonBox, QOverload<QAbstractButton *>::of(&QDialogButtonBox::clicked), this, [this](QAbstractButton * btn){
         Q_UNUSED(btn)

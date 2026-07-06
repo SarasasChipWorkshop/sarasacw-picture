@@ -26,7 +26,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="helpTabLayout">
        <item>
-        <widget class="QTextBrowser" name="m_helpTextEdit"/>
+         <widget class="QTextBrowser" name="m_helpTextEdit">
+          <property name="openExternalLinks">
+           <bool>false</bool>
+          </property>
+         </widget>
        </item>
       </layout>
      </widget>
@@ -36,7 +40,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="aboutTabLayout">
        <item>
-        <widget class="QTextBrowser" name="m_aboutTextEdit"/>
+         <widget class="QTextBrowser" name="m_aboutTextEdit">
+          <property name="openExternalLinks">
+           <bool>true</bool>
+          </property>
+         </widget>
        </item>
       </layout>
      </widget>
@@ -46,7 +54,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="specialThanksTabLayout">
        <item>
-        <widget class="QTextBrowser" name="m_specialThanksTextEdit"/>
+         <widget class="QTextBrowser" name="m_specialThanksTextEdit">
+          <property name="openExternalLinks">
+           <bool>true</bool>
+          </property>
+         </widget>
        </item>
       </layout>
      </widget>
@@ -56,7 +68,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="licenseTabLayout">
        <item>
-        <widget class="QTextBrowser" name="m_licenseTextEdit"/>
+         <widget class="QTextBrowser" name="m_licenseTextEdit">
+          <property name="openExternalLinks">
+           <bool>false</bool>
+          </property>
+         </widget>
        </item>
       </layout>
      </widget>
@@ -66,7 +82,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="thirdPartyLibsTabLayout">
        <item>
-        <widget class="QTextBrowser" name="m_3rdPartyLibsTextEdit"/>
+         <widget class="QTextBrowser" name="m_3rdPartyLibsTextEdit">
+          <property name="openExternalLinks">
+           <bool>true</bool>
+          </property>
+         </widget>
        </item>
       </layout>
      </widget>
