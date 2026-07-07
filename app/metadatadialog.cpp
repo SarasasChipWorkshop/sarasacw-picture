@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: MIT
 
 #include "metadatadialog.h"
+#include "ui_metadatadialog.h"
 
 #include <QDialogButtonBox>
 #include <QPainter>
 #include <QStyledItemDelegate>
 #include <QTreeView>
-#include <QVBoxLayout>
 #include <QHeaderView>
 
 #include "metadatamodel.h"
@@ -73,30 +73,33 @@ protected:
 };
 
 MetadataDialog::MetadataDialog(QWidget *parent)
-    : QDialog(parent)
-    , m_treeView(new PropertyTreeView(this))
+    : QDialog(parent), ui(new QT_PREPEND_NAMESPACE(Ui::MetadataDialog))
 {
+    ui->setupUi(this);
+    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
+
+    // YYC MARK:
+    // Because we use custom QTreeView and we do not want to expose it to public domain.
+    // So I have to use this way as the compromise.
+
+    // Create our custom QTreeView and insert them
+    m_treeView = new PropertyTreeView(this);
+    auto* layout = ui->verticalLayout;
+    const int index = layout->indexOf(ui->m_buttonBox);
+    layout->insertWidget(index, m_treeView);
+
+    // Setup our custom QTreeView
     m_treeView->setRootIsDecorated(false);
     m_treeView->setIndentation(0);
     m_treeView->setItemDelegate(new PropertyTreeItemDelegate(m_treeView));
     m_treeView->header()->resizeSection(0, sizeHint().width() / 2);
 
-    setWindowTitle(tr("Image Metadata"));
-
-    QDialogButtonBox * buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
-
-    setLayout(new QVBoxLayout);
-    layout()->addWidget(m_treeView);
-    layout()->addWidget(buttonBox);
-
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
-
-    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
+    connect(ui->m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
 }
 
 MetadataDialog::~MetadataDialog()
 {
-
+    delete ui;
 }
 
 void MetadataDialog::setMetadataModel(MetadataModel * model)

@@ -83,7 +83,7 @@ static EnumComboBoxTransformer<Qt::HighDpiScaleFactorRoundingPolicy, QString> HI
 };
 
 SettingsDialog::SettingsDialog(QWidget *parent)
-    : QDialog(parent), ui(new Ui::SettingsDialog)
+    : QDialog(parent), ui(new QT_PREPEND_NAMESPACE(Ui::SettingsDialog))
 {
     ui->setupUi(this);
     setWindowFlag(Qt::WindowContextHelpButtonHint, false);

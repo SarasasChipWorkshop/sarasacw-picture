@@ -18,7 +18,7 @@ static QString loadEmbeddedHtml(QString&& path) {
 }
 
 AboutDialog::AboutDialog(QWidget *parent)
-    : QDialog(parent), ui(new Ui::AboutDialog)
+    : QDialog(parent), ui(new QT_PREPEND_NAMESPACE(Ui::AboutDialog))
 {
     ui->setupUi(this);
     setWindowFlag(Qt::WindowContextHelpButtonHint, false);

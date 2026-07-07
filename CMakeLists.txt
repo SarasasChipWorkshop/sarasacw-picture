@@ -76,6 +76,8 @@ set (PPIC_HEADER_FILES
 
 set (PPIC_UI_FILES
     app/settingsdialog.ui
+    app/aboutdialog.ui
+    app/metadatadialog.ui
 )
 
 set (PPIC_QRC_FILES
