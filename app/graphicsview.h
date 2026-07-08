@@ -51,6 +51,7 @@ signals:
 
 public slots:
     void toggleCheckerboard(bool invertCheckerboardColor = false);
+    void updateStyle(Qt::ColorScheme colorScheme);
 
 private:
     void mousePressEvent(QMouseEvent * event) override;

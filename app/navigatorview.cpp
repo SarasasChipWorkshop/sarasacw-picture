@@ -6,6 +6,8 @@
 
 #include "graphicsview.h"
 
+#include <QStyleHints>
+#include <QOperatingSystemVersion>
 #include <QMouseEvent>
 #include <QDebug>
 #include <QTimer>
@@ -16,8 +18,9 @@ NavigatorView::NavigatorView(QWidget *parent)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setStyleSheet("background-color: rgba(0, 0, 0, 120);"
-                  "border-radius: 3px;");
+
+    updateStyle(qGuiApp->styleHints()->colorScheme());
+    connect(qGuiApp->styleHints(), &QStyleHints::colorSchemeChanged, this, &NavigatorView::updateStyle);
 }
 
 // doesn't take or manage its ownership
@@ -36,6 +39,39 @@ void NavigatorView::updateMainViewportRegion()
             update();
         }
     });
+}
+
+void NavigatorView::updateStyle(Qt::ColorScheme colorScheme) {
+    // YYC MARK:
+    // If we are using Windows 10 and lower system or Qt which do not support "Windows 11"
+    // theme (lower than Qt 6.7), we should only support light mode.
+    // Because Qt's dark-mode-aware "Windows 11" theme is only well-supported on Windows 11.
+#if defined(Q_OS_WIN)
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    colorScheme = Qt::ColorScheme::Light;
+#else
+    if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows11) {
+        colorScheme = Qt::ColorScheme::Light;
+    }
+#endif // QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+#endif // defined(Q_OS_WIN)
+
+    switch (colorScheme) {
+    case Qt::ColorScheme::Dark:
+    setStyleSheet(R"#(
+border-style: none;
+background-color: rgba(255, 255, 255, 70);
+)#");
+        break;
+    case Qt::ColorScheme::Light:
+    case Qt::ColorScheme::Unknown:
+    default:
+        setStyleSheet(R"#(
+border-style: none;
+background-color: rgba(0, 0, 0, 70);
+)#");
+        break;
+    }
 }
 
 void NavigatorView::mousePressEvent(QMouseEvent *event)

@@ -18,6 +18,7 @@ public:
 
 public slots:
     void updateMainViewportRegion();
+    void updateStyle(Qt::ColorScheme colorScheme);
 
 private:
     void mousePressEvent(QMouseEvent * event) override;

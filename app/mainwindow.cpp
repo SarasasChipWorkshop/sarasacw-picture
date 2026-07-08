@@ -51,7 +51,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_pm(new PlaylistManager(this))
     , m_fileSystemWatcher(new QFileSystemWatcher(this))
 {
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
     // YYC MARK:
     // Blumis set original value is 350 x 330.
     // It is too small for modern device,

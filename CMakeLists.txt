@@ -20,7 +20,7 @@ set (CMAKE_AUTOUIC ON)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
 
-set (QT_MINIMUM_VERSION "6.4")
+set (QT_MINIMUM_VERSION "6.5")
 
 find_package(Qt${QT_VERSION_MAJOR} ${QT_MINIMUM_VERSION} REQUIRED
     COMPONENTS Widgets Svg SvgWidgets LinguistTools

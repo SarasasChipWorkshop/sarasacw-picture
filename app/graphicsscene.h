@@ -26,6 +26,9 @@ public:
 
     QPixmap renderToPixmap();
 
+public slots:
+    void updateStyle(Qt::ColorScheme colorScheme);
+
 private:
     QGraphicsItem * m_theThing = nullptr;
 };

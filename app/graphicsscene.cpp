@@ -6,6 +6,9 @@
 
 #include "settings.h"
 
+#include <QStyleHints>
+#include <QOperatingSystemVersion>
+#include <QGuiApplication>
 #include <QGraphicsSceneMouseEvent>
 #include <QMimeData>
 #include <QDebug>
@@ -15,6 +18,33 @@
 #include <QSvgRenderer>
 #include <QMovie>
 #include <QPainter>
+
+static const QColor& ColorSchemaToTextForeground(Qt::ColorScheme colorScheme) {
+    // YYC MARK:
+    // If we are using Windows 10 and lower system or Qt which do not support "Windows 11"
+    // theme (lower than Qt 6.7), we should only support light mode.
+    // Because Qt's dark-mode-aware "Windows 11" theme is only well-supported on Windows 11.
+#if defined(Q_OS_WIN)
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    colorScheme = Qt::ColorScheme::Light;
+#else
+    if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows11) {
+        colorScheme = Qt::ColorScheme::Light;
+    }
+#endif // QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+#endif // defined(Q_OS_WIN)
+
+    switch (colorScheme) {
+    case Qt::ColorScheme::Dark:
+        static QColor WHITE = QColor("White");
+        return WHITE;
+    case Qt::ColorScheme::Light:
+    case Qt::ColorScheme::Unknown:
+    default:
+        static QColor BLACK = QColor("Black");
+        return BLACK;
+    }
+}
 
 class PGraphicsPixmapItem : public QGraphicsPixmapItem
 {
@@ -100,6 +130,7 @@ GraphicsScene::GraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     showText(tr("Drag image here"));
+    connect(qGuiApp->styleHints(), &QStyleHints::colorSchemeChanged, this, &GraphicsScene::updateStyle);
 }
 
 GraphicsScene::~GraphicsScene()
@@ -121,7 +152,7 @@ void GraphicsScene::showText(const QString &text)
 {
     this->clear();
     QGraphicsTextItem * textItem = this->addText(text);
-    textItem->setDefaultTextColor(QColor("White"));
+    textItem->setDefaultTextColor(ColorSchemaToTextForeground(qGuiApp->styleHints()->colorScheme()));
     m_theThing = textItem;
     this->setSceneRect(m_theThing->boundingRect());
 }
@@ -205,4 +236,15 @@ QPixmap GraphicsScene::renderToPixmap()
     render(&p, sceneRect());
 
     return pixmap;
+}
+
+void GraphicsScene::updateStyle(Qt::ColorScheme colorScheme) {
+    Q_UNUSED(colorScheme)
+
+    QGraphicsItem * item = this->m_theThing;
+    if (item == nullptr) return;
+    QGraphicsTextItem * textItem = qgraphicsitem_cast<QGraphicsTextItem*>(item);
+    if (textItem == nullptr) return;
+
+    textItem->setDefaultTextColor(ColorSchemaToTextForeground(colorScheme));
 }

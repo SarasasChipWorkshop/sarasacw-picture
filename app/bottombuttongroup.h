@@ -15,8 +15,6 @@ class BottomButtonGroup : public QGroupBox
     Q_OBJECT
 public:
     explicit BottomButtonGroup(const std::vector<QAction *> & actionList, QWidget *parent = nullptr);
-
-    void addButton(QAbstractButton *button);
 };
 
 #endif // BOTTOMBUTTONGROUP_H

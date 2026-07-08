@@ -7,6 +7,8 @@
 #include "graphicsscene.h"
 #include "settings.h"
 
+#include <QStyleHints>
+#include <QOperatingSystemVersion>
 #include <QDebug>
 #include <QColorSpace>
 #include <QMouseEvent>
@@ -23,10 +25,11 @@ GraphicsView::GraphicsView(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setResizeAnchor(QGraphicsView::AnchorUnderMouse);
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    setStyleSheet("background-color: rgba(0, 0, 0, 220);"
-                  "border-radius: 3px;");
     setAcceptDrops(false);
     setCheckerboardEnabled(false);
+
+    updateStyle(qGuiApp->styleHints()->colorScheme());
+    connect(qGuiApp->styleHints(), &QStyleHints::colorSchemeChanged, this, &GraphicsView::updateStyle);
 
     connect(horizontalScrollBar(), &QScrollBar::valueChanged, this, &GraphicsView::viewportRectChanged);
     connect(verticalScrollBar(), &QScrollBar::valueChanged, this, &GraphicsView::viewportRectChanged);
@@ -342,6 +345,39 @@ QTransform GraphicsView::resetScale(const QTransform & orig)
 void GraphicsView::toggleCheckerboard(bool invertCheckerboardColor)
 {
     setCheckerboardEnabled(!m_checkerboardEnabled, invertCheckerboardColor);
+}
+
+void GraphicsView::updateStyle(Qt::ColorScheme colorScheme) {
+    // YYC MARK:
+    // If we are using Windows 10 and lower system or Qt which do not support "Windows 11"
+    // theme (lower than Qt 6.7), we should only support light mode.
+    // Because Qt's dark-mode-aware "Windows 11" theme is only well-supported on Windows 11.
+#if defined(Q_OS_WIN)
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    colorScheme = Qt::ColorScheme::Light;
+#else
+    if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows11) {
+        colorScheme = Qt::ColorScheme::Light;
+    }
+#endif // QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+#endif // defined(Q_OS_WIN)
+
+    switch (colorScheme) {
+    case Qt::ColorScheme::Dark:
+        setStyleSheet(R"#(
+border-style: none;
+background-color: black;
+)#");
+        break;
+    case Qt::ColorScheme::Light:
+    case Qt::ColorScheme::Unknown:
+    default:
+        setStyleSheet(R"#(
+border-style: none;
+background-color: white;
+)#");
+        break;
+    }
 }
 
 void GraphicsView::mousePressEvent(QMouseEvent *event)
