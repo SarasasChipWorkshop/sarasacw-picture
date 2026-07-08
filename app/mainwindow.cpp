@@ -57,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent)
     // so I level it up to standard VGA resolution 640 x 480.
     this->setMinimumSize(640, 480);
     this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
-    this->setMouseTracking(true);
     this->setAcceptDrops(true);
 
     m_pm->setAutoLoadFilterSuffixes(supportedImageFormats());
