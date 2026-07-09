@@ -35,7 +35,9 @@ AboutDialog::AboutDialog(QWidget *parent)
         .arg(tr("None of the operations in this application will alter the pictures on disk."))
         .arg(tr("Context Menu Help"))
         .arg(tr("Keep transformation", "The same meaning of MainWindow's Keep transformation."))
-        .arg(tr("Avoid resetting the zoom/rotation/flip state that was applied to the image view when switching between images."));
+        .arg(tr("Avoid resetting the zoom/rotation/flip state that was applied to the image view when switching between images."))
+        .arg(tr("Checkboard", "The same meaning of MainWindow's Checkboard."))
+        .arg(tr("Checkerboard light and dark theme can be adjusted in the configuration window, or easily switch it by holding Shift and clicking the button."));
 
     const QString APP_NAME_ARG = qApp->applicationDisplayName();
     const QString APP_VERSION_ARG =
