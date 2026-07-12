@@ -36,7 +36,7 @@ AboutDialog::AboutDialog(QWidget *parent)
         .arg(tr("Context Menu Help"))
         .arg(tr("Keep transformation", "The same meaning of MainWindow's Keep transformation."))
         .arg(tr("Avoid resetting the zoom/rotation/flip state that was applied to the image view when switching between images."))
-        .arg(tr("Checkboard", "The same meaning of MainWindow's Checkboard."))
+        .arg(tr("Checkerboard", "The same meaning of MainWindow's Checkerboard."))
         .arg(tr("Checkerboard light and dark theme can be adjusted in the configuration window, or easily switch it by holding Shift and clicking the button."));
 
     const QString APP_NAME_ARG = qApp->applicationDisplayName();
