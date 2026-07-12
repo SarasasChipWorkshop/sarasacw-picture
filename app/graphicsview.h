@@ -38,10 +38,13 @@ public:
 
     void displayScene();
     bool isSceneBiggerThanView() const;
-    void setEnableAutoFitInView(bool enable = true);
+    void setEnableAutoFitToScreen(bool enable = true);
 
     bool avoidResetTransform() const;
     void setAvoidResetTransform(bool avoidReset);
+
+    bool checkerboard() const;
+    void toggleCheckerboard(bool invertCheckerboardColor = false);
 
     static QTransform resetScale(const QTransform & orig);
 
@@ -50,7 +53,6 @@ signals:
     void viewportRectChanged();
 
 public slots:
-    void toggleCheckerboard(bool invertCheckerboardColor = false);
     void updateStyle(Qt::ColorScheme colorScheme);
 
 private:
@@ -70,7 +72,7 @@ private:
     // Consider switch to 3 state for "no fit", "always fit" and "fit when view is smaller"?
     // ... or even more? e.g. "fit/snap width" things...
     // Currently it's "no fit" when it's false and "fit when view is smaller" when it's true.
-    bool m_enableFitInView = false;
+    bool m_enableFitToScreen = false;
     bool m_avoidResetTransform = false;
     bool m_checkerboardEnabled = false;
     bool m_useLightCheckerboard = false;

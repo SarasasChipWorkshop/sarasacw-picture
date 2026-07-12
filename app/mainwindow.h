@@ -66,39 +66,38 @@ protected:
     QSize sizeHint() const override;
 
 private slots:
-    void on_actionOpen_triggered();
-
-    void on_actionActualSize_triggered();
-    void on_actionToggleMaximize_triggered();
-    void on_actionZoomIn_triggered();
-    void on_actionZoomOut_triggered();
-    void on_actionToggleCheckerboard_triggered();
-    void on_actionRotateClockwise_triggered();
-    void on_actionRotateCounterClockwise_triggered();
+    void on_actionCopyPixmap_triggered();
+    void on_actionCopyFilePath_triggered();
 
     void on_actionPrevPicture_triggered();
     void on_actionNextPicture_triggered();
 
+    void on_actionActualSize_triggered();
+    void on_actionFitToScreen_triggered();
+    void on_actionFitByWidth_triggered();
+    void on_actionFitByHeight_triggered();
+    void on_actionZoomIn_triggered();
+    void on_actionZoomOut_triggered();
+
+    void on_actionFlipHorizontal_triggered();
+    void on_actionFlipVertical_triggered();
+    void on_actionRotateClockwise_triggered();
+    void on_actionRotateCounterClockwise_triggered();
+
+    void on_actionToggleAvoidResetTransform_triggered();
+    void on_actionToggleCheckerboard_triggered();
     void on_actionTogglePauseAnimation_triggered();
     void on_actionAnimationNextFrame_triggered();
 
-    void on_actionHorizontalFlip_triggered();
-    void on_actionFitInView_triggered();
-    void on_actionFitByWidth_triggered();
-    void on_actionCopyPixmap_triggered();
-    void on_actionCopyFilePath_triggered();
-    void on_actionPaste_triggered();
     void on_actionTrash_triggered();
-    void on_actionToggleAvoidResetTransform_triggered();
+    void on_actionLocateInFileManager_triggered();
+    void on_actionProperties_triggered();
+
     void on_actionSettings_triggered();
     void on_actionHelp_triggered();
-    void on_actionProperties_triggered();
-    void on_actionLocateInFileManager_triggered();
-    void on_actionQuitApp_triggered();
 
 private:
     bool updateFileWatcher(const QString & basePath = QString());
-    void updateGalleryButtonsVisibility();
 
 private:
     ActionManager *m_am;

@@ -200,27 +200,57 @@ bool GraphicsScene::trySetTransformationMode(Qt::TransformationMode mode, float 
     return false;
 }
 
+/// Fetch graphics item as our custom animated item.
+/// Return nullptr means this item is not animated item.
+static PGraphicsMovieItem* fetchAnimatedItem(QGraphicsItem *item) {
+    return qgraphicsitem_cast<PGraphicsMovieItem *>(item);
+}
+
+bool GraphicsScene::canPauseAnimation() const {
+    return fetchAnimatedItem(m_theThing) != nullptr;
+}
+
+bool GraphicsScene::isPauseAnimation() const {
+    auto* animatedItem = fetchAnimatedItem(m_theThing);
+    if (animatedItem != nullptr) {
+        return animatedItem->movie()->state() == QMovie::Paused;
+    } else {
+        return false;
+    }
+}
+
 bool GraphicsScene::togglePauseAnimation()
 {
-    PGraphicsMovieItem * animatedItem = qgraphicsitem_cast<PGraphicsMovieItem *>(m_theThing);
-    if (animatedItem) {
+    auto* animatedItem = fetchAnimatedItem(m_theThing);
+    if (animatedItem != nullptr) {
         animatedItem->movie()->setPaused(animatedItem->movie()->state() != QMovie::Paused);
         return true;
+    } else {
+        return false;
     }
-    return false;
+}
+
+bool GraphicsScene::canSkipAnimationFrame() const {
+    return isPauseAnimation();
 }
 
 bool GraphicsScene::skipAnimationFrame(int delta)
 {
-    PGraphicsMovieItem * animatedItem = qgraphicsitem_cast<PGraphicsMovieItem *>(m_theThing);
-    if (animatedItem) {
-        const int frameCount = animatedItem->movie()->frameCount();
-        const int currentFrame = animatedItem->movie()->currentFrameNumber();
-        const int targetFrame = (currentFrame + delta) % frameCount;
-        animatedItem->movie()->setPaused(true);
-        return animatedItem->movie()->jumpToFrame(targetFrame);
+    auto* animatedItem = fetchAnimatedItem(m_theThing);
+
+    // Only paused animated item can skip frame
+    if (animatedItem == nullptr) {
+        return false;
     }
-    return false;
+    if (animatedItem->movie()->state() != QMovie::Paused) {
+        return false;
+    }
+
+    // Perform skip
+    const int frameCount = animatedItem->movie()->frameCount();
+    const int currentFrame = animatedItem->movie()->currentFrameNumber();
+    const int targetFrame = (currentFrame + delta) % frameCount;
+    return animatedItem->movie()->jumpToFrame(targetFrame);
 }
 
 QPixmap GraphicsScene::renderToPixmap()

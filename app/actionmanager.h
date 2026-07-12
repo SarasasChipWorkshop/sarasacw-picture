@@ -8,6 +8,8 @@
 #include <QAction>
 
 class MainWindow;
+class PlaylistManager;
+class GraphicsView;
 
 /// Action Manager is separated from Main Window
 /// to manage all actions specifically.
@@ -19,38 +21,40 @@ public:
 
     void setupAction(MainWindow * mainWindow);
     void setupShortcuts();
-    void enablePrevNextPictureAction(bool enablePrevPictureAction, bool enableNextPictureAction);
+
+public slots:
+    void updateActionState(PlaylistManager* pm, GraphicsView* gv);
 
 public:
-    QAction *actionOpen;
-
-    QAction *actionActualSize;
-    QAction *actionToggleMaximize;
-    QAction *actionZoomIn;
-    QAction *actionZoomOut;
-    QAction *actionToggleCheckerboard;
-    QAction *actionRotateClockwise;
-    QAction *actionRotateCounterClockwise;
+    QAction *actionCopyPixmap;
+    QAction *actionCopyFilePath;
 
     QAction *actionPrevPicture;
     QAction *actionNextPicture;
 
+    QAction *actionActualSize;
+    QAction *actionFitToScreen;
+    QAction *actionFitByWidth;
+    QAction *actionFitByHeight;
+    QAction *actionZoomIn;
+    QAction *actionZoomOut;
+
+    QAction *actionFlipHorizontal;
+    QAction *actionFlipVertical;
+    QAction *actionRotateClockwise;
+    QAction *actionRotateCounterClockwise;
+
+    QAction *actionToggleAvoidResetTransform;
+    QAction *actionToggleCheckerboard;
     QAction *actionTogglePauseAnimation;
     QAction *actionAnimationNextFrame;
 
-    QAction *actionHorizontalFlip;
-    QAction *actionFitInView;
-    QAction *actionFitByWidth;
-    QAction *actionCopyPixmap;
-    QAction *actionCopyFilePath;
-    QAction *actionPaste;
     QAction *actionTrash;
-    QAction *actionToggleAvoidResetTransform;
-    QAction *actionSettings;
-    QAction *actionHelp;
     QAction *actionLocateInFileManager;
     QAction *actionProperties;
-    QAction *actionQuitApp;
+
+    QAction *actionSettings;
+    QAction *actionHelp;
 };
 
 #endif // ACTIONMANAGER_H

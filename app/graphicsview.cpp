@@ -140,7 +140,7 @@ void GraphicsView::resetTransform()
 
 void GraphicsView::zoomView(qreal scaleFactor)
 {
-    m_enableFitInView = false;
+    m_enableFitToScreen = false;
     scale(scaleFactor, scaleFactor);
     applyTransformationModeByScaleFactor();
     emit navigatorViewRequired(!isThingSmallerThanWindowWith(transform()), transform());
@@ -223,6 +223,8 @@ void GraphicsView::fitByOrientation(Qt::Orientation ori, bool scaleDownOnly)
     // Position the image correctly based on orientation with rotation consideration
     QRectF originalScene = sceneRect();
     QTransform currentTransform = transform();
+    
+    // TODO: May be optimized by matrix arithmetic operation?
 
     if (ori == Qt::Horizontal) {
         // For horizontal fit (fit by width), position at top (for tall images)
@@ -276,7 +278,7 @@ void GraphicsView::fitByOrientation(Qt::Orientation ori, bool scaleDownOnly)
         centerOn(sceneLeftCenter);
     }
 
-    m_enableFitInView = false;
+    m_enableFitToScreen = false;
 
     applyTransformationModeByScaleFactor();
     emit navigatorViewRequired(!isThingSmallerThanWindowWith(transform()), transform());
@@ -299,7 +301,7 @@ void GraphicsView::displayScene()
         emit navigatorViewRequired(false, transform());
     }
 
-    m_enableFitInView = true;
+    m_enableFitToScreen = true;
     m_firstUserMediaLoaded = true;
 }
 
@@ -313,9 +315,9 @@ bool GraphicsView::isSceneBiggerThanView() const
 }
 
 // Automately do fit in view when viewport(window) smaller than image original size.
-void GraphicsView::setEnableAutoFitInView(bool enable)
+void GraphicsView::setEnableAutoFitToScreen(bool enable)
 {
-    m_enableFitInView = enable;
+    m_enableFitToScreen = enable;
 }
 
 bool GraphicsView::avoidResetTransform() const
@@ -326,6 +328,15 @@ bool GraphicsView::avoidResetTransform() const
 void GraphicsView::setAvoidResetTransform(bool avoidReset)
 {
     m_avoidResetTransform = avoidReset;
+}
+
+bool GraphicsView::checkerboard() const {
+    return m_checkerboardEnabled;
+}
+
+void GraphicsView::toggleCheckerboard(bool invertCheckerboardColor)
+{
+    setCheckerboardEnabled(!m_checkerboardEnabled, invertCheckerboardColor);
 }
 
 inline double zeroOrOne(double number)
@@ -340,11 +351,6 @@ QTransform GraphicsView::resetScale(const QTransform & orig)
     return QTransform(zeroOrOne(orig.m11()), zeroOrOne(orig.m12()),
                       zeroOrOne(orig.m21()), zeroOrOne(orig.m22()),
                       orig.dx(),             orig.dy());
-}
-
-void GraphicsView::toggleCheckerboard(bool invertCheckerboardColor)
-{
-    setCheckerboardEnabled(!m_checkerboardEnabled, invertCheckerboardColor);
 }
 
 void GraphicsView::updateStyle(Qt::ColorScheme colorScheme) {
@@ -423,11 +429,11 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
 
 void GraphicsView::resizeEvent(QResizeEvent *event)
 {
-    if (m_enableFitInView) {
+    if (m_enableFitToScreen) {
         bool originalSizeSmallerThanWindow = isThingSmallerThanWindowWith(resetScale(transform()));
         if (originalSizeSmallerThanWindow && scaleFactor() >= 1) {
             // no longer need to do fitInView()
-            // but we leave the m_enableFitInView value unchanged in case
+            // but we leave the m_enableToScreen value unchanged in case
             // user resize down the window again.
         } else if (originalSizeSmallerThanWindow && scaleFactor() < 1) {
             resetScale();

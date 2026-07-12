@@ -92,13 +92,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_bottomButtonGroup = new BottomButtonGroup({
         m_am->actionActualSize,
-        m_am->actionToggleMaximize,
+        m_am->actionFitToScreen,
         m_am->actionZoomIn,
         m_am->actionZoomOut,
         m_am->actionPrevPicture,
+        m_am->actionProperties,
         m_am->actionNextPicture,
+        m_am->actionRotateCounterClockwise,
+        m_am->actionRotateClockwise,
+        m_am->actionFlipHorizontal,
         m_am->actionToggleCheckerboard,
-        m_am->actionRotateClockwise
     }, this);
 
     connect(m_pm, &PlaylistManager::totalCountChanged, this, &MainWindow::updateGalleryButtonsVisibility);
@@ -358,65 +361,73 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
+    // TODO: Update this function.
     QMenu * menu = new QMenu;
+
+    // TODO: currentImageFileUrl() may be redundant.
     QMenu * copyMenu = new QMenu(tr("&Copy"));
     QUrl currentFileUrl = currentImageFileUrl();
 
-    QAction * copyPixmap = m_am->actionCopyPixmap;
-    QAction * copyFilePath = m_am->actionCopyFilePath;
-
     copyMenu->setIcon(QIcon::fromTheme(u"edit-copy"_s));
-    copyMenu->addAction(copyPixmap);
+    copyMenu->addAction(m_am->actionCopyPixmap);
     if (currentFileUrl.isValid()) {
-        copyMenu->addAction(copyFilePath);
+        copyMenu->addAction(m_am->actionCopyFilePath);
     }
-
-    QAction * paste = m_am->actionPaste;
-
-    QAction * trash = m_am->actionTrash;
-
-    QAction * avoidResetTransform = m_am->actionToggleAvoidResetTransform;
-    avoidResetTransform->setCheckable(true);
-    avoidResetTransform->setChecked(m_gv->avoidResetTransform());
-
-    QAction * toggleSettings = m_am->actionSettings;
-    QAction * helpAction = m_am->actionHelp;
-    QAction * propertiesAction = m_am->actionProperties;
-
-#if 0
-    menu->addAction(m_am->actionOpen);
-#endif // 0
-
     if (copyMenu->actions().count() == 1) {
         menu->addActions(copyMenu->actions());
     } else {
         menu->addMenu(copyMenu);
     }
 
-    if (canPaste()) {
-        menu->addAction(paste);
-    }
+    menu->addSeparator();
+
+    menu->addAction(m_am->actionPrevPicture);
+    menu->addAction(m_am->actionNextPicture);
 
     menu->addSeparator();
 
-    menu->addAction(m_am->actionHorizontalFlip);
-#if 0
-    menu->addAction(m_am->actionFitInView);
+    menu->addAction(m_am->actionActualSize);
+    menu->addAction(m_am->actionFitToScreen);
     menu->addAction(m_am->actionFitByWidth);
-#endif // 0
+    menu->addAction(m_am->actionFitByHeight);
+    menu->addAction(m_am->actionZoomIn);
+    menu->addAction(m_am->actionZoomOut);
+
     menu->addSeparator();
+
+    menu->addAction(m_am->actionFlipHorizontal);
+    menu->addAction(m_am->actionFlipVertical);
+    menu->addAction(m_am->actionRotateClockwise);
+    menu->addAction(m_am->actionRotateCounterClockwise);
+
+    menu->addSeparator();
+
+    // TODO: Move checked update to action manager.
+    QAction * avoidResetTransform = m_am->actionToggleAvoidResetTransform;
+    avoidResetTransform->setCheckable(true);
+    avoidResetTransform->setChecked(m_gv->avoidResetTransform());
     menu->addAction(avoidResetTransform);
-    menu->addSeparator();
-    menu->addAction(toggleSettings);
-    menu->addAction(helpAction);
+    menu->addAction(m_am->actionToggleCheckerboard);
+    QAction * pauseAnimation = m_am->actionTogglePauseAnimation;
+    pauseAnimation->setCheckable(true);
+    pauseAnimation->setChecked(m_gv->scene()->pauseAnimation());
+    menu->addAction(pauseAnimation);
+    menu->addAction(m_am->actionAnimationNextFrame);
+
     if (currentFileUrl.isValid()) {
         menu->addSeparator();
         if (currentFileUrl.isLocalFile()) {
-            menu->addAction(trash);
+            menu->addAction(m_am->actionTrash);
             menu->addAction(m_am->actionLocateInFileManager);
         }
-        menu->addAction(propertiesAction);
+        menu->addAction(m_am->actionProperties);
     }
+
+    menu->addSeparator();
+
+    menu->addAction(m_am->actionSettings);
+    menu->addAction(m_am->actionHelp);
+
     menu->exec(mapToGlobal(event->pos()));
     menu->deleteLater();
     copyMenu->deleteLater();
@@ -542,55 +553,7 @@ QSize MainWindow::sizeHint() const
     return QSize(710, 530);
 }
 
-void MainWindow::on_actionOpen_triggered()
-{
-    QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-    QUrl pictureUrl = picturesLocations.isEmpty() ? QUrl::fromLocalFile(picturesLocations.first())
-                                                  : QUrl::fromLocalFile(QDir::homePath());
-    QList<QUrl> urls(QFileDialog::getOpenFileUrls(this, QString(), pictureUrl));
-    if (!urls.isEmpty()) {
-        showUrls(urls);
-    }
-}
-
-void MainWindow::on_actionActualSize_triggered()
-{
-    m_gv->resetScale();
-    m_gv->setEnableAutoFitInView(false);
-}
-
-void MainWindow::on_actionToggleMaximize_triggered()
-{
-    toggleMaximize();
-}
-
-void MainWindow::on_actionZoomIn_triggered()
-{
-    if (m_gv->scaleFactor() < 1000) {
-        m_gv->zoomView(1.25);
-    }
-}
-
-void MainWindow::on_actionZoomOut_triggered()
-{
-    m_gv->zoomView(0.8);
-}
-
-void MainWindow::on_actionHorizontalFlip_triggered()
-{
-    m_gv->flipView();
-}
-
-void MainWindow::on_actionFitInView_triggered()
-{
-    m_gv->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
-    m_gv->setEnableAutoFitInView(m_gv->scaleFactor() <= 1);
-}
-
-void MainWindow::on_actionFitByWidth_triggered()
-{
-    m_gv->fitByOrientation();
-}
+// region: Action Trigger
 
 void MainWindow::on_actionCopyPixmap_triggered()
 {
@@ -607,43 +570,99 @@ void MainWindow::on_actionCopyFilePath_triggered()
     }
 }
 
-void MainWindow::on_actionPaste_triggered()
+void MainWindow::on_actionPrevPicture_triggered()
 {
-    QImage clipboardImage;
-    QUrl clipboardFileUrl;
+    galleryPrev();
+}
 
-    const QMimeData * clipboardData = QApplication::clipboard()->mimeData();
-    if (clipboardData->hasImage()) {
-        QVariant imageVariant(clipboardData->imageData());
-        if (imageVariant.isValid()) {
-            clipboardImage = qvariant_cast<QImage>(imageVariant);
-        }
-    } else if (clipboardData->hasText()) {
-        QString clipboardText(clipboardData->text());
-        if (clipboardText.startsWith("PICTURE:")) {
-            QString maybeFilename(clipboardText.mid(8));
-            if (QFile::exists(maybeFilename)) {
-                clipboardFileUrl = QUrl::fromLocalFile(maybeFilename);
-            }
-        }
-    }
+void MainWindow::on_actionNextPicture_triggered()
+{
+    galleryNext();
+}
 
-    if (!clipboardImage.isNull()) {
-        setWindowTitle(tr("Image From Clipboard"));
-        m_gv->showImage(clipboardImage);
-        clearGallery();
-    } else if (clipboardFileUrl.isValid()) {
-        m_gv->showFileFromPath(clipboardFileUrl.toLocalFile());
-        m_pm->loadPlaylist(clipboardFileUrl);
+void MainWindow::on_actionActualSize_triggered()
+{
+    m_gv->resetScale();
+    m_gv->setEnableAutoFitToScreen(false);
+}
+
+void MainWindow::on_actionFitToScreen_triggered()
+{
+    m_gv->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+    m_gv->setEnableAutoFitToScreen(m_gv->scaleFactor() <= 1);
+}
+
+void MainWindow::on_actionFitByWidth_triggered()
+{
+    m_gv->fitByOrientation(Qt::Orientation::Horizontal);
+}
+
+void MainWindow::on_actionFitByHeight_triggered()
+{
+    m_gv->fitByOrientation(Qt::Orientation::Vertical);
+}
+
+void MainWindow::on_actionZoomIn_triggered()
+{
+    if (m_gv->scaleFactor() < 1000) {
+        m_gv->zoomView(1.25);
     }
+}
+
+void MainWindow::on_actionZoomOut_triggered()
+{
+    m_gv->zoomView(0.8);
+}
+
+void MainWindow::on_actionFlipHorizontal_triggered()
+{
+    m_gv->flipView(true);
+}
+
+void MainWindow::on_actionFlipVertical_triggered()
+{
+    m_gv->flipView(false);
+}
+
+void MainWindow::on_actionRotateClockwise_triggered()
+{
+    m_gv->rotateView(true);
+    m_gv->displayScene();
+}
+
+void MainWindow::on_actionRotateCounterClockwise_triggered()
+{
+    m_gv->rotateView(false);
+    m_gv->displayScene();
+}
+
+void MainWindow::on_actionToggleAvoidResetTransform_triggered()
+{
+    toggleAvoidResetTransform();
+}
+
+void MainWindow::on_actionToggleCheckerboard_triggered()
+{
+    m_gv->toggleCheckerboard(QGuiApplication::queryKeyboardModifiers().testFlag(Qt::ShiftModifier));
+}
+
+void MainWindow::on_actionTogglePauseAnimation_triggered()
+{
+    m_gv->scene()->togglePauseAnimation();
+}
+
+void MainWindow::on_actionAnimationNextFrame_triggered()
+{
+    m_gv->scene()->skipAnimationFrame(1);
 }
 
 void MainWindow::on_actionTrash_triggered()
 {
-    QModelIndex index = m_pm->curIndex();
-    if (!m_pm->urlByIndex(index).isLocalFile()) return;
+    auto index = m_pm->currentIndex();
+    if (!index.has_value()) return;
+    if (!m_pm->urlByIndex(*index).isLocalFile()) return;
 
-    QFile file(m_pm->localFileByIndex(index));
+    QFile file(m_pm->localFileByIndex(*index));
     QFileInfo fileInfo(file.fileName());
 
     QMessageBox::StandardButton result = QMessageBox::question(this, tr("Move to Trash"),
@@ -658,77 +677,6 @@ void MainWindow::on_actionTrash_triggered()
             galleryCurrent(true, true);
         }
     }
-}
-
-void MainWindow::on_actionToggleCheckerboard_triggered()
-{
-    // TODO: is that okay to do this since we plan to support custom shortcuts?
-    m_gv->toggleCheckerboard(QGuiApplication::queryKeyboardModifiers().testFlag(Qt::ShiftModifier));
-}
-
-void MainWindow::on_actionRotateClockwise_triggered()
-{
-    m_gv->rotateView();
-    m_gv->displayScene();
-}
-
-void MainWindow::on_actionRotateCounterClockwise_triggered()
-{
-    m_gv->rotateView(false);
-    m_gv->displayScene();
-}
-
-void MainWindow::on_actionPrevPicture_triggered()
-{
-    galleryPrev();
-}
-
-void MainWindow::on_actionNextPicture_triggered()
-{
-    galleryNext();
-}
-
-void MainWindow::on_actionTogglePauseAnimation_triggered()
-{
-    m_gv->scene()->togglePauseAnimation();
-}
-
-void MainWindow::on_actionAnimationNextFrame_triggered()
-{
-    m_gv->scene()->skipAnimationFrame(1);
-}
-
-void MainWindow::on_actionToggleAvoidResetTransform_triggered()
-{
-    toggleAvoidResetTransform();
-}
-
-void MainWindow::on_actionSettings_triggered()
-{
-    SettingsDialog * sd = new SettingsDialog(this);
-    sd->exec();
-    sd->deleteLater();
-}
-
-void MainWindow::on_actionHelp_triggered()
-{
-    AboutDialog * ad = new AboutDialog(this);
-    ad->exec();
-    ad->deleteLater();
-}
-
-void MainWindow::on_actionProperties_triggered()
-{
-    QUrl currentFileUrl = currentImageFileUrl();
-    if (!currentFileUrl.isValid()) return;
-
-    MetadataModel * md = new MetadataModel();
-    md->setFile(currentFileUrl.toLocalFile());
-
-    MetadataDialog * ad = new MetadataDialog(this);
-    ad->setMetadataModel(md);
-    ad->exec();
-    ad->deleteLater();
 }
 
 void MainWindow::on_actionLocateInFileManager_triggered()
@@ -766,23 +714,39 @@ void MainWindow::on_actionLocateInFileManager_triggered()
 #endif // Q_OS_WIN
 }
 
-void MainWindow::on_actionQuitApp_triggered()
+void MainWindow::on_actionProperties_triggered()
 {
-    quitAppAction(false);
+    QUrl currentFileUrl = currentImageFileUrl();
+    if (!currentFileUrl.isValid()) return;
+
+    MetadataModel * md = new MetadataModel();
+    md->setFile(currentFileUrl.toLocalFile());
+
+    MetadataDialog * ad = new MetadataDialog(this);
+    ad->setMetadataModel(md);
+    ad->exec();
+    ad->deleteLater();
 }
+
+void MainWindow::on_actionSettings_triggered()
+{
+    SettingsDialog * sd = new SettingsDialog(this);
+    sd->exec();
+    sd->deleteLater();
+}
+
+void MainWindow::on_actionHelp_triggered()
+{
+    AboutDialog * ad = new AboutDialog(this);
+    ad->exec();
+    ad->deleteLater();
+}
+
+// endregion
 
 bool MainWindow::updateFileWatcher(const QString &basePath)
 {
     m_fileSystemWatcher->removePaths(m_fileSystemWatcher->files());
     if (!basePath.isEmpty()) return m_fileSystemWatcher->addPath(basePath);
     return false;
-}
-
-void MainWindow::updateGalleryButtonsVisibility()
-{
-    const int galleryFileCount = m_pm->totalCount();
-    const bool loopGallery = Settings::instance()->loopGallery();
-    m_am->enablePrevNextPictureAction(
-        galleryFileCount > 1 && (loopGallery || !m_pm->isFirstIndex()),
-        galleryFileCount > 1 && (loopGallery || !m_pm->isLastIndex()));
 }

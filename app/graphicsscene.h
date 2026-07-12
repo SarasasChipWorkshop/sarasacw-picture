@@ -21,7 +21,19 @@ public:
 
     bool trySetTransformationMode(Qt::TransformationMode mode, float scaleHint);
 
+    /// Check whether current thing is animation.
+    /// Only animation thing can be paused.
+    bool canPauseAnimation() const;
+    /// Check whether we are pasuing an animation graphics.
+    bool isPauseAnimation() const;
+    /// Toggle animation graphics pause state.
+    /// Return true for successfully toggle, otherwise false.
     bool togglePauseAnimation();
+    /// Check whether we can skip animation frame.
+    /// Only paused animation graphics can skip frame.
+    bool canSkipAnimationFrame() const;
+    /// Skip paused animation graphics with given frame.
+    /// Return true for successfully skip, otherwise false.
     bool skipAnimationFrame(int delta = 1);
 
     QPixmap renderToPixmap();
