@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
     this->setAcceptDrops(true);
 
-    m_pm->setAutoLoadFilterSuffixes(supportedImageFormats());
+    m_pm->setAllowedSuffixes(supportedImageFormats());
 
     GraphicsScene * scene = new GraphicsScene(this);
 
@@ -104,13 +104,13 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionToggleCheckerboard,
     }, this);
 
-    connect(m_pm, &PlaylistManager::totalCountChanged, this, &MainWindow::updateGalleryButtonsVisibility);
+    connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::updateActionState, this));
 
-    connect(m_pm->model(), &PlaylistModel::modelReset, this, std::bind(&MainWindow::galleryCurrent, this, false, false));
-    connect(m_pm, &PlaylistManager::currentIndexChanged, this, std::bind(&MainWindow::galleryCurrent, this, true, false));
+    connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::galleryCurrent, this, false));
+    connect(m_pm, &PlaylistManager::currentIndexChanged, this, std::bind(&MainWindow::galleryCurrent, this, false));
 
     connect(m_fileSystemWatcher, &QFileSystemWatcher::fileChanged, this, [this](){
-        QTimer::singleShot(500, this, std::bind(&MainWindow::galleryCurrent, this, false, true));
+        QTimer::singleShot(500, this, std::bind(&MainWindow::galleryCurrent, this, true));
     });
 
     QShortcut * fullscreenShorucut = new QShortcut(QKeySequence(QKeySequence::FullScreen), this);
@@ -130,26 +130,15 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::showUrls(const QList<QUrl> &urls)
+void MainWindow::showFiles(const QStringList &files)
 {
-    if (!urls.isEmpty()) {
-        const QUrl & firstUrl = urls.first();
-        if (urls.count() == 1) {
-            const QString lowerCaseUrlPath(firstUrl.path().toLower());
-            if (lowerCaseUrlPath.endsWith(".m3u8") || lowerCaseUrlPath.endsWith(".m3u")) {
-                m_pm->loadM3U8Playlist(firstUrl);
-                galleryCurrent(true, true);
-                return;
-            }
-        }
-        m_gv->showFileFromPath(firstUrl.toLocalFile());
-        m_pm->loadPlaylist(urls);
-    } else {
-        m_gv->showText(tr("File url list is empty"));
-        m_pm->setPlaylist(urls);
-        return;
-    }
+    m_pm->loadPlaylist(files);
+    m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+}
 
+void MainWindow::showFiles(const QList<QUrl>& urls)
+{
+    m_pm->loadPlaylist(urls);
     m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
 }
 
@@ -201,15 +190,9 @@ void MainWindow::adjustWindowSizeBySceneRect()
     }
 }
 
-// can be empty if it is NOT from a local file.
-QUrl MainWindow::currentImageFileUrl() const
-{
-    return m_pm->urlByIndex(m_pm->curIndex());
-}
-
 void MainWindow::clearGallery()
 {
-    m_pm->setPlaylist({});
+    m_pm->clearPlaylist();
 }
 
 void MainWindow::galleryPrev()
@@ -217,10 +200,9 @@ void MainWindow::galleryPrev()
     const bool loopGallery = Settings::instance()->loopGallery();
     if (!loopGallery && m_pm->isFirstIndex()) return;
 
-    QModelIndex index = m_pm->previousIndex();
-    if (index.isValid()) {
-        m_pm->setCurrentIndex(index);
-        m_gv->showFileFromPath(m_pm->localFileByIndex(index));
+    auto index = m_pm->previousIndex();
+    if (index.has_value()) {
+        m_pm->setCurrentIndex(*index);
     }
 }
 
@@ -229,31 +211,29 @@ void MainWindow::galleryNext()
     const bool loopGallery = Settings::instance()->loopGallery();
     if (!loopGallery && m_pm->isLastIndex()) return;
 
-    QModelIndex index = m_pm->nextIndex();
-    if (index.isValid()) {
-        m_pm->setCurrentIndex(index);
-        m_gv->showFileFromPath(m_pm->localFileByIndex(index));
+    auto index = m_pm->nextIndex();
+    if (index.has_value()) {
+        m_pm->setCurrentIndex(*index);
     }
 }
 
-// Only use this to update minor information.
-void MainWindow::galleryCurrent(bool showLoadImageHintWhenEmpty, bool reloadImage)
+void MainWindow::galleryCurrent(bool fromFileWatcher)
 {
-    QModelIndex index = m_pm->curIndex();
-    bool shouldResetfileWatcher = true;
-    if (index.isValid()) {
-        const QString & localFilePath(m_pm->localFileByIndex(index));
-        if (reloadImage) m_gv->showFileFromPath(localFilePath);
-        shouldResetfileWatcher = !updateFileWatcher(localFilePath);
-        setWindowTitle(m_pm->urlByIndex(index).fileName());
-    } else if (showLoadImageHintWhenEmpty && m_pm->totalCount() <= 0) {
-        m_gv->showText(QCoreApplication::translate("GraphicsScene", "Drag image here"));
+    auto index = m_pm->currentIndex();
+    if (index.has_value()) {
+        QString localFilePath = m_pm->localFileByIndex(*index);
+        m_gv->showFileFromPath(localFilePath);
+        if (!fromFileWatcher) {
+            updateFileWatcher(localFilePath);
+            setWindowTitle(m_pm->urlByIndex(*index).fileName());
+        }
+    } else {
+        m_gv->showText(tr("Drag image here"));
         setWindowTitle(QString());
+        updateFileWatcher();
     }
 
-    updateGalleryButtonsVisibility();
-
-    if (shouldResetfileWatcher) updateFileWatcher();
+    updateActionState();
 }
 
 QStringList MainWindow::supportedImageFormats()
@@ -361,23 +341,10 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-    // TODO: Update this function.
     QMenu * menu = new QMenu;
 
-    // TODO: currentImageFileUrl() may be redundant.
-    QMenu * copyMenu = new QMenu(tr("&Copy"));
-    QUrl currentFileUrl = currentImageFileUrl();
-
-    copyMenu->setIcon(QIcon::fromTheme(u"edit-copy"_s));
-    copyMenu->addAction(m_am->actionCopyPixmap);
-    if (currentFileUrl.isValid()) {
-        copyMenu->addAction(m_am->actionCopyFilePath);
-    }
-    if (copyMenu->actions().count() == 1) {
-        menu->addActions(copyMenu->actions());
-    } else {
-        menu->addMenu(copyMenu);
-    }
+    menu->addAction(m_am->actionCopyPixmap);
+    menu->addAction(m_am->actionCopyFilePath);
 
     menu->addSeparator();
 
@@ -402,26 +369,16 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
     menu->addSeparator();
 
-    // TODO: Move checked update to action manager.
-    QAction * avoidResetTransform = m_am->actionToggleAvoidResetTransform;
-    avoidResetTransform->setCheckable(true);
-    avoidResetTransform->setChecked(m_gv->avoidResetTransform());
-    menu->addAction(avoidResetTransform);
+    menu->addAction(m_am->actionToggleAvoidResetTransform);
     menu->addAction(m_am->actionToggleCheckerboard);
-    QAction * pauseAnimation = m_am->actionTogglePauseAnimation;
-    pauseAnimation->setCheckable(true);
-    pauseAnimation->setChecked(m_gv->scene()->pauseAnimation());
-    menu->addAction(pauseAnimation);
+    menu->addAction(m_am->actionTogglePauseAnimation);
     menu->addAction(m_am->actionAnimationNextFrame);
 
-    if (currentFileUrl.isValid()) {
-        menu->addSeparator();
-        if (currentFileUrl.isLocalFile()) {
-            menu->addAction(m_am->actionTrash);
-            menu->addAction(m_am->actionLocateInFileManager);
-        }
-        menu->addAction(m_am->actionProperties);
-    }
+    menu->addSeparator();
+
+    menu->addAction(m_am->actionTrash);
+    menu->addAction(m_am->actionLocateInFileManager);
+    menu->addAction(m_am->actionProperties);
 
     menu->addSeparator();
 
@@ -430,14 +387,13 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
     menu->exec(mapToGlobal(event->pos()));
     menu->deleteLater();
-    copyMenu->deleteLater();
 
     return FramelessWindow::contextMenuEvent(event);
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event->mimeData()->hasUrls() || event->mimeData()->hasImage() || event->mimeData()->hasText()) {
+    if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
     } else {
         event->ignore();
@@ -456,24 +412,8 @@ void MainWindow::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 
     const QMimeData * mimeData = event->mimeData();
-
     if (mimeData->hasUrls()) {
-        const QList<QUrl> &urls = mimeData->urls();
-        if (urls.isEmpty()) {
-            m_gv->showText(tr("File url list is empty"));
-        } else {
-            showUrls(urls);
-        }
-    } else if (mimeData->hasImage()) {
-        QImage img = qvariant_cast<QImage>(mimeData->imageData());
-        QPixmap pixmap = QPixmap::fromImage(img);
-        if (pixmap.isNull()) {
-            m_gv->showText(tr("Image data is invalid"));
-        } else {
-            m_gv->showImage(pixmap);
-        }
-    } else if (mimeData->hasText()) {
-        m_gv->showText(mimeData->text());
+        showFiles(mimeData->urls());
     } else {
         m_gv->showText(tr("Not supported mimedata: %1").arg(mimeData->formats().first()));
     }
@@ -504,25 +444,7 @@ void MainWindow::updateWidgetsPosition()
 
 void MainWindow::toggleAvoidResetTransform()
 {
-    m_gv->setAvoidResetTransform(!m_gv->avoidResetTransform());
-}
-
-bool MainWindow::canPaste() const
-{
-    const QMimeData * clipboardData = QApplication::clipboard()->mimeData();
-    if (clipboardData->hasImage()) {
-        return true;
-    } else if (clipboardData->hasText()) {
-        QString clipboardText(clipboardData->text());
-        if (clipboardText.startsWith("PICTURE:")) {
-            QString maybeFilename(clipboardText.mid(8));
-            if (QFile::exists(maybeFilename)) {
-                return true;
-            }
-        }
-    }
-
-    return false;
+    m_gv->setAvoidResetTransform(!m_gv->isAvoidResetTransform());
 }
 
 void MainWindow::quitAppAction(bool force)
@@ -563,11 +485,11 @@ void MainWindow::on_actionCopyPixmap_triggered()
 
 void MainWindow::on_actionCopyFilePath_triggered()
 {
-    QUrl currentFileUrl(currentImageFileUrl());
-    if (currentFileUrl.isValid()) {
-        QClipboard *cb = QApplication::clipboard();
-        cb->setText(currentFileUrl.toLocalFile());
-    }
+    auto index = m_pm->currentIndex();
+    if (!index.has_value()) return;
+
+    QClipboard *cb = QApplication::clipboard();
+    cb->setText(m_pm->localFileByIndex(*index));
 }
 
 void MainWindow::on_actionPrevPicture_triggered()
@@ -673,15 +595,16 @@ void MainWindow::on_actionTrash_triggered()
             QMessageBox::warning(this, tr("Failed to move file to trash"),
                                  tr("Move to trash failed, it might caused by file permission issue, file system limitation, or platform limitation."));
         } else {
-            m_pm->removeAt(index);
-            galleryCurrent(true, true);
+            m_pm->removeFromPlaylist(*index);
         }
     }
 }
 
 void MainWindow::on_actionLocateInFileManager_triggered()
 {
-    QUrl currentFileUrl = currentImageFileUrl();
+    auto index = m_pm->currentIndex();
+    if (!index.has_value()) return;
+    QUrl currentFileUrl = m_pm->urlByIndex(*index);
     if (!currentFileUrl.isValid()) return;
 
     QFileInfo fileInfo(currentFileUrl.toLocalFile());
@@ -716,7 +639,9 @@ void MainWindow::on_actionLocateInFileManager_triggered()
 
 void MainWindow::on_actionProperties_triggered()
 {
-    QUrl currentFileUrl = currentImageFileUrl();
+    auto index = m_pm->currentIndex();
+    if (!index.has_value()) return;
+    QUrl currentFileUrl = m_pm->urlByIndex(*index);
     if (!currentFileUrl.isValid()) return;
 
     MetadataModel * md = new MetadataModel();
@@ -749,4 +674,8 @@ bool MainWindow::updateFileWatcher(const QString &basePath)
     m_fileSystemWatcher->removePaths(m_fileSystemWatcher->files());
     if (!basePath.isEmpty()) return m_fileSystemWatcher->addPath(basePath);
     return false;
+}
+
+void MainWindow::updateActionState() {
+    m_am->updateActionState(m_pm, m_gv);
 }

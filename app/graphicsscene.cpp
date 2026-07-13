@@ -129,7 +129,7 @@ private:
 GraphicsScene::GraphicsScene(QObject *parent)
     : QGraphicsScene(parent)
 {
-    showText(tr("Drag image here"));
+    showText(tr("Drag image here", "The same meaning of MainWindow's hint."));
     connect(qGuiApp->styleHints(), &QStyleHints::colorSchemeChanged, this, &GraphicsScene::updateStyle);
 }
 

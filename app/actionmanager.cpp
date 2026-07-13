@@ -179,6 +179,11 @@ void ActionManager::updateActionState(PlaylistManager* pm, GraphicsView* gv)
     const auto* gs = gv->scene();
     const auto* settings = Settings::instance();
 
+    // Update copy actions
+    bool canCopy = pm->currentIndex().has_value();
+    actionCopyPixmap->setEnabled(canCopy);
+    actionCopyFilePath->setEnabled(canCopy);
+
     // Update Prev/Next Picture State
     const int galleryFileCount = pm->totalCount();
     const bool loopGallery = settings->loopGallery();
@@ -186,11 +191,9 @@ void ActionManager::updateActionState(PlaylistManager* pm, GraphicsView* gv)
     actionNextPicture->setEnabled(galleryFileCount > 1 && (loopGallery || !pm->isLastIndex()));
 
     // Update Avoid Reset Transform
-    actionToggleAvoidResetTransform->setCheckable(gv->avoidResetTransform());
-
+    actionToggleAvoidResetTransform->setChecked(gv->isAvoidResetTransform());
     // Update Checkerboard
-    actionToggleCheckerboard->setChecked(gv->checkerboard());
-
+    actionToggleCheckerboard->setChecked(gv->isCheckerboard());
     // Update Animation Graphics Action
     bool canPauseAnimation = gs->canPauseAnimation();
     actionTogglePauseAnimation->setEnabled(canPauseAnimation);
@@ -202,7 +205,10 @@ void ActionManager::updateActionState(PlaylistManager* pm, GraphicsView* gv)
     bool canSkipAnimation = gs->canSkipAnimationFrame();
     actionAnimationNextFrame->setEnabled(canSkipAnimation);
 
-    // TODO: Add more...
-
+    // Update trash, located in explorer and properties.
+    bool hasLoadedFile = pm->currentIndex().has_value();
+    actionTrash->setEnabled(hasLoadedFile);
+    actionLocateInFileManager->setEnabled(hasLoadedFile);
+    actionProperties->setEnabled(hasLoadedFile);
 }
 

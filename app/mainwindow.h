@@ -29,15 +29,15 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
-    void showUrls(const QList<QUrl> &urls);
+    void showFiles(const QStringList& files);
+    void showFiles(const QList<QUrl>& urls);
     void initWindowSize();
     void adjustWindowSizeBySceneRect();
-    QUrl currentImageFileUrl() const;
 
     void clearGallery();
     void galleryPrev();
     void galleryNext();
-    void galleryCurrent(bool showLoadImageHintWhenEmpty, bool reloadImage);
+    void galleryCurrent(bool fromFileWatcher);
 
     static QStringList supportedImageFormats();
 
@@ -57,7 +57,6 @@ protected slots:
     void closeWindow();
     void updateWidgetsPosition();
     void toggleAvoidResetTransform();
-    bool canPaste() const;
     void quitAppAction(bool force = false);
     void toggleFullscreen();
     void toggleMaximize();
@@ -98,6 +97,7 @@ private slots:
 
 private:
     bool updateFileWatcher(const QString & basePath = QString());
+    void updateActionState();
 
 private:
     ActionManager *m_am;

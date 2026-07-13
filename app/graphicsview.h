@@ -40,10 +40,10 @@ public:
     bool isSceneBiggerThanView() const;
     void setEnableAutoFitToScreen(bool enable = true);
 
-    bool avoidResetTransform() const;
+    bool isAvoidResetTransform() const;
     void setAvoidResetTransform(bool avoidReset);
 
-    bool checkerboard() const;
+    bool isCheckerboard() const;
     void toggleCheckerboard(bool invertCheckerboardColor = false);
 
     static QTransform resetScale(const QTransform & orig);

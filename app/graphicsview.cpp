@@ -320,7 +320,7 @@ void GraphicsView::setEnableAutoFitToScreen(bool enable)
     m_enableFitToScreen = enable;
 }
 
-bool GraphicsView::avoidResetTransform() const
+bool GraphicsView::isAvoidResetTransform() const
 {
     return m_avoidResetTransform;
 }
@@ -330,7 +330,7 @@ void GraphicsView::setAvoidResetTransform(bool avoidReset)
     m_avoidResetTransform = avoidReset;
 }
 
-bool GraphicsView::checkerboard() const {
+bool GraphicsView::isCheckerboard() const {
     return m_checkerboardEnabled;
 }
 

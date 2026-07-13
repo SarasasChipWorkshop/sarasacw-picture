@@ -4,7 +4,6 @@
 
 #include "mainwindow.h"
 
-#include "playlistmanager.h"
 #include "settings.h"
 
 #ifdef Q_OS_MACOS
@@ -68,21 +67,19 @@ int main(int argc, char *argv[])
     a.installEventFilter(fileOpenEventHandler);
     a.connect(fileOpenEventHandler, &FileOpenEventHandler::fileOpen, [&w](const QUrl & url){
         if (w.isHidden()) {
-            w.setWindowOpacity(1);
             w.showNormal();
         } else {
             w.activateWindow();
         }
-        w.showUrls({url});
+        w.showFiles({url});
         w.initWindowSize();
     });
 
     // Handle dock icon clicks to show hidden window
     a.connect(&a, &QApplication::applicationStateChanged, [&w](Qt::ApplicationState state) {
         if (state == Qt::ApplicationActive && w.isHidden()) {
-            w.showUrls({});
-            w.galleryCurrent(true, true);
-            w.setWindowOpacity(1);
+            w.showFiles({});
+            w.galleryCurrent(false);
             w.showNormal();
             w.raise();
             w.activateWindow();
@@ -90,12 +87,8 @@ int main(int argc, char *argv[])
     });
 #endif // Q_OS_MACOS
 
-    QStringList urlStrList = parser.positionalArguments();
-    QList<QUrl> && urlList = PlaylistManager::convertToUrlList(urlStrList);
-
-    if (!urlList.isEmpty()) {
-        w.showUrls(urlList);
-    }
+    QStringList fileList = parser.positionalArguments();
+    w.showFiles(fileList);
 
     w.initWindowSize();
 

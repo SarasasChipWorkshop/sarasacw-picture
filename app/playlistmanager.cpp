@@ -9,152 +9,13 @@
 #include <QFileInfo>
 #include <QUrl>
 
-PlaylistModel::PlaylistModel(QObject *parent)
-    : QAbstractListModel(parent)
-{
-
-}
-
-PlaylistModel::~PlaylistModel()
-= default;
-
-void PlaylistModel::setPlaylist(const QList<QUrl> &urls)
-{
-    beginResetModel();
-    m_playlist = urls;
-    endResetModel();
-}
-
-QModelIndex PlaylistModel::loadPlaylist(const QList<QUrl> & urls)
-{
-    if (urls.isEmpty()) return {};
-    if (urls.count() == 1) {
-        return loadPlaylist(urls.constFirst());
-    } else {
-        setPlaylist(urls);
-        return index(0);
-    }
-}
-
-QModelIndex PlaylistModel::loadPlaylist(const QUrl &url)
-{
-    QFileInfo info(url.toLocalFile());
-    QDir dir(info.path());
-    QString && currentFileName = info.fileName();
-
-    if (dir.path() == m_currentDir) {
-        int idx = indexOf(url);
-        return idx == -1 ? appendToPlaylist(url) : index(idx);
-    }
-
-    QStringList entryList = dir.entryList(
-        m_autoLoadSuffixes,
-        QDir::Files | QDir::NoSymLinks, QDir::NoSort);
-
-    QCollator collator;
-    collator.setNumericMode(true);
-
-    std::sort(entryList.begin(), entryList.end(), collator);
-
-    QList<QUrl> playlist;
-
-    int idx = -1;
-    for (int i = 0; i < entryList.count(); i++) {
-        const QString & fileName = entryList.at(i);
-        const QString & oneEntry = dir.absoluteFilePath(fileName);
-        const QUrl & url = QUrl::fromLocalFile(oneEntry);
-        playlist.append(url);
-        if (fileName == currentFileName) {
-            idx = i;
-        }
-    }
-    if (idx == -1) {
-        idx = playlist.count();
-        playlist.append(url);
-    }
-    m_currentDir = dir.path();
-
-    setPlaylist(playlist);
-
-    return index(idx);
-}
-
-QModelIndex PlaylistModel::appendToPlaylist(const QUrl &url)
-{
-    const int lastIndex = rowCount();
-    beginInsertRows(QModelIndex(), lastIndex, lastIndex);
-    m_playlist.append(url);
-    endInsertRows();
-    return index(lastIndex);
-}
-
-bool PlaylistModel::removeAt(int index)
-{
-    if (index < 0 || index >= rowCount()) return false;
-    beginRemoveRows(QModelIndex(), index, index);
-    m_playlist.removeAt(index);
-    endRemoveRows();
-    return true;
-}
-
-int PlaylistModel::indexOf(const QUrl &url) const
-{
-    return m_playlist.indexOf(url);
-}
-
-QUrl PlaylistModel::urlByIndex(int index) const
-{
-    return m_playlist.value(index);
-}
-
-QStringList PlaylistModel::autoLoadFilterSuffixes() const
-{
-    return m_autoLoadSuffixes;
-}
-
-QHash<int, QByteArray> PlaylistModel::roleNames() const
-{
-    QHash<int, QByteArray> result = QAbstractListModel::roleNames();
-    result.insert(UrlRole, "url");
-    return result;
-}
-
-int PlaylistModel::rowCount(const QModelIndex &parent) const
-{
-    return m_playlist.count();
-}
-
-QVariant PlaylistModel::data(const QModelIndex &index, int role) const
-{
-    if (!index.isValid()) return {};
-
-    switch (role) {
-    case Qt::DisplayRole:
-        return m_playlist.at(index.row()).fileName();
-    case UrlRole:
-        return m_playlist.at(index.row());
-    }
-
-    return {};
-}
-
 PlaylistManager::PlaylistManager(QObject *parent)
     : QObject(parent)
+    , m_currentIndex(std::nullopt)
+    , m_playlist()
+    , m_allowedSuffixes()
 {
-    connect(&m_model, &PlaylistModel::rowsRemoved, this,
-            [this](const QModelIndex &, int, int) {
-                if (m_model.rowCount() <= m_currentIndex) {
-                    setProperty("currentIndex", m_currentIndex - 1);
-                }
-            });
 
-    auto onRowCountChanged = [this](){
-        emit totalCountChanged(m_model.rowCount());
-    };
-
-    connect(&m_model, &PlaylistModel::rowsInserted, this, onRowCountChanged);
-    connect(&m_model, &PlaylistModel::rowsRemoved, this, onRowCountChanged);
-    connect(&m_model, &PlaylistModel::modelReset, this, onRowCountChanged);
 }
 
 PlaylistManager::~PlaylistManager()
@@ -162,35 +23,106 @@ PlaylistManager::~PlaylistManager()
 
 }
 
-PlaylistModel *PlaylistManager::model()
-{
-    return &m_model;
+// region: Allowed Suffixes Operations
+
+const QStringList& PlaylistManager::allowedSuffixes() const {
+    return m_allowedSuffixes;
 }
 
-void PlaylistManager::setPlaylist(const QList<QUrl> &urls)
-{
-    m_model.setPlaylist(urls);
+void PlaylistManager::setAllowedSuffixes(const QStringList& nameFilters) {
+    m_allowedSuffixes = nameFilters;
+    emit allowedSuffixesChanged(m_allowedSuffixes);
 }
 
-QModelIndex PlaylistManager::loadPlaylist(const QList<QUrl> &urls)
-{
-    QModelIndex idx = m_model.loadPlaylist(urls);
-    setProperty("currentIndex", idx.row());
-    return idx;
+// endregion
+
+// region: Playlist Loader and Reset
+
+bool PlaylistManager::loadPlaylist(const QStringList& files) {
+    // Convert string list to url list first
+    QList<QUrl> urls;
+    for (const QString & file : std::as_const(files)) {
+        urls.append(urlFromString(file));
+    }
+
+    return loadPlaylist(urls);
 }
 
-QModelIndex PlaylistManager::loadPlaylist(const QUrl &url)
-{
-    QModelIndex idx = m_model.loadPlaylist(url);
-    setProperty("currentIndex", idx.row());
-    return idx;
+bool PlaylistManager::loadPlaylist(const QList<QUrl>& urls) {
+    // Check its count, and check M3U8 playlist for single file case.
+    if (urls.isEmpty()) {
+        clearPlaylist();
+        return true;
+    } else if (urls.count() == 1) {
+        const QUrl& firstUrl = urls.first();
+        const QString lowerCaseUrlPath(firstUrl.path().toLower());
+        if (lowerCaseUrlPath.endsWith(".m3u8") || lowerCaseUrlPath.endsWith(".m3u")) {
+            return loadM3U8Playlist(firstUrl);
+        } else {
+            return loadSingleFilePlaylist(firstUrl);
+        }
+    } else {
+        return loadMultipleFilesPlaylist(std::move(urls));
+    }
 }
 
-QModelIndex PlaylistManager::loadM3U8Playlist(const QUrl &url)
-{
+bool PlaylistManager::loadSingleFilePlaylist(const QUrl& url) {
+    // Check URL at first
+    if (!checkUrl(url))
+        return false;
+
+    QFileInfo info(url.toLocalFile());
+    QDir dir(info.path());
+    QString currentFileName = info.fileName();
+
+    QStringList entryList = dir.entryList(
+        m_allowedSuffixes, QDir::Files | QDir::NoSymLinks, QDir::NoSort);
+
+    QCollator collator;
+    collator.setNumericMode(true);
+
+    std::sort(entryList.begin(), entryList.end(), collator);
+
+    QList<QUrl> playlist;
+    std::optional<qsizetype> idx = std::nullopt;
+    for (qsizetype i = 0; i < entryList.count(); i++) {
+        const QString &fileName = entryList.at(i);
+        const QString &oneEntry = dir.absoluteFilePath(fileName);
+        const QUrl &url = QUrl::fromLocalFile(oneEntry);
+        if (!checkUrl(url)) {
+            return false;
+        }
+        playlist.append(url);
+        if (fileName == currentFileName) {
+            idx = i;
+        }
+    }
+
+    setPlaylist(std::move(playlist), idx);
+    return true;
+}
+
+bool PlaylistManager::loadMultipleFilesPlaylist(const QList<QUrl>&& urls) {
+    // Check all of them are valid
+    for (const auto& url : std::as_const(urls)) {
+        if (!checkUrl(url)) {
+            return false;
+        }
+    }
+
+    // Set playlist and return
+    setPlaylist(std::move(urls));
+    return true;
+}
+
+bool PlaylistManager::loadM3U8Playlist(const QUrl& url) {
+    // Check URL at first
+    if (!checkUrl(url))
+        return false;
+
+    QList<QUrl> urls;
     QFile file(url.toLocalFile());
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QList<QUrl> urls;
         while (!file.atEnd()) {
             QString line = file.readLine();
             if (line.startsWith('#')) {
@@ -198,86 +130,185 @@ QModelIndex PlaylistManager::loadM3U8Playlist(const QUrl &url)
             }
             QFileInfo fileInfo(file);
             QUrl item = QUrl::fromUserInput(line, fileInfo.absolutePath());
+            if (!checkUrl(item)) {
+                return false;
+            }
             urls.append(item);
         }
-        return loadPlaylist(urls);
     } else {
-        return {};
+        return false;
+    }
+
+    setPlaylist(std::move(urls));
+    return true;
+}
+
+void PlaylistManager::setPlaylist(const QList<QUrl>&& urls, std::optional<qsizetype> indexHint) {
+    // Setup playlist
+    m_playlist = std::move(urls);
+
+    // Set index with hint
+    if (indexHint.has_value()) {
+        m_currentIndex = *indexHint;
+    }
+    sanitizeIndex();
+
+    // Raise signal
+    emit playlistChanged(totalCount());
+}
+
+void PlaylistManager::clearPlaylist() {
+    m_playlist.clear();
+    sanitizeIndex();
+    emit playlistChanged(this->totalCount());
+}
+
+// endregion
+
+// region: Playlist Operations
+
+void PlaylistManager::appendToPlaylist(const QString &file)
+{
+    return appendToPlaylist(urlFromString(file));
+}
+
+void PlaylistManager::appendToPlaylist(const QUrl &url)
+{
+    m_playlist.append(url);
+    sanitizeIndex();
+    emit playlistChanged(totalCount());
+}
+
+bool PlaylistManager::insertIntoPlaylist(qsizetype index, const QString &file)
+{
+    return insertIntoPlaylist(index, urlFromString(file));
+}
+
+bool PlaylistManager::insertIntoPlaylist(qsizetype index, const QUrl &url)
+{
+    if (index < 0 || index > totalCount()) {
+        return false;
+    } else {
+        m_playlist.insert(index, url);
+        sanitizeIndex();
+        emit playlistChanged(totalCount());
+        return true;
     }
 }
 
-int PlaylistManager::totalCount() const
+bool PlaylistManager::removeFromPlaylist(qsizetype index)
 {
-    return m_model.rowCount();
+    if (index < 0 || index >= totalCount()) {
+        return false;
+    } else {
+        m_playlist.removeAt(index);
+        sanitizeIndex();
+        emit playlistChanged(totalCount());
+        return true;
+    }
 }
 
-QModelIndex PlaylistManager::previousIndex() const
-{
-    int count = totalCount();
-    if (count == 0) return {};
+// endregion
 
-    return m_model.index(isFirstIndex() ? count - 1 : m_currentIndex - 1);
+// region: Index Operations
+
+qsizetype PlaylistManager::totalCount() const
+{
+    return m_playlist.count();
 }
 
-QModelIndex PlaylistManager::nextIndex() const
+std::optional<qsizetype> PlaylistManager::previousIndex() const
 {
-    int count = totalCount();
-    if (count == 0) return {};
-
-    return m_model.index(isLastIndex() ? 0 : m_currentIndex + 1);
+    if (!m_currentIndex.has_value() || totalCount() <= 0) return std::nullopt;
+    return (isFirstIndex() ? totalCount() - 1 : *m_currentIndex - 1);
 }
 
-QModelIndex PlaylistManager::curIndex() const
+std::optional<qsizetype> PlaylistManager::nextIndex() const
 {
-    return m_model.index(m_currentIndex);
+    if (!m_currentIndex.has_value() || totalCount() <= 0) return std::nullopt;
+    return (isLastIndex() ? 0 : *m_currentIndex + 1);
 }
 
 bool PlaylistManager::isFirstIndex() const
 {
-    return m_currentIndex == 0;
+    return m_currentIndex.has_value() && *m_currentIndex == 0;
 }
 
 bool PlaylistManager::isLastIndex() const
 {
-    return m_currentIndex + 1 == totalCount();
+    return m_currentIndex.has_value() && *m_currentIndex + 1 == totalCount();
 }
 
-void PlaylistManager::setCurrentIndex(const QModelIndex &index)
+std::optional<qsizetype> PlaylistManager::currentIndex() const
 {
-    if (index.isValid() && index.row() >= 0 && index.row() < totalCount()) {
-        setProperty("currentIndex", index.row());
+    return m_currentIndex;
+}
+
+bool PlaylistManager::setCurrentIndex(qsizetype index)
+{
+    if (!m_currentIndex.has_value()) {
+        return false;
     }
+    if (index < 0 || index >= totalCount()) {
+        return false;
+    }
+    if (*m_currentIndex == index) {
+        return true;
+    }
+
+    m_currentIndex = index;
+    emit currentIndexChanged(index);
+    return true;
 }
 
-QUrl PlaylistManager::urlByIndex(const QModelIndex &index)
+QUrl PlaylistManager::urlByIndex(qsizetype index) const
 {
-    return m_model.urlByIndex(index.row());
+    return m_playlist.value(index);
 }
 
-QString PlaylistManager::localFileByIndex(const QModelIndex &index)
+QString PlaylistManager::localFileByIndex(qsizetype index) const
 {
     return urlByIndex(index).toLocalFile();
 }
 
-bool PlaylistManager::removeAt(const QModelIndex &index)
-{
-    return m_model.removeAt(index.row());
-}
+// endregion
 
-void PlaylistManager::setAutoLoadFilterSuffixes(const QStringList &nameFilters)
-{
-    m_model.setProperty("autoLoadFilterSuffixes", nameFilters);
-}
+// region: Misc
 
-QList<QUrl> PlaylistManager::convertToUrlList(const QStringList &files)
+void PlaylistManager::sanitizeIndex()
 {
-    QList<QUrl> urlList;
-    for (const QString & str : std::as_const(files)) {
-        QUrl url = QUrl::fromLocalFile(str);
-        if (url.isValid()) {
-            urlList.append(url);
+    auto cnt = totalCount();
+    if (cnt == 0) {
+        // If playlist is empty, current index should be invalid.
+        m_currentIndex = std::nullopt;
+    } else {
+        if (m_currentIndex.has_value()) {
+            // Clamp current index in playlist range.
+            // If it is already in range, not change was done.
+            auto currentIndex = *m_currentIndex;
+            if (currentIndex < 0) {
+                m_currentIndex = 0;
+            } else if (currentIndex >= cnt) {
+                m_currentIndex = cnt - 1;
+            } else {
+                ; // No change.
+            }
+        } else {
+            // If there is no set value for current index,
+            // set it at the beginning of playlist.
+            m_currentIndex = 0;
         }
     }
-
-    return urlList;
 }
+
+bool PlaylistManager::checkUrl(const QUrl& url)
+{
+    return url.isValid() && url.isLocalFile();
+}
+
+QUrl PlaylistManager::urlFromString(const QString& file)
+{
+    return QUrl::fromLocalFile(file);
+}
+
+// endregion
