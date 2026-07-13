@@ -12,6 +12,7 @@
 #include <QPushButton>
 
 QT_BEGIN_NAMESPACE
+class QMenu;
 class QGraphicsView;
 class QFileSystemWatcher;
 QT_END_NAMESPACE
@@ -105,6 +106,7 @@ private:
     GraphicsView *m_gv;
     NavigatorView *m_nav;
 
+    QMenu *m_menu;
     QFileSystemWatcher *m_fileSystemWatcher;
     BottomButtonGroup *m_bottomButtonGroup;
 };

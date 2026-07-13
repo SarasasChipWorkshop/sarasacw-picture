@@ -104,6 +104,52 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionToggleCheckerboard,
     }, this);
 
+    m_menu = new QMenu(this);
+
+    {
+        m_menu->addAction(m_am->actionCopyPixmap);
+        m_menu->addAction(m_am->actionCopyFilePath);
+
+        m_menu->addSeparator();
+
+        m_menu->addAction(m_am->actionPrevPicture);
+        m_menu->addAction(m_am->actionNextPicture);
+
+        m_menu->addSeparator();
+
+        m_menu->addAction(m_am->actionActualSize);
+        m_menu->addAction(m_am->actionFitToScreen);
+        m_menu->addAction(m_am->actionFitByWidth);
+        m_menu->addAction(m_am->actionFitByHeight);
+        m_menu->addAction(m_am->actionZoomIn);
+        m_menu->addAction(m_am->actionZoomOut);
+
+        m_menu->addSeparator();
+
+        m_menu->addAction(m_am->actionFlipHorizontal);
+        m_menu->addAction(m_am->actionFlipVertical);
+        m_menu->addAction(m_am->actionRotateClockwise);
+        m_menu->addAction(m_am->actionRotateCounterClockwise);
+
+        m_menu->addSeparator();
+
+        m_menu->addAction(m_am->actionToggleAvoidResetTransform);
+        m_menu->addAction(m_am->actionToggleCheckerboard);
+        m_menu->addAction(m_am->actionTogglePauseAnimation);
+        m_menu->addAction(m_am->actionAnimationNextFrame);
+
+        m_menu->addSeparator();
+
+        m_menu->addAction(m_am->actionTrash);
+        m_menu->addAction(m_am->actionLocateInFileManager);
+        m_menu->addAction(m_am->actionProperties);
+
+        m_menu->addSeparator();
+
+        m_menu->addAction(m_am->actionSettings);
+        m_menu->addAction(m_am->actionHelp);
+    }
+
     connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::updateActionState, this));
 
     connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::galleryCurrent, this, false));
@@ -341,52 +387,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-    QMenu * menu = new QMenu;
-
-    menu->addAction(m_am->actionCopyPixmap);
-    menu->addAction(m_am->actionCopyFilePath);
-
-    menu->addSeparator();
-
-    menu->addAction(m_am->actionPrevPicture);
-    menu->addAction(m_am->actionNextPicture);
-
-    menu->addSeparator();
-
-    menu->addAction(m_am->actionActualSize);
-    menu->addAction(m_am->actionFitToScreen);
-    menu->addAction(m_am->actionFitByWidth);
-    menu->addAction(m_am->actionFitByHeight);
-    menu->addAction(m_am->actionZoomIn);
-    menu->addAction(m_am->actionZoomOut);
-
-    menu->addSeparator();
-
-    menu->addAction(m_am->actionFlipHorizontal);
-    menu->addAction(m_am->actionFlipVertical);
-    menu->addAction(m_am->actionRotateClockwise);
-    menu->addAction(m_am->actionRotateCounterClockwise);
-
-    menu->addSeparator();
-
-    menu->addAction(m_am->actionToggleAvoidResetTransform);
-    menu->addAction(m_am->actionToggleCheckerboard);
-    menu->addAction(m_am->actionTogglePauseAnimation);
-    menu->addAction(m_am->actionAnimationNextFrame);
-
-    menu->addSeparator();
-
-    menu->addAction(m_am->actionTrash);
-    menu->addAction(m_am->actionLocateInFileManager);
-    menu->addAction(m_am->actionProperties);
-
-    menu->addSeparator();
-
-    menu->addAction(m_am->actionSettings);
-    menu->addAction(m_am->actionHelp);
-
-    menu->exec(mapToGlobal(event->pos()));
-    menu->deleteLater();
+    m_menu->exec(mapToGlobal(event->pos()));
 
     return FramelessWindow::contextMenuEvent(event);
 }
