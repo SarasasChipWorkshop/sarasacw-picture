@@ -39,7 +39,6 @@ endif ()
 
 set (PPIC_CPP_FILES
     app/main.cpp
-    app/framelesswindow.cpp
     app/mainwindow.cpp
     app/actionmanager.cpp
     app/graphicsview.cpp
@@ -57,7 +56,6 @@ set (PPIC_CPP_FILES
 )
 
 set (PPIC_HEADER_FILES
-    app/framelesswindow.h
     app/mainwindow.h
     app/actionmanager.h
     app/graphicsview.h

@@ -5,14 +5,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "framelesswindow.h"
-
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 class QMenu;
+class QVBoxLayout;
 class QGraphicsView;
 class QFileSystemWatcher;
 QT_END_NAMESPACE
@@ -22,7 +21,7 @@ class PlaylistManager;
 class GraphicsView;
 class NavigatorView;
 class BottomButtonGroup;
-class MainWindow : public FramelessWindow
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
@@ -104,6 +103,7 @@ private:
     NavigatorView *m_nav;
 
     QMenu *m_menu;
+    QVBoxLayout * m_centralLayout = nullptr;
     QFileSystemWatcher *m_fileSystemWatcher;
     BottomButtonGroup *m_bottomButtonGroup;
 };

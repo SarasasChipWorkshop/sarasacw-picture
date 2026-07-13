@@ -37,6 +37,7 @@
 #include <QProcess>
 #include <QDesktopServices>
 #include <QMessageBox>
+#include <QVBoxLayout>
 
 #ifdef HAVE_QTDBUS
 #include <QDBusInterface>
@@ -46,11 +47,17 @@
 using namespace Qt::Literals::StringLiterals;
 
 MainWindow::MainWindow(QWidget *parent)
-    : FramelessWindow(parent)
+    : QWidget(parent)
     , m_am(new ActionManager)
     , m_pm(new PlaylistManager(this))
     , m_fileSystemWatcher(new QFileSystemWatcher(this))
 {
+    this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
+    m_centralLayout = new QVBoxLayout(this);
+    // YYC MARK:
+    // 72 px is the height of Windows Photo Viewer's bottom line.
+    m_centralLayout->setContentsMargins(QMargins(0, 0, 0, 72)); // TODO: This value may be declared as a constant.
+
     // YYC MARK:
     // Blumis set original value is 350 x 330.
     // It is too small for modern device,
@@ -65,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_gv = new GraphicsView(this);
     m_gv->setScene(scene);
-    this->setCentralWidget(m_gv);
+    m_centralLayout->addWidget(m_gv);
 
     m_nav = new NavigatorView(this);
     // YYC MARK:
@@ -299,7 +306,7 @@ void MainWindow::showEvent(QShowEvent *event)
 {
     updateWidgetsPosition();
 
-    return FramelessWindow::showEvent(event);
+    return QWidget::showEvent(event);
 }
 
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
@@ -364,7 +371,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         }
         event->accept();
     } else {
-        FramelessWindow::wheelEvent(event);
+        QWidget::wheelEvent(event);
     }
 }
 
@@ -372,14 +379,14 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 {
     updateWidgetsPosition();
 
-    return FramelessWindow::resizeEvent(event);
+    return QWidget::resizeEvent(event);
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
     m_menu->exec(mapToGlobal(event->pos()));
 
-    return FramelessWindow::contextMenuEvent(event);
+    return QWidget::contextMenuEvent(event);
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -390,7 +397,7 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
         event->ignore();
     }
 
-    return FramelessWindow::dragEnterEvent(event);
+    return QWidget::dragEnterEvent(event);
 }
 
 void MainWindow::dragMoveEvent(QDragMoveEvent *event)
