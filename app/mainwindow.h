@@ -44,8 +44,6 @@ public:
 
 protected slots:
     void showEvent(QShowEvent *event) override;
-    void enterEvent(QEnterEvent *event) override;
-    void leaveEvent(QEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
@@ -58,7 +56,6 @@ protected slots:
     void closeWindow();
     void updateWidgetsPosition();
     void toggleAvoidResetTransform();
-    void quitAppAction(bool force = false);
     void toggleFullscreen();
     void toggleMaximize();
 

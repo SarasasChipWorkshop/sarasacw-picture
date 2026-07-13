@@ -302,16 +302,6 @@ void MainWindow::showEvent(QShowEvent *event)
     return FramelessWindow::showEvent(event);
 }
 
-void MainWindow::enterEvent(QEnterEvent *event)
-{
-    return FramelessWindow::enterEvent(event);
-}
-
-void MainWindow::leaveEvent(QEvent *event)
-{
-    return FramelessWindow::leaveEvent(event);
-}
-
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
     // The forward/back mouse button can also used to trigger a mouse double-click event
@@ -322,7 +312,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 
     switch (Settings::instance()->doubleClickBehavior()) {
     case Settings::DoubleClickBehavior::Close:
-        quitAppAction();
+        closeWindow();
         event->accept();
         break;
     case Settings::DoubleClickBehavior::Maximize:
@@ -446,11 +436,6 @@ void MainWindow::updateWidgetsPosition()
 void MainWindow::toggleAvoidResetTransform()
 {
     m_gv->setAvoidResetTransform(!m_gv->isAvoidResetTransform());
-}
-
-void MainWindow::quitAppAction(bool force)
-{
-    closeWindow();
 }
 
 void MainWindow::toggleFullscreen()
