@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 #include "playlistmanager.h"
+#include "winplaylistpatch.h"
 
 #include <QCollator>
 #include <QDir>
@@ -71,32 +72,48 @@ bool PlaylistManager::loadSingleFilePlaylist(const QUrl& url) {
     if (!checkUrl(url))
         return false;
 
-    QFileInfo info(url.toLocalFile());
-    QDir dir(info.path());
-    QString currentFileName = info.fileName();
-
-    QStringList entryList = dir.entryList(
-        m_allowedSuffixes, QDir::Files | QDir::NoSymLinks, QDir::NoSort);
-
-    QCollator collator;
-    collator.setNumericMode(true);
-
-    std::sort(entryList.begin(), entryList.end(), collator);
-
     QList<QUrl> playlist;
     std::optional<qsizetype> idx = std::nullopt;
-    for (qsizetype i = 0; i < entryList.count(); i++) {
-        const QString &fileName = entryList.at(i);
-        const QString &oneEntry = dir.absoluteFilePath(fileName);
-        const QUrl &url = QUrl::fromLocalFile(oneEntry);
-        if (!checkUrl(url)) {
-            return false;
+
+#ifdef Q_OS_WIN
+    // In Windows, Qt approach can not aware Windows Explorer custom sort order.
+    // So we need to try using Win32 functions for fetching it at first
+    if (!WinPlaylistPatch::loadSingleFilePlaylist(url, m_allowedSuffixes, playlist, idx)) {
+#endif // Q_OS_WIN
+
+        // If Windows approach is failed or we are not in Windows,
+        // use Qt way to process it.
+
+        QFileInfo info(url.toLocalFile());
+        QDir dir(info.path());
+        QString currentFileName = info.fileName();
+
+        QStringList entryList = dir.entryList(
+            m_allowedSuffixes, QDir::Files | QDir::NoSymLinks, QDir::NoSort);
+
+        QCollator collator;
+        collator.setNumericMode(true);
+
+        std::sort(entryList.begin(), entryList.end(), collator);
+
+        playlist.clear();
+        idx = std::nullopt;
+        for (qsizetype i = 0; i < entryList.count(); i++) {
+            const QString &fileName = entryList.at(i);
+            const QString &oneEntry = dir.absoluteFilePath(fileName);
+            const QUrl &url = QUrl::fromLocalFile(oneEntry);
+            if (!checkUrl(url)) {
+                return false;
+            }
+            playlist.append(url);
+            if (fileName == currentFileName) {
+                idx = i;
+            }
         }
-        playlist.append(url);
-        if (fileName == currentFileName) {
-            idx = i;
-        }
+
+#ifdef Q_OS_WIN
     }
+#endif // Q_OS_WIN
 
     setPlaylist(std::move(playlist), idx);
     return true;

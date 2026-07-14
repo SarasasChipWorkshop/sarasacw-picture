@@ -53,6 +53,7 @@ set (PPIC_CPP_FILES
     app/exiv2wrapper.cpp
     app/playlistmanager.cpp
     app/fileopeneventhandler.cpp
+    app/winplaylistpatch.cpp
 )
 
 set (PPIC_HEADER_FILES
@@ -70,6 +71,7 @@ set (PPIC_HEADER_FILES
     app/exiv2wrapper.h
     app/playlistmanager.h
     app/fileopeneventhandler.h
+    app/winplaylistpatch.h
 )
 
 set (PPIC_UI_FILES
