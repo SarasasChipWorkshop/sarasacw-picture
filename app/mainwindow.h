@@ -103,6 +103,8 @@ private:
     NavigatorView *m_nav;
 
     QMenu *m_menu;
+    QMenu *m_subMenuCopy;
+    QMenu *m_subMenuTransform;
     QVBoxLayout * m_centralLayout = nullptr;
     QFileSystemWatcher *m_fileSystemWatcher;
     BottomButtonGroup *m_bottomButtonGroup;

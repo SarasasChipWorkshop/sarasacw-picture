@@ -111,11 +111,35 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionToggleCheckerboard,
     }, this);
 
-    m_menu = new QMenu(this);
-
+    m_subMenuCopy = new QMenu(this);
+    m_subMenuCopy->setTitle(tr("&Copy"));
+    m_subMenuCopy->setIcon(QIcon::fromTheme(QLatin1String("edit-copy")));
     {
-        m_menu->addAction(m_am->actionCopyPixmap);
-        m_menu->addAction(m_am->actionCopyFilePath);
+        m_subMenuCopy->addAction(m_am->actionCopyPixmap);
+        m_subMenuCopy->addAction(m_am->actionCopyFilePath);
+    }
+
+    m_subMenuTransform = new QMenu(this);
+    m_subMenuTransform->setTitle(tr("&Transform"));
+    {
+        m_subMenuTransform->addAction(m_am->actionActualSize);
+        m_subMenuTransform->addAction(m_am->actionFitToScreen);
+        m_subMenuTransform->addAction(m_am->actionFitByWidth);
+        m_subMenuTransform->addAction(m_am->actionFitByHeight);
+        m_subMenuTransform->addAction(m_am->actionZoomIn);
+        m_subMenuTransform->addAction(m_am->actionZoomOut);
+
+        m_subMenuTransform->addSeparator();
+
+        m_subMenuTransform->addAction(m_am->actionFlipHorizontal);
+        m_subMenuTransform->addAction(m_am->actionFlipVertical);
+        m_subMenuTransform->addAction(m_am->actionRotateClockwise);
+        m_subMenuTransform->addAction(m_am->actionRotateCounterClockwise);
+    }
+
+    m_menu = new QMenu(this);
+    {
+        m_menu->addMenu(m_subMenuCopy);
 
         m_menu->addSeparator();
 
@@ -124,19 +148,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         m_menu->addSeparator();
 
-        m_menu->addAction(m_am->actionActualSize);
-        m_menu->addAction(m_am->actionFitToScreen);
-        m_menu->addAction(m_am->actionFitByWidth);
-        m_menu->addAction(m_am->actionFitByHeight);
-        m_menu->addAction(m_am->actionZoomIn);
-        m_menu->addAction(m_am->actionZoomOut);
-
-        m_menu->addSeparator();
-
-        m_menu->addAction(m_am->actionFlipHorizontal);
-        m_menu->addAction(m_am->actionFlipVertical);
-        m_menu->addAction(m_am->actionRotateClockwise);
-        m_menu->addAction(m_am->actionRotateCounterClockwise);
+        m_menu->addMenu(m_subMenuTransform);
 
         m_menu->addSeparator();
 
@@ -156,6 +168,7 @@ MainWindow::MainWindow(QWidget *parent)
         m_menu->addAction(m_am->actionSettings);
         m_menu->addAction(m_am->actionHelp);
     }
+
 
     connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::updateActionState, this));
 
