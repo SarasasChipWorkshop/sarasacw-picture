@@ -42,6 +42,11 @@ namespace QEnumHelper
     }
 }
 
+bool Settings::showNavigatorView() const
+{
+    return m_qsettings->value("show_navigator_view", true).toBool();
+}
+
 bool Settings::useLightCheckerboard() const
 {
     return m_qsettings->value("use_light_checkerboard", false).toBool();
@@ -81,6 +86,12 @@ Qt::HighDpiScaleFactorRoundingPolicy Settings::hiDpiScaleFactorBehavior() const
 {
     QString result = m_qsettings->value("hidpi_scale_factor_behavior", "").toString();
     return QEnumHelper::fromString<Qt::HighDpiScaleFactorRoundingPolicy>(result, Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+}
+
+void Settings::setShowNavigatorView(bool on)
+{
+    m_qsettings->setValue("show_navigator_view", on);
+    m_qsettings->sync();
 }
 
 void Settings::setUseLightCheckerboard(bool light)

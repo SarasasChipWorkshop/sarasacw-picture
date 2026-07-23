@@ -78,11 +78,16 @@ MainWindow::MainWindow(QWidget *parent)
     // Binding graphics and navigator views signals
     connect(ui->m_gv, &GraphicsView::navigatorViewRequired,
             this, [this](bool required, const QTransform & tf){
-        ui->m_nav->setTransform(GraphicsView::resetScale(tf));
-        ui->m_nav->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
-        ui->m_nav->setVisible(required);
-        ui->m_navPH->setVisible(required);
-        ui->m_nav->updateMainViewportRegion();
+        if (Settings::instance()->showNavigatorView()){
+            ui->m_nav->setTransform(GraphicsView::resetScale(tf));
+            ui->m_nav->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
+            ui->m_nav->setVisible(required);
+            ui->m_navPH->setVisible(required);
+            ui->m_nav->updateMainViewportRegion();
+        } else {
+            ui->m_nav->setVisible(false);
+            ui->m_navPH->setVisible(false);
+        }
     });
     connect(ui->m_gv, &GraphicsView::viewportRectChanged,
             ui->m_nav, &NavigatorView::updateMainViewportRegion);

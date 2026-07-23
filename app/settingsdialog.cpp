@@ -79,6 +79,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 
     auto* settings = Settings::instance();
+    ui->m_showNavigatorView->setChecked(Settings::instance()->showNavigatorView());
     ui->m_useLightCheckerboard->setChecked(settings->useLightCheckerboard());
     ui->m_loopGallery->setChecked(settings->loopGallery());
     ui->m_svgTiny12Only->setChecked(settings->svgTiny12Only());
@@ -99,6 +100,10 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 # define QCHECKBOX_CHECKSTATECHANGED QCheckBox::stateChanged
 # define QT_CHECKSTATE int
 #endif // QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+
+    connect(ui->m_showNavigatorView, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+        Settings::instance()->setShowNavigatorView(state == Qt::Checked);
+    });
 
     connect(ui->m_useLightCheckerboard, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
         Settings::instance()->setUseLightCheckerboard(state == Qt::Checked);
