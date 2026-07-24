@@ -28,7 +28,6 @@ public:
     void showFiles(const QStringList& files);
     void showFiles(const QList<QUrl>& urls);
     void initWindowSize();
-    void adjustWindowSizeBySceneRect();
 
     void clearGallery();
     void galleryPrev();

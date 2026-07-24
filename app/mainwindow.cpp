@@ -59,8 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
     // YYC MARK:
     // Blumis set original value is 350 x 330.
     // It is too small for modern device,
-    // so I level it up to standard VGA resolution 640 x 480.
-    this->setMinimumSize(640, 480);
+    // so I level it up to SVGA resolution 800 x 600.
+    this->setMinimumSize(800, 600);
     this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
     this->setAcceptDrops(true);
 
@@ -193,48 +193,13 @@ void MainWindow::showFiles(const QList<QUrl>& urls)
 void MainWindow::initWindowSize()
 {
     switch (Settings::instance()->initWindowSizeBehavior()) {
-    case Settings::WindowSizeBehavior::Auto:
-        adjustWindowSizeBySceneRect();
-        break;
     case Settings::WindowSizeBehavior::Maximized:
         showMaximized();
         break;
     case Settings::WindowSizeBehavior::Windowed:
+    default:
         showNormal();
         break;
-    default:
-        adjustWindowSizeBySceneRect();
-        break;
-    }
-}
-
-void MainWindow::adjustWindowSizeBySceneRect()
-{
-    if (m_pm->totalCount() < 1) return;
-
-    QSize sceneSize = ui->m_gv->sceneRect().toRect().size();
-    QSize sceneSizeWithMargins = sceneSize + QSize(130, 125);
-
-    if (ui->m_gv->scaleFactor() < 1 || size().expandedTo(sceneSizeWithMargins) != size()) {
-        // if it scaled down by the resize policy:
-        QSize screenSize = qApp->screenAt(QCursor::pos())->availableSize();
-        if (screenSize.expandedTo(sceneSize) == screenSize) {
-            // we can show the picture by increase the window size.
-            QSize finalSize = (screenSize.expandedTo(sceneSizeWithMargins) == screenSize) ?
-                              sceneSizeWithMargins : screenSize;
-            // We have a very reasonable sizeHint() value ;P
-            this->resize(finalSize.expandedTo(this->sizeHint()));
-
-            // We're sure the window can display the whole thing with 1:1 scale.
-            // The old window size may cause fitInView call from resize() and the
-            // above resize() call won't reset the scale back to 1:1, so we
-            // just call resetScale() here to ensure the thing is no longer scaled.
-            ui->m_gv->resetScale();
-            centerWindow();
-        } else {
-            // toggle maximum
-            showMaximized();
-        }
     }
 }
 

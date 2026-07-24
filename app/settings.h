@@ -17,9 +17,7 @@ public:
     };
     Q_ENUM(MouseWheelBehavior)
 
-    // TODO: I want to remove Auto behavior in future.
     enum WindowSizeBehavior {
-        Auto,
         Maximized,
         Windowed,
     };

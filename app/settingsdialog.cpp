@@ -58,7 +58,6 @@ static EnumComboBoxTransformer<Settings::MouseWheelBehavior, QString> MW_OPTIONS
 
 static EnumComboBoxTransformer<Settings::WindowSizeBehavior, QString> IWS_OPTIONS {
     {
-        { Settings::WindowSizeBehavior::Auto, QCoreApplication::translate("SettingsDialog", "Auto size") },
         { Settings::WindowSizeBehavior::Maximized, QCoreApplication::translate("SettingsDialog", "Maximized") },
         { Settings::WindowSizeBehavior::Windowed, QCoreApplication::translate("SettingsDialog", "Windowed") }
     }
