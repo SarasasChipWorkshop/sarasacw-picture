@@ -52,7 +52,7 @@ signals:
     void navigatorViewRequired(bool required, QTransform transform);
     void viewportRectChanged();
 
-public slots:
+private slots:
     void updateStyle(Qt::ColorScheme colorScheme);
 
 private:

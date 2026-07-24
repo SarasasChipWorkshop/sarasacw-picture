@@ -78,6 +78,7 @@ set (PPIC_UI_FILES
     app/settingsdialog.ui
     app/aboutdialog.ui
     app/metadatadialog.ui
+    app/mainwindow.ui
 )
 
 set (PPIC_QRC_FILES
@@ -118,6 +119,11 @@ if (TRANSLATION_RESOURCE_EMBEDDING)
 else()
     qt_add_translations(${EXE_NAME} ${ADD_TRANSLATIONS_ADDITIONAL_ARGS} TS_FILES ${PPIC_TS_FILES} QM_FILES_OUTPUT_VARIABLE PPIC_QM_FILES)
 endif()
+
+# YYC MARK:
+# This is essential, otherwise Qt UIC generated UI header file
+# can not find our header files if there are custom widgets inside UI file.
+target_include_directories(${EXE_NAME} PRIVATE app/)
 
 target_sources(${EXE_NAME} PRIVATE ${PPIC_QM_FILES})
 

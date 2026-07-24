@@ -8,7 +8,7 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
-BottomButtonGroup::BottomButtonGroup(const std::vector<QAction *> &actionList, QWidget *parent)
+BottomButtonGroup::BottomButtonGroup(QWidget *parent)
     : QGroupBox (parent)
 {
     QHBoxLayout * mainLayout = new QHBoxLayout(this);
@@ -25,7 +25,9 @@ QToolButton {
     border-style: none;
 }
 )#");
+}
 
+void BottomButtonGroup::addActions(const std::vector<QAction *> & actionList) {
     for (QAction * action : actionList) {
         // Create button
         QToolButton * btn = new QToolButton(this);
@@ -36,4 +38,8 @@ QToolButton {
         layout()->addWidget(btn);
     }
     updateGeometry();
+}
+
+void BottomButtonGroup::addAction(QAction* action) {
+    addActions({action});
 }

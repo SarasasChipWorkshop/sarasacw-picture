@@ -5,22 +5,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QParallelAnimationGroup>
-#include <QPropertyAnimation>
-#include <QPushButton>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
-class QMenu;
-class QVBoxLayout;
-class QGraphicsView;
 class QFileSystemWatcher;
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class ActionManager;
 class PlaylistManager;
-class GraphicsView;
-class NavigatorView;
-class BottomButtonGroup;
+
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -42,10 +38,8 @@ public:
     static QStringList supportedImageFormats();
 
 protected slots:
-    void showEvent(QShowEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *event) override;
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
@@ -53,7 +47,6 @@ protected slots:
 
     void centerWindow();
     void closeWindow();
-    void updateWidgetsPosition();
     void toggleAvoidResetTransform();
     void toggleFullscreen();
     void toggleMaximize();
@@ -97,17 +90,11 @@ private:
     void updateActionState();
 
 private:
+    QT_PREPEND_NAMESPACE(Ui::MainWindow) *ui;
+    
     ActionManager *m_am;
     PlaylistManager *m_pm;
-    GraphicsView *m_gv;
-    NavigatorView *m_nav;
-
-    QMenu *m_menu;
-    QMenu *m_subMenuCopy;
-    QMenu *m_subMenuTransform;
-    QVBoxLayout * m_centralLayout = nullptr;
     QFileSystemWatcher *m_fileSystemWatcher;
-    BottomButtonGroup *m_bottomButtonGroup;
 };
 
 #endif // MAINWINDOW_H

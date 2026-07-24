@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include "settings.h"
 #include "bottombuttongroup.h"
@@ -37,7 +38,6 @@
 #include <QProcess>
 #include <QDesktopServices>
 #include <QMessageBox>
-#include <QVBoxLayout>
 
 #ifdef HAVE_QTDBUS
 #include <QDBusInterface>
@@ -48,15 +48,13 @@ using namespace Qt::Literals::StringLiterals;
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
+    , ui(new QT_PREPEND_NAMESPACE(Ui::MainWindow))
     , m_am(new ActionManager)
     , m_pm(new PlaylistManager(this))
     , m_fileSystemWatcher(new QFileSystemWatcher(this))
 {
+    ui->setupUi(this);
     this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
-    m_centralLayout = new QVBoxLayout(this);
-    // YYC MARK:
-    // 72 px is the height of Windows Photo Viewer's bottom line.
-    m_centralLayout->setContentsMargins(QMargins(0, 0, 0, 72)); // TODO: This value may be declared as a constant.
 
     // YYC MARK:
     // Blumis set original value is 350 x 330.
@@ -66,38 +64,33 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
     this->setAcceptDrops(true);
 
+    // Initialize playlist manager
     m_pm->setAllowedSuffixes(supportedImageFormats());
 
+    // Initialize graphics scene
     GraphicsScene * scene = new GraphicsScene(this);
-
-    m_gv = new GraphicsView(this);
-    m_gv->setScene(scene);
-    m_centralLayout->addWidget(m_gv);
-
-    m_nav = new NavigatorView(this);
-    // YYC MARK:
-    // Blumia set original value is 220 x 160.
-    // So if we set its height to 72 for respecting the height of Windows Photo Viewer,
-    // the width should be set to 99 for keeping aspect ratio.
-    m_nav->setFixedSize(99, 72);
-    m_nav->setScene(scene);
-    m_nav->setMainView(m_gv);
-    m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
-
-    connect(m_gv, &GraphicsView::navigatorViewRequired,
+    // Setup graphics view (main photo view)
+    ui->m_gv->setScene(scene);
+    // Setup navigator view (right-bottom corner thumbnail view)
+    ui->m_nav->setScene(scene);
+    ui->m_nav->setMainView(ui->m_gv);
+    ui->m_nav->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
+    // Binding graphics and navigator views signals
+    connect(ui->m_gv, &GraphicsView::navigatorViewRequired,
             this, [this](bool required, const QTransform & tf){
-        m_nav->setTransform(GraphicsView::resetScale(tf));
-        m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
-        m_nav->setVisible(required);
-        m_nav->updateMainViewportRegion();
+        ui->m_nav->setTransform(GraphicsView::resetScale(tf));
+        ui->m_nav->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
+        ui->m_nav->setVisible(required);
+        ui->m_navPH->setVisible(required);
+        ui->m_nav->updateMainViewportRegion();
     });
+    connect(ui->m_gv, &GraphicsView::viewportRectChanged,
+            ui->m_nav, &NavigatorView::updateMainViewportRegion);
 
-    connect(m_gv, &GraphicsView::viewportRectChanged,
-            m_nav, &NavigatorView::updateMainViewportRegion);
-
+    // Setup action manager
     m_am->setupAction(this);
-
-    m_bottomButtonGroup = new BottomButtonGroup({
+    // Setup bottom button group
+    ui->m_bottomButtonGroup->addActions({
         m_am->actionActualSize,
         m_am->actionFitToScreen,
         m_am->actionZoomIn,
@@ -109,67 +102,59 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionRotateClockwise,
         m_am->actionFlipHorizontal,
         m_am->actionToggleCheckerboard,
-    }, this);
-
-    m_subMenuCopy = new QMenu(this);
-    m_subMenuCopy->setTitle(tr("&Copy"));
-    m_subMenuCopy->setIcon(QIcon::fromTheme(QLatin1String("edit-copy")));
+    });
+    // Setup right click menus
     {
-        m_subMenuCopy->addAction(m_am->actionCopyPixmap);
-        m_subMenuCopy->addAction(m_am->actionCopyFilePath);
+        ui->m_subMenuCopy->addAction(m_am->actionCopyPixmap);
+        ui->m_subMenuCopy->addAction(m_am->actionCopyFilePath);
+    }
+    {
+        ui->m_subMenuTransform->addAction(m_am->actionActualSize);
+        ui->m_subMenuTransform->addAction(m_am->actionFitToScreen);
+        ui->m_subMenuTransform->addAction(m_am->actionFitByWidth);
+        ui->m_subMenuTransform->addAction(m_am->actionFitByHeight);
+        ui->m_subMenuTransform->addAction(m_am->actionZoomIn);
+        ui->m_subMenuTransform->addAction(m_am->actionZoomOut);
+
+        ui->m_subMenuTransform->addSeparator();
+
+        ui->m_subMenuTransform->addAction(m_am->actionFlipHorizontal);
+        ui->m_subMenuTransform->addAction(m_am->actionFlipVertical);
+        ui->m_subMenuTransform->addAction(m_am->actionRotateClockwise);
+        ui->m_subMenuTransform->addAction(m_am->actionRotateCounterClockwise);
+    }
+    {
+        ui->m_menu->addMenu(ui->m_subMenuCopy);
+
+        ui->m_menu->addSeparator();
+
+        ui->m_menu->addAction(m_am->actionPrevPicture);
+        ui->m_menu->addAction(m_am->actionNextPicture);
+
+        ui->m_menu->addSeparator();
+
+        ui->m_menu->addMenu(ui->m_subMenuTransform);
+
+        ui->m_menu->addSeparator();
+
+        ui->m_menu->addAction(m_am->actionToggleAvoidResetTransform);
+        ui->m_menu->addAction(m_am->actionToggleCheckerboard);
+        ui->m_menu->addAction(m_am->actionTogglePauseAnimation);
+        ui->m_menu->addAction(m_am->actionAnimationNextFrame);
+
+        ui->m_menu->addSeparator();
+
+        ui->m_menu->addAction(m_am->actionTrash);
+        ui->m_menu->addAction(m_am->actionLocateInFileManager);
+        ui->m_menu->addAction(m_am->actionProperties);
+
+        ui->m_menu->addSeparator();
+
+        ui->m_menu->addAction(m_am->actionSettings);
+        ui->m_menu->addAction(m_am->actionHelp);
     }
 
-    m_subMenuTransform = new QMenu(this);
-    m_subMenuTransform->setTitle(tr("&Transform"));
-    {
-        m_subMenuTransform->addAction(m_am->actionActualSize);
-        m_subMenuTransform->addAction(m_am->actionFitToScreen);
-        m_subMenuTransform->addAction(m_am->actionFitByWidth);
-        m_subMenuTransform->addAction(m_am->actionFitByHeight);
-        m_subMenuTransform->addAction(m_am->actionZoomIn);
-        m_subMenuTransform->addAction(m_am->actionZoomOut);
-
-        m_subMenuTransform->addSeparator();
-
-        m_subMenuTransform->addAction(m_am->actionFlipHorizontal);
-        m_subMenuTransform->addAction(m_am->actionFlipVertical);
-        m_subMenuTransform->addAction(m_am->actionRotateClockwise);
-        m_subMenuTransform->addAction(m_am->actionRotateCounterClockwise);
-    }
-
-    m_menu = new QMenu(this);
-    {
-        m_menu->addMenu(m_subMenuCopy);
-
-        m_menu->addSeparator();
-
-        m_menu->addAction(m_am->actionPrevPicture);
-        m_menu->addAction(m_am->actionNextPicture);
-
-        m_menu->addSeparator();
-
-        m_menu->addMenu(m_subMenuTransform);
-
-        m_menu->addSeparator();
-
-        m_menu->addAction(m_am->actionToggleAvoidResetTransform);
-        m_menu->addAction(m_am->actionToggleCheckerboard);
-        m_menu->addAction(m_am->actionTogglePauseAnimation);
-        m_menu->addAction(m_am->actionAnimationNextFrame);
-
-        m_menu->addSeparator();
-
-        m_menu->addAction(m_am->actionTrash);
-        m_menu->addAction(m_am->actionLocateInFileManager);
-        m_menu->addAction(m_am->actionProperties);
-
-        m_menu->addSeparator();
-
-        m_menu->addAction(m_am->actionSettings);
-        m_menu->addAction(m_am->actionHelp);
-    }
-
-
+    // Connect playlist manager and file watcher signals for photo browsering.
     connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::updateActionState, this));
 
     connect(m_pm, &PlaylistManager::playlistChanged, this, std::bind(&MainWindow::galleryCurrent, this, false));
@@ -179,10 +164,7 @@ MainWindow::MainWindow(QWidget *parent)
         QTimer::singleShot(500, this, std::bind(&MainWindow::galleryCurrent, this, true));
     });
 
-    QShortcut * fullscreenShorucut = new QShortcut(QKeySequence(QKeySequence::FullScreen), this);
-    connect(fullscreenShorucut, &QShortcut::activated,
-            this, &MainWindow::toggleFullscreen);
-
+    // Change window location
     centerWindow();
 
     QTimer::singleShot(0, this, [this](){
@@ -193,19 +175,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-
+    delete ui;
 }
 
 void MainWindow::showFiles(const QStringList &files)
 {
     m_pm->loadPlaylist(files);
-    m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+    ui->m_nav->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::showFiles(const QList<QUrl>& urls)
 {
     m_pm->loadPlaylist(urls);
-    m_nav->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
+    ui->m_nav->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::initWindowSize()
@@ -230,10 +212,10 @@ void MainWindow::adjustWindowSizeBySceneRect()
 {
     if (m_pm->totalCount() < 1) return;
 
-    QSize sceneSize = m_gv->sceneRect().toRect().size();
+    QSize sceneSize = ui->m_gv->sceneRect().toRect().size();
     QSize sceneSizeWithMargins = sceneSize + QSize(130, 125);
 
-    if (m_gv->scaleFactor() < 1 || size().expandedTo(sceneSizeWithMargins) != size()) {
+    if (ui->m_gv->scaleFactor() < 1 || size().expandedTo(sceneSizeWithMargins) != size()) {
         // if it scaled down by the resize policy:
         QSize screenSize = qApp->screenAt(QCursor::pos())->availableSize();
         if (screenSize.expandedTo(sceneSize) == screenSize) {
@@ -247,7 +229,7 @@ void MainWindow::adjustWindowSizeBySceneRect()
             // The old window size may cause fitInView call from resize() and the
             // above resize() call won't reset the scale back to 1:1, so we
             // just call resetScale() here to ensure the thing is no longer scaled.
-            m_gv->resetScale();
+            ui->m_gv->resetScale();
             centerWindow();
         } else {
             // toggle maximum
@@ -288,13 +270,13 @@ void MainWindow::galleryCurrent(bool fromFileWatcher)
     auto index = m_pm->currentIndex();
     if (index.has_value()) {
         QString localFilePath = m_pm->localFileByIndex(*index);
-        m_gv->showFileFromPath(localFilePath);
+        ui->m_gv->showFileFromPath(localFilePath);
         if (!fromFileWatcher) {
             updateFileWatcher(localFilePath);
             setWindowTitle(m_pm->urlByIndex(*index).fileName());
         }
     } else {
-        m_gv->showText(tr("Drag image here"));
+        ui->m_gv->showText(tr("Drag image here"));
         setWindowTitle(QString());
         updateFileWatcher();
     }
@@ -313,13 +295,6 @@ QStringList MainWindow::supportedImageFormats()
         formatFilters.append(QStringLiteral("*.") % QString::fromLocal8Bit(item));
     }
     return formatFilters;
-}
-
-void MainWindow::showEvent(QShowEvent *event)
-{
-    updateWidgetsPosition();
-
-    return QWidget::showEvent(event);
 }
 
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
@@ -388,16 +363,9 @@ void MainWindow::wheelEvent(QWheelEvent *event)
     }
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    updateWidgetsPosition();
-
-    return QWidget::resizeEvent(event);
-}
-
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-    m_menu->exec(mapToGlobal(event->pos()));
+    ui->m_menu->exec(mapToGlobal(event->pos()));
 
     return QWidget::contextMenuEvent(event);
 }
@@ -426,7 +394,7 @@ void MainWindow::dropEvent(QDropEvent *event)
     if (mimeData->hasUrls()) {
         showFiles(mimeData->urls());
     } else {
-        m_gv->showText(tr("Not supported mimedata: %1").arg(mimeData->formats().first()));
+        ui->m_gv->showText(tr("Not supported mimedata: %1").arg(mimeData->formats().first()));
     }
 }
 
@@ -446,16 +414,9 @@ void MainWindow::closeWindow()
 {
 }
 
-void MainWindow::updateWidgetsPosition()
-{
-    m_bottomButtonGroup->move((width() - m_bottomButtonGroup->width()) / 2,
-                              (72 - m_bottomButtonGroup->height()) / 2 + (height() - 72));
-    m_nav->move(width() - m_nav->width(), height() - m_nav->height());
-}
-
 void MainWindow::toggleAvoidResetTransform()
 {
-    m_gv->setAvoidResetTransform(!m_gv->isAvoidResetTransform());
+    ui->m_gv->setAvoidResetTransform(!ui->m_gv->isAvoidResetTransform());
 }
 
 void MainWindow::toggleFullscreen()
@@ -486,7 +447,7 @@ QSize MainWindow::sizeHint() const
 void MainWindow::on_actionCopyPixmap_triggered()
 {
     QClipboard *cb = QApplication::clipboard();
-    cb->setPixmap(m_gv->scene()->renderToPixmap());
+    cb->setPixmap(ui->m_gv->scene()->renderToPixmap());
 }
 
 void MainWindow::on_actionCopyFilePath_triggered()
@@ -510,58 +471,58 @@ void MainWindow::on_actionNextPicture_triggered()
 
 void MainWindow::on_actionActualSize_triggered()
 {
-    m_gv->resetScale();
-    m_gv->setEnableAutoFitToScreen(false);
+    ui->m_gv->resetScale();
+    ui->m_gv->setEnableAutoFitToScreen(false);
 }
 
 void MainWindow::on_actionFitToScreen_triggered()
 {
-    m_gv->fitInView(m_nav->sceneRect(), Qt::KeepAspectRatio);
-    m_gv->setEnableAutoFitToScreen(m_gv->scaleFactor() <= 1);
+    ui->m_gv->fitInView(ui->m_nav->sceneRect(), Qt::KeepAspectRatio);
+    ui->m_gv->setEnableAutoFitToScreen(ui->m_gv->scaleFactor() <= 1);
 }
 
 void MainWindow::on_actionFitByWidth_triggered()
 {
-    m_gv->fitByOrientation(Qt::Orientation::Horizontal);
+    ui->m_gv->fitByOrientation(Qt::Orientation::Horizontal);
 }
 
 void MainWindow::on_actionFitByHeight_triggered()
 {
-    m_gv->fitByOrientation(Qt::Orientation::Vertical);
+    ui->m_gv->fitByOrientation(Qt::Orientation::Vertical);
 }
 
 void MainWindow::on_actionZoomIn_triggered()
 {
-    if (m_gv->scaleFactor() < 1000) {
-        m_gv->zoomView(1.25);
+    if (ui->m_gv->scaleFactor() < 1000) {
+        ui->m_gv->zoomView(1.25);
     }
 }
 
 void MainWindow::on_actionZoomOut_triggered()
 {
-    m_gv->zoomView(0.8);
+    ui->m_gv->zoomView(0.8);
 }
 
 void MainWindow::on_actionFlipHorizontal_triggered()
 {
-    m_gv->flipView(true);
+    ui->m_gv->flipView(true);
 }
 
 void MainWindow::on_actionFlipVertical_triggered()
 {
-    m_gv->flipView(false);
+    ui->m_gv->flipView(false);
 }
 
 void MainWindow::on_actionRotateClockwise_triggered()
 {
-    m_gv->rotateView(true);
-    m_gv->displayScene();
+    ui->m_gv->rotateView(true);
+    ui->m_gv->displayScene();
 }
 
 void MainWindow::on_actionRotateCounterClockwise_triggered()
 {
-    m_gv->rotateView(false);
-    m_gv->displayScene();
+    ui->m_gv->rotateView(false);
+    ui->m_gv->displayScene();
 }
 
 void MainWindow::on_actionToggleAvoidResetTransform_triggered()
@@ -571,17 +532,17 @@ void MainWindow::on_actionToggleAvoidResetTransform_triggered()
 
 void MainWindow::on_actionToggleCheckerboard_triggered()
 {
-    m_gv->toggleCheckerboard(QGuiApplication::queryKeyboardModifiers().testFlag(Qt::ShiftModifier));
+    ui->m_gv->toggleCheckerboard(QGuiApplication::queryKeyboardModifiers().testFlag(Qt::ShiftModifier));
 }
 
 void MainWindow::on_actionTogglePauseAnimation_triggered()
 {
-    m_gv->scene()->togglePauseAnimation();
+    ui->m_gv->scene()->togglePauseAnimation();
 }
 
 void MainWindow::on_actionAnimationNextFrame_triggered()
 {
-    m_gv->scene()->skipAnimationFrame(1);
+    ui->m_gv->scene()->skipAnimationFrame(1);
 }
 
 void MainWindow::on_actionTrash_triggered()
@@ -683,5 +644,5 @@ bool MainWindow::updateFileWatcher(const QString &basePath)
 }
 
 void MainWindow::updateActionState() {
-    m_am->updateActionState(m_pm, m_gv);
+    m_am->updateActionState(m_pm, ui->m_gv);
 }

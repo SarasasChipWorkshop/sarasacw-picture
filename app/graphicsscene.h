@@ -38,7 +38,7 @@ public:
 
     QPixmap renderToPixmap();
 
-public slots:
+private slots:
     void updateStyle(Qt::ColorScheme colorScheme);
 
 private:

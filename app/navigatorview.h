@@ -18,6 +18,8 @@ public:
 
 public slots:
     void updateMainViewportRegion();
+
+private slots:
     void updateStyle(Qt::ColorScheme colorScheme);
 
 private:
