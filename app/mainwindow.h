@@ -44,7 +44,6 @@ protected slots:
     void dropEvent(QDropEvent *event) override;
 
     void centerWindow();
-    void closeWindow();
     void toggleAvoidResetTransform();
     void toggleFullscreen();
     void toggleMaximize();

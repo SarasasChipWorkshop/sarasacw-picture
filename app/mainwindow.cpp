@@ -345,10 +345,6 @@ void MainWindow::centerWindow()
     );
 }
 
-void MainWindow::closeWindow()
-{
-}
-
 void MainWindow::toggleAvoidResetTransform()
 {
     ui->m_gv->setAvoidResetTransform(!ui->m_gv->isAvoidResetTransform());
