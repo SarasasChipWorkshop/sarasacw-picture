@@ -297,36 +297,6 @@ QStringList MainWindow::supportedImageFormats()
     return formatFilters;
 }
 
-void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
-{
-    // The forward/back mouse button can also used to trigger a mouse double-click event
-    // Since we use that for gallery navigation so we ignore these two buttons.
-    if (event->buttons() & Qt::ForwardButton || event->buttons() & Qt::BackButton) {
-        return;
-    }
-
-    switch (Settings::instance()->doubleClickBehavior()) {
-    case Settings::DoubleClickBehavior::Close:
-        closeWindow();
-        event->accept();
-        break;
-    case Settings::DoubleClickBehavior::Maximize:
-        toggleMaximize();
-        event->accept();
-        break;
-    case Settings::DoubleClickBehavior::FullScreen:
-        toggleFullscreen();
-        event->accept();
-        break;
-    case Settings::DoubleClickBehavior::Ignore:
-        break;
-    }
-
-    // blumia: don't call parent constructor here, seems it will cause mouse move
-    //         event get called even if we set event->accept();
-    // return QMainWindow::mouseDoubleClickEvent(event);
-}
-
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
     QPoint numDegrees = event->angleDelta() / 8;

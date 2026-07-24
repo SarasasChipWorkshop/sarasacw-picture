@@ -65,12 +65,6 @@ bool Settings::svgTiny12Only() const
 #endif // QT_VERSION < QT_VERSION_CHECK(6, 9, 3)
 }
 
-Settings::DoubleClickBehavior Settings::doubleClickBehavior() const
-{
-    QString result = m_qsettings->value("double_click_behavior", "").toString();
-    return QEnumHelper::fromString<DoubleClickBehavior>(result, DoubleClickBehavior::Ignore);
-}
-
 Settings::MouseWheelBehavior Settings::mouseWheelBehavior() const
 {
     QString result = m_qsettings->value("mouse_wheel_behavior", "").toString();
@@ -104,12 +98,6 @@ void Settings::setLoopGallery(bool on)
 void Settings::setSvgTiny12Only(bool on)
 {
     m_qsettings->setValue("svg_tiny12_only", on);
-    m_qsettings->sync();
-}
-
-void Settings::setDoubleClickBehavior(DoubleClickBehavior dcb)
-{
-    m_qsettings->setValue("double_click_behavior", QEnumHelper::toString(dcb));
     m_qsettings->sync();
 }
 

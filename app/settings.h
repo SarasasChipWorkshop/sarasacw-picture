@@ -11,14 +11,6 @@ class Settings : public QObject
 {
     Q_OBJECT
 public:
-    enum DoubleClickBehavior {
-        Ignore,
-        Close,
-        Maximize,
-        FullScreen,
-    };
-    Q_ENUM(DoubleClickBehavior)
-
     enum MouseWheelBehavior {
         Zoom,
         Switch,
@@ -38,7 +30,6 @@ public:
     bool useLightCheckerboard() const;
     bool loopGallery() const;
     bool svgTiny12Only() const;
-    DoubleClickBehavior doubleClickBehavior() const;
     MouseWheelBehavior mouseWheelBehavior() const;
     WindowSizeBehavior initWindowSizeBehavior() const;
     Qt::HighDpiScaleFactorRoundingPolicy hiDpiScaleFactorBehavior() const;
@@ -46,7 +37,6 @@ public:
     void setUseLightCheckerboard(bool light);
     void setLoopGallery(bool on);
     void setSvgTiny12Only(bool on);
-    void setDoubleClickBehavior(DoubleClickBehavior dcb);
     void setMouseWheelBehavior(MouseWheelBehavior mwb);
     void setInitWindowSizeBehavior(WindowSizeBehavior wsb);
     void setHiDpiScaleFactorBehavior(Qt::HighDpiScaleFactorRoundingPolicy hidpi);

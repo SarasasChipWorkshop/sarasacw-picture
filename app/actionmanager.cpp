@@ -55,7 +55,7 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     // TODO: We may replace all Qt theme icons to our custom icon for visual consistency.
     // TODO: Some icons are invalid.
 
-    CREATE_NEW_THEMEICON_ACTION(mainWindow, actionCopyPixmap, edit-copy);
+    CREATE_NEW_ACTION(mainWindow, actionCopyPixmap);
     CREATE_NEW_ACTION(mainWindow, actionCopyFilePath);
 
     CREATE_NEW_ICON_ACTION(mainWindow, actionPrevPicture, go-previous);

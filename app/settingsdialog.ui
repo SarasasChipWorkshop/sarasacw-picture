@@ -41,43 +41,33 @@
          </widget>
         </item>
        <item row="3" column="0">
-         <widget class="QLabel" name="m_doubleClickBehaviorLabel">
-         <property name="text">
-          <string>Double-click behavior</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="m_doubleClickBehavior"/>
-       </item>
-       <item row="4" column="0">
          <widget class="QLabel" name="m_mouseWheelBehaviorLabel">
          <property name="text">
           <string>Mouse wheel behavior</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="3" column="1">
         <widget class="QComboBox" name="m_mouseWheelBehavior"/>
        </item>
-       <item row="5" column="0">
+       <item row="4" column="0">
          <widget class="QLabel" name="m_initWindowSizeBehaviorLabel">
          <property name="text">
           <string>Default window size</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="4" column="1">
         <widget class="QComboBox" name="m_initWindowSizeBehavior"/>
        </item>
-       <item row="6" column="0">
+       <item row="5" column="0">
          <widget class="QLabel" name="m_hiDpiRoundingPolicyBehaviorLabel">
          <property name="text">
           <string>HiDPI scale factor rounding policy</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="5" column="1">
         <widget class="QComboBox" name="m_hiDpiRoundingPolicyBehavior"/>
        </item>
       </layout>

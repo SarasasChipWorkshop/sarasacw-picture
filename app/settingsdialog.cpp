@@ -49,15 +49,6 @@ private:
     Pairs pairs;
 };
 
-static EnumComboBoxTransformer<Settings::DoubleClickBehavior> DC_OPTIONS {
-    {
-        {Settings::DoubleClickBehavior::Ignore, QCoreApplication::translate("SettingsDialog", "Do nothing")},
-        {Settings::DoubleClickBehavior::Close, QCoreApplication::translate("SettingsDialog", "Close the window")},
-        {Settings::DoubleClickBehavior::Maximize, QCoreApplication::translate("SettingsDialog", "Toggle maximize")},
-        {Settings::DoubleClickBehavior::FullScreen, QCoreApplication::translate("SettingsDialog", "Toggle fullscreen")}
-    }
-};
-
 static EnumComboBoxTransformer<Settings::MouseWheelBehavior, QString> MW_OPTIONS {
     {
         { Settings::MouseWheelBehavior::Zoom, QCoreApplication::translate("SettingsDialog", "Zoom in and out") },
@@ -92,9 +83,6 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     ui->m_useLightCheckerboard->setChecked(settings->useLightCheckerboard());
     ui->m_loopGallery->setChecked(settings->loopGallery());
     ui->m_svgTiny12Only->setChecked(settings->svgTiny12Only());
-    ui->m_doubleClickBehavior->setModel(DC_OPTIONS.buildComboBoxModel(this));
-    Settings::DoubleClickBehavior dcb = settings->doubleClickBehavior();
-    ui->m_doubleClickBehavior->setCurrentIndex(DC_OPTIONS.to_index(dcb));
     ui->m_mouseWheelBehavior->setModel(MW_OPTIONS.buildComboBoxModel(this));
     Settings::MouseWheelBehavior mwb = settings->mouseWheelBehavior();
     ui->m_mouseWheelBehavior->setCurrentIndex(MW_OPTIONS.to_index(mwb));
@@ -123,10 +111,6 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
     connect(ui->m_svgTiny12Only, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
         Settings::instance()->setSvgTiny12Only(state == Qt::Checked);
-    });
-
-    connect(ui->m_doubleClickBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){
-        Settings::instance()->setDoubleClickBehavior(DC_OPTIONS.to_value(index));
     });
 
     connect(ui->m_mouseWheelBehavior, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [ = ](int index){

@@ -38,7 +38,6 @@ public:
     static QStringList supportedImageFormats();
 
 protected slots:
-    void mouseDoubleClickEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *event) override;
     void dragEnterEvent(QDragEnterEvent *event) override;
