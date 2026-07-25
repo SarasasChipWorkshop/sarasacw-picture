@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-#include "winplaylistpatch.h"
+#include "explorerscout.h"
 
 #ifdef Q_OS_WIN
 
@@ -242,9 +242,9 @@ static ComPtr<IFolderView2> FindLiveFolderView(const QString& targetFolderPath)
     return nullptr;
 }
 
-bool WinPlaylistPatch::loadSingleFilePlaylist(
-    const QUrl &url, const QStringList &allowedSuffixes, QList<QUrl> &playlist,
-    std::optional<qsizetype> &indexHint) {
+std::optional<PlaylistScout::ScoutResult> PlaylistScout::Explorer::scout(
+    const QUrl &url, const QStringList &allowedSuffixes) {
+    PlaylistScout::ScoutResult rv;
 
     QFileInfo info(url.toLocalFile());
     QString folderPath = info.path();
@@ -263,14 +263,14 @@ bool WinPlaylistPatch::loadSingleFilePlaylist(
     ComGuard comGuard;
     if (!comGuard.IsInitialized()) {
         ReportError("COM initialization failed");
-        return false;
+        return std::nullopt;
     }
 
     // Find a live Explorer window that is currently displaying the target folder.
     ComPtr<IFolderView2> folderView2 = FindLiveFolderView(folderPath);
     if (!folderView2) {
         ReportError("No open Explorer window matches the folder: " + folderPath);
-        return false;
+        return std::nullopt;
     }
 
     // Get items already sorted in Explorer's view order, as an IShellItemArray.
@@ -279,7 +279,7 @@ bool WinPlaylistPatch::loadSingleFilePlaylist(
     if (FAILED(folderView2->Items(SVGIO_ALLVIEW | SVGIO_FLAG_VIEWORDER,
             IID_PPV_ARGS(itemArray.GetAddressOf())))) {
         ReportError("IFolderView2::Items(SVGIO_ALLVIEW | SVGIO_FLAG_VIEWORDER) failed");
-        return false;
+        return std::nullopt;
     }
 
     DWORD itemCount = 0;
@@ -320,13 +320,13 @@ bool WinPlaylistPatch::loadSingleFilePlaylist(
             continue;
         }
 
-        playlist.append(QUrl::fromLocalFile(filePath));
+        rv.playlist.append(QUrl::fromLocalFile(filePath));
         if (fileName == currentFileName) {
-            indexHint = playlist.size() - 1;
+            rv.indexHint = rv.playlist.size() - 1;
         }
     }
 
-    return true;
+    return rv;
 }
 
 #endif // Q_OS_WIN
