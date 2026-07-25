@@ -224,7 +224,18 @@ void GraphicsView::fitByOrientation(Qt::Orientation ori, bool scaleDownOnly)
     QRectF originalScene = sceneRect();
     QTransform currentTransform = transform();
     
-    // TODO: May be optimized by matrix arithmetic operation?
+    // TODO: 
+    // I guess following code may be optimized by matrix arithmetic operation.
+    // There is an AI given solution. But I didn't use it.
+    // Because I want to keep the same behavior of upstream.
+
+    // // Horizontal fit: Let the position of top center of viewport, (cx, 0), be inversely mapped to scene.
+    // // And compensate the behavior of `centerOn` which put given point to the center of viewport.
+    // QTransform inv = currentTransform.inverted();
+    // QPointF viewCx = viewport()->rect().center().x();
+    // QPointF viewCy = viewport()->rect().center().y();
+    // // The target is viewport top center. Its y=0, so `centerOn` required scene point is (viewCx, -viewCy).
+    // centerOn(inv.map(QPointF(viewCx, -viewCy)));
 
     if (ori == Qt::Horizontal) {
         // For horizontal fit (fit by width), position at top (for tall images)
