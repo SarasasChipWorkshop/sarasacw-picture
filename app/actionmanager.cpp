@@ -74,7 +74,7 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     CREATE_NEW_ICON_ACTION(mainWindow, actionRotateCounterClockwise, app-icon);
 
     CREATE_NEW_ACTION(mainWindow, actionToggleAvoidResetTransform);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionToggleCheckerboard, view-background-checkerboard);
+    CREATE_NEW_ACTION(mainWindow, actionToggleCheckerboard);
     CREATE_NEW_ACTION(mainWindow, actionTogglePauseAnimation);
     CREATE_NEW_ACTION(mainWindow, actionAnimationNextFrame);
 

@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
         m_am->actionRotateCounterClockwise,
         m_am->actionRotateClockwise,
         m_am->actionFlipHorizontal,
-        m_am->actionToggleCheckerboard,
+        m_am->actionFlipVertical,
     });
     // Setup right click menus
     {
