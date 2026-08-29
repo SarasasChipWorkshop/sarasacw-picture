@@ -31,6 +31,7 @@ SarasaCW 照片查看器是[菠萝看图](https://github.com/BLumia/pineapple-pi
 - [SourceForge](https://sourceforge.net/projects/pineapple-pictures/)
 - Archlinux AUR: [pineapple-pictures](https://aur.archlinux.org/packages/pineapple-pictures/) | [pineapple-pictures-git](https://aur.archlinux.org/packages/pineapple-pictures-git/)
 - [Itch.io 商店](https://blumia.itch.io/pineapple-pictures)
+- [Microsoft Store](https://apps.microsoft.com/store/detail/9MXGX66VVGJP)
 - Flatpak (于 FlatHub): [net.blumia.pineapple-pictures](https://flathub.org/apps/net.blumia.pineapple-pictures) *([我应当使用 flatpak 版吗？](https://github.com/BLumia/pineapple-pictures/wiki/Container%E2%80%90based-Packaging-Solutions-Support))*
 
 ### 由贡献者/对应发行版的打包人员维护

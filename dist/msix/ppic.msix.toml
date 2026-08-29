@@ -1,0 +1,50 @@
+[package]
+name = "ChestnutSoftware.PineapplePictures"
+version = "1.6.0.0"
+
+[display]
+name = "Pineapple Pictures"
+publisherName = "Chestnut Software"
+
+[display.zh-CN]
+name = "菠萝看图"
+
+[application]
+id = "PineapplePictures"
+executable = "ppic.exe"
+
+[icon]
+source = "../../assets/icons/app-icon.svg"
+
+[[fileAssociations]]
+name = "jpgimages"
+extensions = ["jpg", "jfif", "jpeg"]
+logo = "jpeg.svg"
+
+[[fileAssociations]]
+name = "pngimages"
+extensions = ["png"]
+logo = "png.svg"
+
+[[fileAssociations]]
+name = "gifimages"
+extensions = ["gif"]
+logo = "gif.svg"
+
+[[fileAssociations]]
+name = "svgimages"
+extensions = ["svg"]
+logo = "svg.svg"
+
+[[fileAssociations]]
+name = "psdimages"
+extensions = ["psd", "psb", "pdd"]
+logo = "psd.svg"
+
+[[fileAssociations]]
+name = "genericimages"
+extensions = ["tiff", "tif", "webp", "avif", "bmp", "qoi", "tga", "xcf", "kra", "icns", "ora", "ico"]
+logo = "generic.svg"
+
+[resources]
+languages = ["zh-CN", "en-US"]

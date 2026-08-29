@@ -29,6 +29,8 @@ SarasaCW Picture is the **hard fork** of [Pineapple Pictures](https://github.com
 - [SourceForge](https://sourceforge.net/projects/pineapple-pictures/)
 - Archlinux AUR: [pineapple-pictures](https://aur.archlinux.org/packages/pineapple-pictures/) | [pineapple-pictures-git](https://aur.archlinux.org/packages/pineapple-pictures-git/)
 - [Itch.io Store](https://blumia.itch.io/pineapple-pictures)
+- [Microsoft Store](https://apps.microsoft.com/store/detail/9MXGX66VVGJP)
+- Flatpak (on FlatHub): [net.blumia.pineapple-pictures](https://flathub.org/apps/net.blumia.pineapple-pictures) *([Should I use the flatpak version?](https://github.com/BLumia/pineapple-pictures/wiki/Container%E2%80%90based-Packaging-Solutions-Support))*
 
 ### Maintained by contributors / certain distro's package maintainers
 
