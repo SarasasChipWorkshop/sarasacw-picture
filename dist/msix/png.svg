@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="100%"
+   height="100%"
+   viewBox="0 0 192 192"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg15"
+   sodipodi:docname="png.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:serif="http://www.serif.com/"><defs
+   id="defs15"><filter
+     style="color-interpolation-filters:sRGB;"
+     inkscape:label="Drop Shadow"
+     id="filter16"
+     x="-0.034765612"
+     y="-0.033796866"
+     width="1.0782226"
+     height="1.0760429"><feFlood
+       result="flood"
+       in="SourceGraphic"
+       flood-opacity="0.501961"
+       flood-color="rgb(0,0,0)"
+       id="feFlood15" /><feGaussianBlur
+       result="blur"
+       in="SourceGraphic"
+       stdDeviation="10.000000"
+       id="feGaussianBlur15" /><feOffset
+       result="offset"
+       in="blur"
+       dx="6.000000"
+       dy="6.000000"
+       id="feOffset15" /><feComposite
+       result="comp1"
+       operator="in"
+       in="flood"
+       in2="offset"
+       id="feComposite15" /><feComposite
+       result="comp2"
+       operator="over"
+       in="SourceGraphic"
+       in2="comp1"
+       id="feComposite16" /></filter></defs><sodipodi:namedview
+   id="namedview15"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   inkscape:zoom="3.3645833"
+   inkscape:cx="95.851394"
+   inkscape:cy="96.000001"
+   inkscape:window-width="1536"
+   inkscape:window-height="890"
+   inkscape:window-x="-6"
+   inkscape:window-y="-6"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="PNG-export-" />
+    <g
+   transform="matrix(1,0,0,1,-469.5,0)"
+   id="g15">
+        <g
+   id="PNG-export-"
+   serif:id="PNG(export)"
+   transform="matrix(0.192771,0,0,0.21968,805.692771,11.203661)">
+            <rect
+   x="-1744"
+   y="-51"
+   width="996"
+   height="874"
+   style="fill:none;"
+   id="rect1" />
+            <g
+   id="文档背景">
+                <g
+   transform="matrix(5.226799,0,0,4.552083,-1750.366477,-51)"
+   id="g1">
+                    <path
+   d="M30,143L30,23.98C30,20.68 32.66,18 35.935,18L120.354,18L162,59.923L162,143L30,143Z"
+   style="fill:rgb(248, 250, 252)"
+   id="path1" />
+                </g>
+                <g
+   transform="matrix(5.1875,0,0,4.552083,-1744,-51)"
+   id="g2">
+                    <path
+   d="M120.038,18L162.077,60L125.957,60C122.688,60 120.038,57.35 120.038,54.081L120.038,18Z"
+   style="fill:rgb(139, 92, 246);fill-opacity:0.5"
+   id="path2" />
+                </g>
+                <g
+   id="底部"
+   transform="matrix(1.007576,0,0,1,6.443582,0)">
+                    <g
+   transform="matrix(5.1875,0,0,1.225561,-1743.600962,527.814904)"
+   id="g3">
+                        <path
+   d="M162,66.948L162,125.052C162,152.067 156.139,174 148.921,174L43.079,174C35.861,174 30,152.067 30,125.052L30,66.948C30,39.933 35.861,18 43.079,18L148.921,18C156.139,18 162,39.933 162,66.948Z"
+   style="fill:rgb(139, 92, 246)"
+   id="path3" />
+                    </g>
+                    <g
+   transform="matrix(4.99537,0,0,4.552083,-1712.860221,-51)"
+   id="g4">
+                        <rect
+   x="25"
+   y="132"
+   width="137.077"
+   height="22"
+   style="fill:rgb(139, 92, 246)"
+   id="rect3" />
+                    </g>
+                </g>
+            </g>
+            <g
+   transform="matrix(5.1875,0,0,4.552083,-1872.759414,12.55798)"
+   id="g9">
+                <g
+   transform="matrix(31.25,0,0,31.25,92.328214,149.80372)"
+   id="g5">
+                    <path
+   d="M0.079,-0L0.079,-0.653L0.305,-0.653C0.352,-0.653 0.395,-0.646 0.433,-0.633C0.471,-0.62 0.502,-0.599 0.524,-0.569C0.547,-0.539 0.558,-0.498 0.558,-0.446C0.558,-0.396 0.547,-0.355 0.524,-0.322C0.501,-0.29 0.47,-0.266 0.432,-0.251C0.394,-0.235 0.351,-0.228 0.305,-0.228L0.216,-0.228L0.216,-0L0.079,-0ZM0.216,-0.336L0.296,-0.336C0.339,-0.336 0.372,-0.346 0.392,-0.364C0.413,-0.383 0.424,-0.41 0.424,-0.446C0.424,-0.482 0.413,-0.508 0.391,-0.522C0.37,-0.537 0.338,-0.544 0.296,-0.544L0.216,-0.544L0.216,-0.336Z"
+   style="fill:rgb(248,250,252);fill-rule:nonzero;"
+   id="path4" />
+                </g>
+                <g
+   transform="matrix(31.25,0,0,31.25,111.077928,149.80372)"
+   id="g6">
+                    <path
+   d="M0.069,-0L0.069,-0.652L0.21,-0.652L0.359,-0.314L0.416,-0.172L0.42,-0.172C0.417,-0.206 0.413,-0.244 0.408,-0.285C0.403,-0.326 0.401,-0.366 0.401,-0.404L0.401,-0.652L0.531,-0.652L0.531,-0L0.39,-0L0.241,-0.339L0.184,-0.481L0.18,-0.481C0.183,-0.445 0.187,-0.407 0.192,-0.367C0.197,-0.327 0.199,-0.287 0.199,-0.25L0.199,-0L0.069,-0Z"
+   style="fill:rgb(248,250,252);fill-rule:nonzero;"
+   id="path5" />
+                </g>
+                <g
+   transform="matrix(31.25,0,0,31.25,129.827642,149.80372)"
+   id="g7">
+                    <path
+   d="M0.342,0.012C0.287,0.012 0.237,-0.001 0.192,-0.026C0.147,-0.051 0.111,-0.089 0.085,-0.139C0.058,-0.189 0.045,-0.25 0.045,-0.323C0.045,-0.395 0.059,-0.457 0.085,-0.508C0.112,-0.559 0.148,-0.598 0.193,-0.625C0.238,-0.651 0.289,-0.665 0.345,-0.665C0.389,-0.665 0.426,-0.656 0.457,-0.639C0.488,-0.622 0.514,-0.603 0.534,-0.582L0.459,-0.497C0.444,-0.512 0.429,-0.524 0.411,-0.533C0.394,-0.542 0.372,-0.546 0.345,-0.546C0.315,-0.546 0.288,-0.537 0.264,-0.52C0.24,-0.502 0.221,-0.477 0.207,-0.445C0.193,-0.412 0.186,-0.373 0.186,-0.328C0.186,-0.281 0.192,-0.241 0.205,-0.208C0.217,-0.175 0.236,-0.15 0.26,-0.133C0.284,-0.115 0.314,-0.106 0.35,-0.106C0.364,-0.106 0.377,-0.108 0.39,-0.112C0.404,-0.116 0.414,-0.122 0.422,-0.129L0.422,-0.251L0.321,-0.251L0.321,-0.363L0.544,-0.363L0.544,-0.066C0.523,-0.046 0.494,-0.028 0.458,-0.012C0.422,0.004 0.384,0.012 0.342,0.012Z"
+   style="fill:rgb(248,250,252);fill-rule:nonzero;"
+   id="path6" />
+                </g>
+                <g
+   transform="matrix(31.25,0,0,31.25,148.577356,149.80372)"
+   id="g8">
+                </g>
+            </g>
+            <g
+   id="文档符号">
+                <g
+   transform="matrix(10.375,0,0,4.552083,-1977.33774,117.427083)"
+   id="g10">
+                    <path
+   d="M87,45L87,87L66,87L66,66L76.5,66L76.5,45L87,45Z"
+   style="fill:rgb(139,92,246);"
+   id="path9" />
+                </g>
+                <g
+   id="棋盘格"
+   transform="matrix(1,0,0,1,0,-4.552083)">
+                    <g
+   transform="matrix(5.1875,0,0,4.552083,-1744.199519,-69.208333)"
+   id="g11">
+                        <rect
+   x="66"
+   y="66"
+   width="21"
+   height="21"
+   style="fill:rgb(139,92,246);fill-opacity:0.2;"
+   id="rect10" />
+                    </g>
+                    <g
+   transform="matrix(5.1875,0,0,4.552083,-1635.0625,-69.208333)"
+   id="g12">
+                        <rect
+   x="66"
+   y="66"
+   width="21"
+   height="21"
+   style="fill:rgb(139,92,246);fill-opacity:0.5;"
+   id="rect11" />
+                    </g>
+                    <g
+   transform="matrix(5.1875,0,0,4.552083,-1634.96274,26.385417)"
+   id="g13">
+                        <rect
+   x="66"
+   y="66"
+   width="21"
+   height="21"
+   style="fill:rgb(139,92,246);fill-opacity:0.2;"
+   id="rect12" />
+                    </g>
+                    <g
+   transform="matrix(5.1875,0,0,4.552083,-1744.09976,26.385417)"
+   id="g14">
+                        <rect
+   x="66"
+   y="66"
+   width="21"
+   height="21"
+   style="fill:rgb(139,92,246);fill-opacity:0.5;"
+   id="rect13" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
