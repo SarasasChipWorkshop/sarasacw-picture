@@ -139,9 +139,6 @@
    <property name="title">
     <string>&amp;Copy</string>
    </property>
-   <property name="icon">
-    <iconset theme="edit-copy"/>
-   </property>
   </widget>
   <widget class="QMenu" name="m_subMenuTransform">
    <property name="title">

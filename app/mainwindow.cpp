@@ -61,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     // It is too small for modern device,
     // so I level it up to SVGA resolution 800 x 600.
     this->setMinimumSize(800, 600);
-    this->setWindowIcon(QIcon(u":/icons/app-icon.svg"_s));
+    this->setWindowIcon(QIcon(u":/icons/app-icon.png"_s));
     this->setAcceptDrops(true);
 
     // Initialize playlist manager

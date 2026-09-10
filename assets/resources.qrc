@@ -1,19 +1,23 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/zoom-in.svg</file>
-        <file>icons/zoom-out.svg</file>
-        <file>icons/view-fullscreen.svg</file>
-        <file>icons/zoom-original.svg</file>
-        <file>icons/object-rotate-right.svg</file>
-        <file>icons/view-background-checkerboard.svg</file>
-        <file>icons/app-icon.svg</file>
-        <file>icons/window-close.svg</file>
-        <file>icons/go-next.svg</file>
-        <file>icons/go-previous.svg</file>
-        <file>plain/help.html</file>
-        <file>plain/about.html</file>
-        <file>plain/special-thanks.html</file>
-        <file>plain/license.html</file>
-        <file>plain/third-party-libs.html</file>
+        <!-- In-app icon resources -->
+        <file>icons/app-icon.png</file>
+        <file>icons/image-info.png</file>
+        <file>icons/fit-to-screen.png</file>
+        <file>icons/fit-to-size.png</file>
+        <file>icons/zoom-in.png</file>
+        <file>icons/zoom-out.png</file>
+        <file>icons/rotate-left.png</file>
+        <file>icons/rotate-right.png</file>
+        <file>icons/go-next.png</file>
+        <file>icons/go-previous.png</file>
+        <file>icons/flip-horizontal.png</file>
+        <file>icons/flip-vertical.png</file>
+        <!-- HTML resources -->
+        <file>htmls/help.html</file>
+        <file>htmls/about.html</file>
+        <file>htmls/special-thanks.html</file>
+        <file>htmls/license.html</file>
+        <file>htmls/third-party-libs.html</file>
     </qresource>
 </RCC>

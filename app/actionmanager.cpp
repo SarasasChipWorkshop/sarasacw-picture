@@ -16,11 +16,8 @@
 
 static QIcon loadHidpiIcon(const QString &resp, QSize sz = QSize(32, 32))
 {
-    QSvgRenderer r(resp);
-    QPixmap pm = QPixmap(sz * qApp->devicePixelRatio());
-    pm.fill(Qt::transparent);
-    QPainter p(&pm);
-    r.render(&p);
+    QPixmap pm = QPixmap(resp);
+    pm.scaled(sz * qApp->devicePixelRatio(), Qt::KeepAspectRatio);
     pm.setDevicePixelRatio(qApp->devicePixelRatio());
     return QIcon(pm);
 }
@@ -32,7 +29,7 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     // Declare some convenient macros and lambdas.
 
     #define ICON_NAME(name)\
-        QStringLiteral(":/icons/" #name ".svg")
+        QStringLiteral(":/icons/" #name ".png")
 
     #define ACTION_NAME(s) QStringLiteral(STRIFY(s))
     #define STRIFY(s) #s
@@ -52,38 +49,35 @@ void ActionManager::setupAction(MainWindow *mainWindow)
     /// This macro for register action with our custom icon.
     #define CREATE_NEW_ICON_ACTION(w, a, i) create_action(w, &a, ICON_NAME(i), ACTION_NAME(a), false)
 
-    // TODO: We may replace all Qt theme icons to our custom icon for visual consistency.
-    // TODO: Some icons are invalid.
-
     CREATE_NEW_ACTION(mainWindow, actionCopyPixmap);
     CREATE_NEW_ACTION(mainWindow, actionCopyFilePath);
 
     CREATE_NEW_ICON_ACTION(mainWindow, actionPrevPicture, go-previous);
     CREATE_NEW_ICON_ACTION(mainWindow, actionNextPicture, go-next);
 
-    CREATE_NEW_ICON_ACTION(mainWindow, actionActualSize, zoom-original);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionFitToScreen, app-icon);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionFitByWidth, app-icon);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionFitByHeight, app-icon);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionActualSize, fit-to-size);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionFitToScreen, fit-to-screen);
+    CREATE_NEW_ACTION(mainWindow, actionFitByWidth);
+    CREATE_NEW_ACTION(mainWindow, actionFitByHeight);
     CREATE_NEW_ICON_ACTION(mainWindow, actionZoomIn, zoom-in);
     CREATE_NEW_ICON_ACTION(mainWindow, actionZoomOut, zoom-out);
 
-    CREATE_NEW_ICON_ACTION(mainWindow, actionFlipHorizontal, app-icon);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionFlipVertical, app-icon);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionRotateClockwise, object-rotate-right);
-    CREATE_NEW_ICON_ACTION(mainWindow, actionRotateCounterClockwise, app-icon);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionFlipHorizontal, flip-horizontal);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionFlipVertical, flip-vertical);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionRotateClockwise, rotate-right);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionRotateCounterClockwise, rotate-left);
 
     CREATE_NEW_ACTION(mainWindow, actionToggleAvoidResetTransform);
     CREATE_NEW_ACTION(mainWindow, actionToggleCheckerboard);
     CREATE_NEW_ACTION(mainWindow, actionTogglePauseAnimation);
     CREATE_NEW_ACTION(mainWindow, actionAnimationNextFrame);
 
-    CREATE_NEW_THEMEICON_ACTION(mainWindow, actionTrash, edit-delete);
-    CREATE_NEW_THEMEICON_ACTION(mainWindow, actionLocateInFileManager, system-file-manager);
-    CREATE_NEW_THEMEICON_ACTION(mainWindow, actionProperties, document-properties);
+    CREATE_NEW_ACTION(mainWindow, actionTrash/*, edit-delete*/);
+    CREATE_NEW_ACTION(mainWindow, actionLocateInFileManager/*, system-file-manager*/);
+    CREATE_NEW_ICON_ACTION(mainWindow, actionProperties, image-info);
 
     CREATE_NEW_ACTION(mainWindow, actionSettings);
-    CREATE_NEW_THEMEICON_ACTION(mainWindow, actionHelp, system-help);
+    CREATE_NEW_ACTION(mainWindow, actionHelp/*, system-help*/);
 
     // Remove convenient macros
 

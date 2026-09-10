@@ -1,4 +1,4 @@
-IDI_ICON1               ICON    DISCARDABLE     "@CMAKE_CURRENT_SOURCE_DIR@/assets/icons/app-icon.ico"
+IDI_ICON1               ICON    DISCARDABLE     "@CMAKE_CURRENT_SOURCE_DIR@/assets/embeds/app.ico"
 1               VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"

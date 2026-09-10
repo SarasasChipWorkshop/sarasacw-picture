@@ -26,7 +26,7 @@ AboutDialog::AboutDialog(QWidget *parent)
     // blumia: Chain two arg() here since it seems lupdate will remove one of them if we use
     //         the old `arg(QCoreApp::translate(), tr())` way, but it's worth to mention
     //         `arg(QCoreApp::translate(), this->tr())` works, but lupdate will complain about the usage.
-    const QString HELP_HTML = loadEmbeddedHtml(u":/plain/help.html"_s)
+    const QString HELP_HTML = loadEmbeddedHtml(u":/htmls/help.html"_s)
         .arg(tr("General Help"))
         .arg(tr("Launch application with image file path as argument to load the file."))
         .arg(tr("Passing in a single image file will load all the images in that directory and start viewing from that image."))
@@ -48,7 +48,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 #endif // GIT_DESCRIBE_VERSION_STRING
     const QString QT_VERSION_ARG = QT_VERSION_STR;
     const QString QT_ARCH_ARG = QSysInfo::buildCpuArchitecture();
-    const QString ABOUT_HTML = loadEmbeddedHtml(u":/plain/about.html"_s)
+    const QString ABOUT_HTML = loadEmbeddedHtml(u":/htmls/about.html"_s)
         .arg(APP_NAME_ARG)
         .arg(tr("Version: %1").arg(APP_VERSION_ARG))
         .arg(tr("Upstream author"))
@@ -57,19 +57,19 @@ AboutDialog::AboutDialog(QWidget *parent)
         .arg(tr("Built with Qt %1 (%2)").arg(QT_VERSION_ARG).arg(QT_ARCH_ARG))
         .arg(tr("Source code"));
 
-    const QString SPECIAL_THANKS_HTML = loadEmbeddedHtml(u":/plain/special-thanks.html"_s)
+    const QString SPECIAL_THANKS_HTML = loadEmbeddedHtml(u":/htmls/special-thanks.html"_s)
         .arg(tr("Contributors"))
         .arg(tr("List of contributors on GitHub"))
         .arg(tr("Thanks to all people who contributed to this project."))
         .arg(tr("Translators"))
         .arg(tr("I would like to thank the following people who volunteered to translate this application."));
 
-    const QString LICENSE_HTML = loadEmbeddedHtml(u":/plain/license.html"_s)
+    const QString LICENSE_HTML = loadEmbeddedHtml(u":/htmls/license.html"_s)
         .arg(tr("License"))
         .arg(tr("This application is released under the MIT License."))
         .arg(tr("License Verbatim Copy"));
 
-    const QString THIRD_PARTY_LIBS_HTML = loadEmbeddedHtml(u":/plain/third-party-libs.html"_s)
+    const QString THIRD_PARTY_LIBS_HTML = loadEmbeddedHtml(u":/htmls/third-party-libs.html"_s)
         .arg(tr("Third-party Libraries"))
         .arg(tr("This application is built on the following free software libraries.", "Free as in freedom"))
         .arg(tr("Some of them are optional and might not be included with this distribution depending on the build environment."));
