@@ -21,7 +21,7 @@ SPDX-FileCopyrightText = "2025 Gary Wang"
 SPDX-License-Identifier = "MIT"
 
 [[annotations]]
-path = ["app/translations/**.ts", "assets/plain/translators.html"]
+path = ["locales/app/**.ts", "assets/plain/translators.html"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Translators from hosted.weblate.org"
 SPDX-License-Identifier = "MIT"

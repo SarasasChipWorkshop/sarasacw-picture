@@ -96,7 +96,7 @@ set (PPIC_RC_FILES
 set (EXE_NAME ppic)
 
 # Translation
-file (GLOB PPIC_TS_FILES app/translations/*.ts)
+file (GLOB PPIC_TS_FILES locales/app/*.ts)
 set (PPIC_CPP_FILES_FOR_I18N ${PPIC_CPP_FILES})
 
 if (WIN32)
