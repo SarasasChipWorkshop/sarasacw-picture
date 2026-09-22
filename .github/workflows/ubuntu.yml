@@ -7,6 +7,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install MetaGlot
+        run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git
       - name: Get build dept.
         run: |
           sudo apt update

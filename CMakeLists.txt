@@ -99,9 +99,27 @@ set (EXE_NAME ppic)
 file (GLOB PPIC_TS_FILES locales/app/*.ts)
 set (PPIC_CPP_FILES_FOR_I18N ${PPIC_CPP_FILES})
 
+find_program (UV_EXECUTABLE uv)
+if (NOT UV_EXECUTABLE)
+    message (FATAL_ERROR "uv is required to run the metaglot tool, install it from https://docs.astral.sh/uv/")
+endif ()
+
 if (WIN32)
-    configure_file(assets/pineapple-pictures.rc.in pineapple-pictures.rc @ONLY)
-    list(APPEND PPIC_RC_FILES ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc)
+    set (PPIC_RC_TEMPLATE_FILE ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc.in)
+    execute_process (
+        COMMAND ${UV_EXECUTABLE} tool run metaglot render rc
+                --manifest ${CMAKE_SOURCE_DIR}/dist/pineapple-pictures.rc.in.toml
+                --po ${CMAKE_SOURCE_DIR}/locales/winrc/*.po
+                --template ${CMAKE_SOURCE_DIR}/dist/pineapple-pictures.rc.in.liquid
+                --output ${PPIC_RC_TEMPLATE_FILE}
+        RESULT_VARIABLE METAGLOT_RESULT
+    )
+    if (NOT METAGLOT_RESULT EQUAL 0)
+        message (FATAL_ERROR "Failed to generate pineapple-pictures.rc.in via MetaGlot (exit code: ${METAGLOT_RESULT}). If it is not installed yet, run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git")
+    endif ()
+
+    configure_file (${PPIC_RC_TEMPLATE_FILE} ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc @ONLY)
+    list (APPEND PPIC_RC_FILES ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc)
 endif ()
 
 add_executable (${EXE_NAME}
@@ -211,17 +229,17 @@ if (WIN32)
         WIN32_EXECUTABLE TRUE
     )
 elseif (APPLE)
-    set_source_files_properties(assets/icons/app-icon.icns PROPERTIES
+    set_source_files_properties(dist/sarasacw-picture.icns PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources"
     )
-    target_sources(${EXE_NAME} PUBLIC assets/icons/app-icon.icns)
+    target_sources(${EXE_NAME} PUBLIC dist/sarasacw-picture.icns)
     # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
     set_target_properties(${EXE_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/dist/MacOSXBundleInfo.plist.in
         MACOSX_BUNDLE_BUNDLE_NAME "Pineapple Pictures"
         MACOSX_BUNDLE_GUI_IDENTIFIER net.blumia.pineapple-pictures
-        MACOSX_BUNDLE_ICON_FILE app-icon.icns # contains the .icns file name, *without* the path.
+        MACOSX_BUNDLE_ICON_FILE sarasacw-picture.icns # contains the .icns file name, *without* the path.
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     )
@@ -231,6 +249,7 @@ elseif (UNIX)
     endif ()
 
     # install icon
+    # TODO: assets/icons/app-icon.svg is missing (lost during an assets restructure), fix this later.
     install (
         FILES assets/icons/app-icon.svg
         DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
@@ -281,20 +300,6 @@ if (DEFINED QM_FILE_INSTALL_DIR)
         DESTINATION ${QM_FILE_INSTALL_DIR}
     )
 endif()
-
-if (WIN32)
-    install(
-        FILES
-            dist/passoc/generic.ico
-            dist/passoc/jpeg.ico
-            dist/passoc/gif.ico
-            dist/passoc/svg.ico
-            dist/passoc/png.ico
-            dist/passoc/psd.ico
-        DESTINATION "${CMAKE_INSTALL_BINDIR}/icons"
-    )
-endif()
-
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 # CPACK: General Settings

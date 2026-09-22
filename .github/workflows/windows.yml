@@ -3,47 +3,8 @@ name: Windows CI
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  msvc-qmake-build:
-  
-    strategy:
-      matrix:
-        include:
-          - qt_ver: '6.11.2'
-            vs: '2022'
-            aqt_arch: 'win64_msvc2022_64'
-            msvc_arch: 'x64'
-
-    runs-on: windows-2022
-
-    steps:
-    - uses: actions/checkout@v6
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        arch: ${{ matrix.aqt_arch }}
-        version: ${{ matrix.qt_ver }}
-        modules: 'qtimageformats'
-        cache: true
-        # we need this until miurahr/aqtinstall#1007 ships 3.3.1 for Qt >= 6.11.0 for Windows.
-        aqtsource: 'aqtinstall @ git+https://github.com/miurahr/aqtinstall@16db45a70b5905ad596941b223469bc86a56901e'
-    - name: Build
-      shell: cmd
-      run: |
-        set VS=${{ matrix.vs }}
-        set VCVARS="C:\Program Files (x86)\Microsoft Visual Studio\%VS%\Enterprise\VC\Auxiliary\Build\vcvarsall.bat"
-        if not exist %VCVARS% set VCVARS="C:\Program Files\Microsoft Visual Studio\%VS%\Enterprise\VC\Auxiliary\Build\vcvarsall.bat"
-        call %VCVARS% ${{ matrix.msvc_arch }}
-        qmake pineapple-pictures.pro
-        nmake
-        nmake clean
-        windeployqt --verbose=2 --no-quick-import --no-translations --no-opengl-sw --no-system-d3d-compiler --no-system-dxc-compiler --skip-plugin-types tls,networkinformation release\ppic.exe
-    - uses: actions/upload-artifact@v6
-      with:
-        name: "windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-qmake-package"
-        path: release/*
-
   msvc-cmake-build:
-  
+
     strategy:
       matrix:
         include:
@@ -56,6 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+    - name: Install MetaGlot
+      run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
@@ -64,7 +31,7 @@ jobs:
         modules: 'qtimageformats'
         cache: true
         # we need this until miurahr/aqtinstall#1007 ships 3.3.1 for Qt >= 6.11.0 for Windows.
-        aqtsource: 'aqtinstall @ git+https://github.com/miurahr/aqtinstall@16db45a70b5905ad596941b223469bc86a56901e'
+        aqtsource: 'aqtinstall @ git+https://github.com/miurahr/aqtinstall@16db45a70b5905ad596941b223469bc86a56901a'
     - name: Build
       shell: cmd
       run: |

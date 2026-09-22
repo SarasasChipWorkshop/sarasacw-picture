@@ -1,0 +1,127 @@
+version = 1
+source_language = "en"
+
+[strings.1000]
+msgid = "Pineapple Pictures"
+context = "Explorer"
+comment = "Application friendly name shown by Explorer, e.g. in the 'Open with' menu."
+
+[strings.1001]
+msgid = "JPEG Image"
+comment = "File type name for: jpg, jpeg, jfif"
+
+[strings.1002]
+msgid = "GIF Animation Image"
+comment = "File type name for: gif"
+
+[strings.1003]
+msgid = "PNG Image"
+comment = "File type name for: png"
+
+[strings.1004]
+msgid = "Scalable Vector Graphics"
+comment = "File type name for: svg"
+
+[strings.1005]
+msgid = "WebP Image"
+comment = "File type name for: webp"
+
+[strings.1006]
+msgid = "AV1 Image File"
+comment = "File type name for: avif"
+
+[strings.1007]
+msgid = "Windows Icon Image"
+comment = "File type name for: ico"
+
+[strings.1008]
+msgid = "Apple Icon Image"
+comment = "File type name for: icns"
+
+[strings.1009]
+msgid = "Photoshop Document"
+comment = "File type name for: psd, psb, pdd, psdt"
+
+[strings.1010]
+msgid = "Krita Document"
+comment = "File type name for: kra"
+
+[strings.1011]
+msgid = "GIMP Document"
+comment = "File type name for: xcf"
+
+[strings.1012]
+msgid = "TARGA Image"
+comment = "File type name for: tga"
+
+[strings.1013]
+msgid = "Tagged Image File Format"
+comment = "File type name for: tif, tiff"
+
+[strings.1014]
+msgid = "Bitmap"
+comment = "File type name for: bmp"
+
+[strings.1015]
+msgid = "Wireless Bitmap"
+comment = "File type name for: wbmp"
+
+[strings.1016]
+msgid = "DirectDraw Surface"
+comment = "File type name for: dds"
+
+[strings.1017]
+msgid = "High Dynamic Range Image"
+comment = "File type name for: hdr"
+
+[strings.1018]
+msgid = "Interchange File Format"
+comment = "File type name for: iff"
+
+[strings.1019]
+msgid = "Softimage Picture"
+comment = "File type name for: pic"
+
+[strings.1020]
+msgid = "PiCture eXchange PC Paintbrush Image"
+comment = "File type name for: pcx"
+
+[strings.1021]
+msgid = "Quite OK Image"
+comment = "File type name for: qoi"
+
+[strings.1022]
+msgid = "Sun Raster Image"
+comment = "File type name for: ras, sun"
+
+[strings.1023]
+msgid = "OpenRaster Image"
+comment = "File type name for: ora"
+
+[strings.1024]
+msgid = "Animated Cursor"
+comment = "File type name for: ani"
+
+[strings.1025]
+msgid = "Portable Float Map"
+comment = "File type name for: pfm, phm"
+
+[strings.1026]
+msgid = "Silicon Graphics Image"
+comment = "File type name for: rgb, rgba, bw, sgi"
+
+[strings.1027]
+msgid = "Pixar Raster Image"
+comment = "File type name for: pxr"
+
+[strings.1028]
+msgid = "Scitex Continuous Tone"
+comment = "File type name for: sct"
+
+[strings.file_description]
+msgid = "Pineapple Pictures - Image Viewer"
+comment = "File description of the executable."
+
+[strings.product_name]
+msgid = "Pineapple Pictures"
+comment = "Display name of the product."

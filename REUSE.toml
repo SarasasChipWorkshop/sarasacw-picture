@@ -9,21 +9,21 @@ SPDX-FileCopyrightText = "None"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ["README**.md", "NEWS", "assets/**.rc.in", "assets/**.qrc", "dist/appstream/**", "dist/**.in", "dist/**.desktop"]
+path = ["README**.md", "NEWS", "assets/**.rc.in", "assets/**.qrc", "dist/appstream/**", "dist/**.in", "dist/**.desktop", "dist/**.rc.in.toml", "dist/**.rc.in.liquid"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "None"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ["dist/passoc/**"]
+path = ["locales/app/**.ts", "locales/winrc/**", "assets/plain/translators.html"]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2025 Gary Wang"
+SPDX-FileCopyrightText = "Translators from hosted.weblate.org"
 SPDX-License-Identifier = "MIT"
 
 [[annotations]]
-path = ["locales/app/**.ts", "assets/plain/translators.html"]
+path = "tool/**"
 precedence = "aggregate"
-SPDX-FileCopyrightText = "Translators from hosted.weblate.org"
+SPDX-FileCopyrightText = "2026 yyc12345"
 SPDX-License-Identifier = "MIT"
 
 [[annotations]]
