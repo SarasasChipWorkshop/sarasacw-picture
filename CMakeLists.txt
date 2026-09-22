@@ -249,11 +249,9 @@ elseif (UNIX)
     endif ()
 
     # install icon
-    # TODO: assets/icons/app-icon.svg is missing (lost during an assets restructure), fix this later.
     install (
-        FILES assets/icons/app-icon.svg
-        DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
-        RENAME net.blumia.pineapple-pictures.svg
+        DIRECTORY dist/freedesktop-icons/
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor"
     )
 
     # generate and install desktop entry file
