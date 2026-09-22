@@ -256,9 +256,22 @@ elseif (UNIX)
         RENAME net.blumia.pineapple-pictures.svg
     )
 
-    # install shortcut
+    # generate and install desktop entry file
+    set (PPIC_DESKTOP_FILE ${CMAKE_CURRENT_BINARY_DIR}/net.blumia.pineapple-pictures.desktop)
+    execute_process (
+        COMMAND ${UV_EXECUTABLE} tool run metaglot render desktop
+                --manifest ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.desktop.toml
+                --po ${CMAKE_SOURCE_DIR}/locales/desktop/*.po
+                --template ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.desktop.liquid
+                --output ${PPIC_DESKTOP_FILE}
+        RESULT_VARIABLE METAGLOT_DESKTOP_RESULT
+    )
+    if (NOT METAGLOT_DESKTOP_RESULT EQUAL 0)
+        message (FATAL_ERROR "Failed to generate net.blumia.pineapple-pictures.desktop via MetaGlot (exit code: ${METAGLOT_DESKTOP_RESULT}). If it is not installed yet, run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git")
+    endif ()
+
     install (
-        FILES dist/net.blumia.pineapple-pictures.desktop
+        FILES ${PPIC_DESKTOP_FILE}
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications"
     )
 
