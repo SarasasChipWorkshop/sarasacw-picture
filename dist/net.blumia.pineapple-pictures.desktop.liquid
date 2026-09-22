@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Application
+Name={{ default.strings.name | desktop_escape }}
+GenericName={{ default.strings.generic_name | desktop_escape }}
+Comment={{ default.strings.comment | desktop_escape }}
+Exec=ppic %F
+Icon=net.blumia.pineapple-pictures
+Terminal=false
+StartupNotify=false
+Categories=Graphics;
+MimeType=image/bmp;image/bmp24;image/jpg;image/jpe;image/jpeg;image/jpeg24;image/jng;image/pcd;image/pcx;image/png;image/tif;image/tiff;image/tiff24;image/dds;image/gif;image/sgi;image/j2k;image/jp2;image/pct;image/wdp;image/arw;image/icb;image/dng;image/vda;image/vst;image/svg;image/ptif;image/mef;image/xbm;image/svg+xml;
+Keywords={{ default.strings.keywords | desktop_escape }}
+{% for lang in languages %}
+Name[{{ lang.locale }}]={{ lang.strings.name | desktop_escape }}
+GenericName[{{ lang.locale }}]={{ lang.strings.generic_name | desktop_escape }}
+Comment[{{ lang.locale }}]={{ lang.strings.comment | desktop_escape }}
+Keywords[{{ lang.locale }}]={{ lang.strings.keywords | desktop_escape }}
+{% endfor %}
