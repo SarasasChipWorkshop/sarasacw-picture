@@ -115,7 +115,7 @@ if (WIN32)
         RESULT_VARIABLE METAGLOT_RESULT
     )
     if (NOT METAGLOT_RESULT EQUAL 0)
-        message (FATAL_ERROR "Failed to generate pineapple-pictures.rc.in via MetaGlot (exit code: ${METAGLOT_RESULT}). If it is not installed yet, run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git")
+        message (FATAL_ERROR "Failed to generate Windows RC file template via MetaGlot (exit code: ${METAGLOT_RESULT}).")
     endif ()
 
     configure_file (${PPIC_RC_TEMPLATE_FILE} ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc @ONLY)
@@ -265,7 +265,7 @@ elseif (UNIX)
         RESULT_VARIABLE METAGLOT_DESKTOP_RESULT
     )
     if (NOT METAGLOT_DESKTOP_RESULT EQUAL 0)
-        message (FATAL_ERROR "Failed to generate net.blumia.pineapple-pictures.desktop via MetaGlot (exit code: ${METAGLOT_DESKTOP_RESULT}). If it is not installed yet, run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git")
+        message (FATAL_ERROR "Failed to generate .desktop via MetaGlot (exit code: ${METAGLOT_DESKTOP_RESULT}).")
     endif ()
 
     install (
@@ -284,7 +284,7 @@ elseif (UNIX)
         RESULT_VARIABLE METAGLOT_METAINFO_RESULT
     )
     if (NOT METAGLOT_METAINFO_RESULT EQUAL 0)
-        message (FATAL_ERROR "Failed to generate net.blumia.pineapple-pictures.metainfo.xml via MetaGlot (exit code: ${METAGLOT_METAINFO_RESULT}). If it is not installed yet, run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git")
+        message (FATAL_ERROR "Failed to generate .metainfo.xml via MetaGlot (exit code: ${METAGLOT_METAINFO_RESULT}).")
     endif ()
 
     install (
