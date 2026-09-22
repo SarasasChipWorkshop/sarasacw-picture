@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-08-22 18:49中国标准时间\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2023-08-23 06:41+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/pineapple-pictures/"
@@ -13,18 +13,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.0-dev\n"
 
-#. (itstool) path: component/name
-#: net.blumia.pineapple-pictures.metainfo.xml:7
+#. Display name of the application.
 msgid "Pineapple Pictures"
 msgstr "Pineapple Afbeeldingen"
 
-#. (itstool) path: component/summary
-#: net.blumia.pineapple-pictures.metainfo.xml:9
+#. One-line summary shown in software centers.
 msgid "Image Viewer"
 msgstr "Afbeeldingsweergave"
 
-#. (itstool) path: description/p
-#: net.blumia.pineapple-pictures.metainfo.xml:12
+#. Description paragraph shown in the details page.
 msgid ""
 "Pineapple Pictures is a lightweight and easy-to-use image viewer that comes "
 "with a handy navigation thumbnail when zoom-in, and doesn't contain any "
@@ -34,22 +31,18 @@ msgstr ""
 "afbeeldingsweergaveprogramma met miniatuurnavigatie na inzoomen. Het "
 "programma heeft echter geen fotobeheermogelĳkheid."
 
-#. (itstool) path: screenshot/caption
-#: net.blumia.pineapple-pictures.metainfo.xml:17
+#. Name of the application developers.
+msgid "Gary (BLumia) Wang et al."
+msgstr "Gary (BLumia) Wang e.a."
+
+#. Caption of the primary screenshot.
 msgid "Main window when an image file is loaded"
 msgstr "Hoofdvenster na het laden van een afbeelding"
 
-#. (itstool) path: screenshot/caption
-#: net.blumia.pineapple-pictures.metainfo.xml:22
+#. Caption of the raster image zooming screenshot.
 msgid "Zooming in a raster image"
 msgstr "Inzoomen op een roosterafbeelding"
 
-#. (itstool) path: screenshot/caption
-#: net.blumia.pineapple-pictures.metainfo.xml:27
+#. Caption of the vector image zooming screenshot.
 msgid "Zooming in a vector image"
 msgstr "Inzoomen op een vectorafbeelding"
-
-#. (itstool) path: component/developer_name
-#: net.blumia.pineapple-pictures.metainfo.xml:34
-msgid "Gary (BLumia) Wang et al."
-msgstr "Gary (BLumia) Wang e.a."

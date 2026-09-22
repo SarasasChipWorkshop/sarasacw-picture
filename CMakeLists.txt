@@ -275,9 +275,22 @@ elseif (UNIX)
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications"
     )
 
-    # install app metadata file for appstream (and some other stuff using this metadata like snapcraft)
+    # generate and install app metadata file for appstream (and some other stuff using this metadata like snapcraft)
+    set (PPIC_METAINFO_FILE ${CMAKE_CURRENT_BINARY_DIR}/net.blumia.pineapple-pictures.metainfo.xml)
+    execute_process (
+        COMMAND ${UV_EXECUTABLE} tool run metaglot render appstream
+                --manifest ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.metainfo.xml.toml
+                --po ${CMAKE_SOURCE_DIR}/locales/appstream/*.po
+                --template ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.metainfo.xml.liquid
+                --output ${PPIC_METAINFO_FILE}
+        RESULT_VARIABLE METAGLOT_METAINFO_RESULT
+    )
+    if (NOT METAGLOT_METAINFO_RESULT EQUAL 0)
+        message (FATAL_ERROR "Failed to generate net.blumia.pineapple-pictures.metainfo.xml via MetaGlot (exit code: ${METAGLOT_METAINFO_RESULT}). If it is not installed yet, run: uv tool install git+https://github.com/SarasasChipWorkshop/metaglot.git")
+    endif ()
+
     install (
-        FILES dist/appstream/net.blumia.pineapple-pictures.metainfo.xml
+        FILES ${PPIC_METAINFO_FILE}
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo"
     )
 endif()
