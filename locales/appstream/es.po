@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-08-22 18:49中国标准时间\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2024-04-19 17:07+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/pineapple-"
@@ -13,18 +13,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#. (itstool) path: component/name
-#: net.blumia.pineapple-pictures.metainfo.xml:7
+#. Display name of the application.
 msgid "Pineapple Pictures"
 msgstr "Pineapple Pictures"
 
-#. (itstool) path: component/summary
-#: net.blumia.pineapple-pictures.metainfo.xml:9
+#. One-line summary shown in software centers.
 msgid "Image Viewer"
 msgstr "Visor de imágenes"
 
-#. (itstool) path: description/p
-#: net.blumia.pineapple-pictures.metainfo.xml:12
+#. Description paragraph shown in the details page.
 msgid ""
 "Pineapple Pictures is a lightweight and easy-to-use image viewer that comes "
 "with a handy navigation thumbnail when zoom-in, and doesn't contain any "
@@ -34,22 +31,18 @@ msgstr ""
 "con una práctica miniatura de navegación al hacer zoom, y no contiene ningún "
 "soporte de gestión de imágenes."
 
-#. (itstool) path: screenshot/caption
-#: net.blumia.pineapple-pictures.metainfo.xml:17
+#. Name of the application developers.
+msgid "Gary (BLumia) Wang et al."
+msgstr "Gary (BLumia) Wang et al."
+
+#. Caption of the primary screenshot.
 msgid "Main window when an image file is loaded"
 msgstr "Ventana principal cuando se carga un archivo de imagen"
 
-#. (itstool) path: screenshot/caption
-#: net.blumia.pineapple-pictures.metainfo.xml:22
+#. Caption of the raster image zooming screenshot.
 msgid "Zooming in a raster image"
 msgstr "Ampliar una imagen rasterizada"
 
-#. (itstool) path: screenshot/caption
-#: net.blumia.pineapple-pictures.metainfo.xml:27
+#. Caption of the vector image zooming screenshot.
 msgid "Zooming in a vector image"
 msgstr "Ampliar una imagen vectorial"
-
-#. (itstool) path: component/developer_name
-#: net.blumia.pineapple-pictures.metainfo.xml:34
-msgid "Gary (BLumia) Wang et al."
-msgstr "Gary (BLumia) Wang et al."
