@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pineapple-pictures\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Display name of the application.
+msgid "Pineapple Pictures"
+msgstr "菠萝看图"
+
+#. Name of the JPEG document type (jpg, jpeg, jfif).
+msgid "JPEG Image"
+msgstr "JPEG 图像"
+
+#. Name of the PNG document type.
+msgid "PNG Image"
+msgstr "PNG 图像"
+
+#. Name of the WebP document type.
+msgid "WebP Image"
+msgstr "WebP 图像"
+
+#. Name of the GIF document type.
+msgid "GIF Image"
+msgstr "GIF 图像"
+
+#. Name of the SVG document type.
+msgid "SVG Image"
+msgstr "SVG 图像"
