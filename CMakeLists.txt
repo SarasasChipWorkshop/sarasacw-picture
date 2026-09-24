@@ -229,19 +229,48 @@ if (WIN32)
         WIN32_EXECUTABLE TRUE
     )
 elseif (APPLE)
+    # Include icon to project
     set_source_files_properties(dist/sarasacw-picture.icns PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources"
     )
-    target_sources(${EXE_NAME} PUBLIC dist/sarasacw-picture.icns)
+    target_sources(${EXE_NAME} PRIVATE dist/sarasacw-picture.icns)
+
+    # Setup Info.plist related directory.
+    set (PPIC_PLIST_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/plist-metadata)
+    # Render Info.plist and its strings.
+    execute_process (
+        COMMAND ${UV_EXECUTABLE} tool run metaglot render plist
+                --manifest ${CMAKE_SOURCE_DIR}/dist/Info.plist.in.toml
+                --po ${CMAKE_SOURCE_DIR}/locales/plist/*.po
+                --plist-template ${CMAKE_SOURCE_DIR}/dist/Info.plist.in.liquid
+                --strings-template ${CMAKE_SOURCE_DIR}/dist/InfoPlist.strings.liquid
+                --plist-path Info.plist.in
+                --strings-path "Resources/{{ lang }}.lproj/InfoPlist.strings"
+                --output ${PPIC_PLIST_OUTPUT_DIR}
+        RESULT_VARIABLE METAGLOT_PLIST_RESULT
+    )
+    if (NOT METAGLOT_PLIST_RESULT EQUAL 0)
+        message (FATAL_ERROR "Failed to render Info.plist metadata via MetaGlot (exit code: ${METAGLOT_PLIST_RESULT}).")
+    endif ()
+    # Include these to project.
+    file (GLOB PPIC_PLIST_STRINGS_FILES ${PPIC_PLIST_OUTPUT_DIR}/Resources/*.lproj/InfoPlist.strings)
+    foreach (plist_strings_file ${PPIC_PLIST_STRINGS_FILES})
+        get_filename_component (plist_lproj_dir ${plist_strings_file} DIRECTORY)
+        get_filename_component (plist_lproj_name ${plist_lproj_dir} NAME)
+        set_source_files_properties (${plist_strings_file} PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources/${plist_lproj_name}"
+        )
+        target_sources (${EXE_NAME} PRIVATE ${plist_strings_file})
+    endforeach ()
     # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
     set_target_properties(${EXE_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/dist/MacOSXBundleInfo.plist.in
-        MACOSX_BUNDLE_BUNDLE_NAME "Pineapple Pictures"
+        MACOSX_BUNDLE_INFO_PLIST ${PPIC_PLIST_OUTPUT_DIR}/Info.plist.in
+        MACOSX_BUNDLE_INFO_STRING "${PROJECT_VERSION}, Copyright (C) 2026 Gary Wang"
         MACOSX_BUNDLE_GUI_IDENTIFIER net.blumia.pineapple-pictures
         MACOSX_BUNDLE_ICON_FILE sarasacw-picture.icns # contains the .icns file name, *without* the path.
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
     )
 elseif (UNIX)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)

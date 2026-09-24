@@ -1,0 +1,8 @@
+/* Application display name. The key is the Info.plist key name. */
+"CFBundleName" = "{{ strings.app_name | plist_strings_escape }}";
+/* File type names. The key is the source text, covering CFBundleTypeName. */
+"{{ sources.file_type_jpeg | plist_strings_escape }}" = "{{ strings.file_type_jpeg | plist_strings_escape }}";
+"{{ sources.file_type_png | plist_strings_escape }}" = "{{ strings.file_type_png | plist_strings_escape }}";
+"{{ sources.file_type_webp | plist_strings_escape }}" = "{{ strings.file_type_webp | plist_strings_escape }}";
+"{{ sources.file_type_gif | plist_strings_escape }}" = "{{ strings.file_type_gif | plist_strings_escape }}";
+"{{ sources.file_type_svg | plist_strings_escape }}" = "{{ strings.file_type_svg | plist_strings_escape }}";

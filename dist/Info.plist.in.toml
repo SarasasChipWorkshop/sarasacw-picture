@@ -1,0 +1,26 @@
+version = 1
+source_language = "en"
+
+[strings.app_name]
+msgid = "Pineapple Pictures"
+comment = "Display name of the application."
+
+[strings.file_type_jpeg]
+msgid = "JPEG Image"
+comment = "Name of the JPEG document type (jpg, jpeg, jfif)."
+
+[strings.file_type_png]
+msgid = "PNG Image"
+comment = "Name of the PNG document type."
+
+[strings.file_type_webp]
+msgid = "WebP Image"
+comment = "Name of the WebP document type."
+
+[strings.file_type_gif]
+msgid = "GIF Image"
+comment = "Name of the GIF document type."
+
+[strings.file_type_svg]
+msgid = "SVG Image"
+comment = "Name of the SVG document type."
