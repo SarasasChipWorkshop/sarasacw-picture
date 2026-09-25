@@ -65,7 +65,7 @@ jobs:
         curl -fsSL -o libavif-v1_3_0.zip https://github.com/AOMediaCodec/libavif/archive/v1.3.0.zip
         7z x libavif-v1_3_0.zip -y -o"dependencies_src"
         ren .\dependencies_src\libavif-1.3.0 libavif || goto :error
-        cmake ./dependencies_src/libavif -Bbuild_dependencies/libavif -DCMAKE_INSTALL_PREFIX="dependencies_bin" -DAVIF_CODEC_AOM=SYSTEM -DAVIF_CODEC_AOM_DECODE=ON -DAVIF_CODEC_AOM_ENCODE=ON -DAVIF_LIBYUV=LOCAL
+        cmake ./dependencies_src/libavif -Bbuild_dependencies/libavif -DCMAKE_INSTALL_PREFIX="dependencies_bin" -DAVIF_CODEC_AOM=SYSTEM -DAVIF_CODEC_AOM_DECODE=ON -DAVIF_CODEC_AOM_ENCODE=ON -DAVIF_LIBYUV=LOCAL || goto :error
         cmake --build build_dependencies/libavif --config Release --target=install || goto :error
         echo ::endgroup::
         echo ::group::===== expat =====
@@ -92,21 +92,22 @@ jobs:
         echo ::endgroup::
         :: ------ app ------
         echo ::group::===== App (Build'n'Install) =====
-        cmake -Bbuild .
-        cmake --build build --config Release
-        cmake --install build --config Release --prefix "%PWD%\build"
+        cmake -Bbuild . || goto :error
+        cmake --build build --config Release || goto :error
+        cmake --install build --config Release --prefix "%PWD%\build" || goto :error
         echo ::endgroup::
         :: ------ pkg ------
         windeployqt --verbose=2 --no-compiler-runtime --no-quick-import --no-translations --no-network --no-opengl-sw --no-system-d3d-compiler --no-system-dxc-compiler --skip-plugin-types tls,networkinformation build\bin\ppic.exe
         robocopy ./dependencies_bin/bin build/bin *.dll
-        if ErrorLevel 8 (exit /B 1)
+        if ErrorLevel 8 goto :error
         copy LICENSE build\bin
         copy build\inno-metadata\ppic.iss build\bin\ppic.iss
         robocopy build\inno-metadata\Strings build\bin\Strings
-        if ErrorLevel 8 (exit /B 1)
-        iscc /Q build\bin\ppic.iss
-        if ErrorLevel 1 (exit /B 1)
+        if ErrorLevel 8 goto :error
+        iscc /Q build\bin\ppic.iss || goto :error
         exit /B 0
+        :error
+        exit /B 1
     - uses: actions/upload-artifact@v6
       with:
         name: "ppic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake-setup"
