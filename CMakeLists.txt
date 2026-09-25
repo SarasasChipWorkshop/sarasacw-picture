@@ -105,6 +105,7 @@ if (NOT UV_EXECUTABLE)
 endif ()
 
 if (WIN32)
+    # Setup Windows RC files
     set (PPIC_RC_TEMPLATE_FILE ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc.in)
     execute_process (
         COMMAND ${UV_EXECUTABLE} tool run metaglot render rc
@@ -228,6 +229,24 @@ if (WIN32)
     set_target_properties(${EXE_NAME} PROPERTIES
         WIN32_EXECUTABLE TRUE
     )
+
+    # Setup Inno Setup script file
+    set (PPIC_INNO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/inno-metadata)
+    execute_process (
+        COMMAND ${UV_EXECUTABLE} tool run metaglot render inno
+                --manifest ${CMAKE_SOURCE_DIR}/dist/ppic.iss.in.toml
+                --po ${CMAKE_SOURCE_DIR}/locales/inno/*.po
+                --iss-template ${CMAKE_SOURCE_DIR}/dist/ppic.iss.in.liquid
+                --isl-template ${CMAKE_SOURCE_DIR}/dist/ppic.isl.liquid
+                --iss-path ppic.iss.in
+                --isl-path "Strings/{{ lang }}.isl"
+                --output ${PPIC_INNO_OUTPUT_DIR}
+        RESULT_VARIABLE METAGLOT_INNO_RESULT
+    )
+    if (NOT METAGLOT_INNO_RESULT EQUAL 0)
+        message (FATAL_ERROR "Failed to render Inno Setup script via MetaGlot (exit code: ${METAGLOT_INNO_RESULT}).")
+    endif ()
+    configure_file (${PPIC_INNO_OUTPUT_DIR}/ppic.iss.in ${PPIC_INNO_OUTPUT_DIR}/ppic.iss @ONLY)
 elseif (APPLE)
     # Include icon to project
     set_source_files_properties(dist/sarasacw-picture.icns PROPERTIES

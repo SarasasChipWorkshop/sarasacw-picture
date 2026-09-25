@@ -101,8 +101,13 @@ jobs:
         robocopy ./dependencies_bin/bin build/bin *.dll
         if ErrorLevel 8 (exit /B 1)
         copy LICENSE build\bin
+        copy build\inno-metadata\ppic.iss build\bin\ppic.iss
+        robocopy build\inno-metadata\Strings build\bin\Strings
+        if ErrorLevel 8 (exit /B 1)
+        iscc /Q build\bin\ppic.iss
+        if ErrorLevel 1 (exit /B 1)
         exit /B 0
     - uses: actions/upload-artifact@v6
       with:
-        name: "windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake-package"
-        path: build/bin/*
+        name: "ppic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake-setup"
+        path: build/bin/ppic-setup.exe
