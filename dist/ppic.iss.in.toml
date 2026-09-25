@@ -1,0 +1,18 @@
+version = 1
+source_language = "en"
+
+[strings.MyAppName]
+msgid = "Pineapple Pictures"
+comment = "Display name of the application, used in the installer UI."
+
+[strings.MyOther]
+msgid = "Other:"
+comment = "Group caption for the extra installer task options."
+
+[strings.MyAssociateWithFiles]
+msgid = "Associate %1 with its supported file types."
+comment = "Installer task description. %1 is the application name."
+
+[strings.MyInstallVcRedist]
+msgid = "Installing Microsoft Visual C++ Redistributable..."
+comment = "Status message shown while installing the VC++ runtime."
