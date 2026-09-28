@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-project(pineapple-pictures VERSION 1.6.0) # don't forget to update NEWS file and AppStream metadata.
+project(sarasacw-picture VERSION 1.6.0) # don't forget to update NEWS file and AppStream metadata.
 
 include(GNUInstallDirs)
 include(FeatureSummary)
@@ -37,7 +37,7 @@ if (EXIV2_METADATA_SUPPORT)
     )
 endif ()
 
-set (PPIC_CPP_FILES
+set (SCWPIC_CPP_FILES
     app/main.cpp
     app/mainwindow.cpp
     app/actionmanager.cpp
@@ -58,7 +58,7 @@ set (PPIC_CPP_FILES
     app/playlistscouts/explorerscout.cpp
 )
 
-set (PPIC_HEADER_FILES
+set (SCWPIC_HEADER_FILES
     app/mainwindow.h
     app/actionmanager.h
     app/graphicsview.h
@@ -78,26 +78,26 @@ set (PPIC_HEADER_FILES
     app/playlistscouts/explorerscout.h
 )
 
-set (PPIC_UI_FILES
+set (SCWPIC_UI_FILES
     app/settingsdialog.ui
     app/aboutdialog.ui
     app/metadatadialog.ui
     app/mainwindow.ui
 )
 
-set (PPIC_QRC_FILES
+set (SCWPIC_QRC_FILES
     assets/resources.qrc
 )
 
-set (PPIC_RC_FILES
+set (SCWPIC_RC_FILES
     # yeah, it's empty.
 )
 
-set (EXE_NAME ppic)
+set (EXE_NAME scwpic)
 
 # Translation
-file (GLOB PPIC_TS_FILES locales/app/*.ts)
-set (PPIC_CPP_FILES_FOR_I18N ${PPIC_CPP_FILES})
+file (GLOB SCWPIC_TS_FILES locales/app/*.ts)
+set (SCWPIC_CPP_FILES_FOR_I18N ${SCWPIC_CPP_FILES})
 
 find_program (UV_EXECUTABLE uv)
 if (NOT UV_EXECUTABLE)
@@ -106,29 +106,29 @@ endif ()
 
 if (WIN32)
     # Setup Windows RC files
-    set (PPIC_RC_TEMPLATE_FILE ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc.in)
+    set (SCWPIC_RC_TEMPLATE_FILE ${CMAKE_CURRENT_BINARY_DIR}/sarasacw-picture.rc.in)
     execute_process (
         COMMAND ${UV_EXECUTABLE} tool run metaglot render rc
-                --manifest ${CMAKE_SOURCE_DIR}/dist/pineapple-pictures.rc.in.toml
+                --manifest ${CMAKE_SOURCE_DIR}/dist/sarasacw-picture.rc.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/winrc/*.po
-                --template ${CMAKE_SOURCE_DIR}/dist/pineapple-pictures.rc.in.liquid
-                --output ${PPIC_RC_TEMPLATE_FILE}
+                --template ${CMAKE_SOURCE_DIR}/dist/sarasacw-picture.rc.in.liquid
+                --output ${SCWPIC_RC_TEMPLATE_FILE}
         RESULT_VARIABLE METAGLOT_RESULT
     )
     if (NOT METAGLOT_RESULT EQUAL 0)
         message (FATAL_ERROR "Failed to generate Windows RC file template via MetaGlot (exit code: ${METAGLOT_RESULT}).")
     endif ()
 
-    configure_file (${PPIC_RC_TEMPLATE_FILE} ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc @ONLY)
-    list (APPEND PPIC_RC_FILES ${CMAKE_CURRENT_BINARY_DIR}/pineapple-pictures.rc)
+    configure_file (${SCWPIC_RC_TEMPLATE_FILE} ${CMAKE_CURRENT_BINARY_DIR}/sarasacw-picture.rc @ONLY)
+    list (APPEND SCWPIC_RC_FILES ${CMAKE_CURRENT_BINARY_DIR}/sarasacw-picture.rc)
 endif ()
 
 add_executable (${EXE_NAME}
-    ${PPIC_HEADER_FILES}
-    ${PPIC_CPP_FILES}
-    ${PPIC_UI_FILES}
-    ${PPIC_QRC_FILES}
-    ${PPIC_RC_FILES}
+    ${SCWPIC_HEADER_FILES}
+    ${SCWPIC_CPP_FILES}
+    ${SCWPIC_UI_FILES}
+    ${SCWPIC_QRC_FILES}
+    ${SCWPIC_RC_FILES}
 )
 
 set(ADD_TRANSLATIONS_ADDITIONAL_ARGS)
@@ -138,9 +138,9 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL "6.9.0")
 endif()
 
 if (TRANSLATION_RESOURCE_EMBEDDING)
-    qt_add_translations(${EXE_NAME} ${ADD_TRANSLATIONS_ADDITIONAL_ARGS} TS_FILES ${PPIC_TS_FILES})
+    qt_add_translations(${EXE_NAME} ${ADD_TRANSLATIONS_ADDITIONAL_ARGS} TS_FILES ${SCWPIC_TS_FILES})
 else()
-    qt_add_translations(${EXE_NAME} ${ADD_TRANSLATIONS_ADDITIONAL_ARGS} TS_FILES ${PPIC_TS_FILES} QM_FILES_OUTPUT_VARIABLE PPIC_QM_FILES)
+    qt_add_translations(${EXE_NAME} ${ADD_TRANSLATIONS_ADDITIONAL_ARGS} TS_FILES ${SCWPIC_TS_FILES} QM_FILES_OUTPUT_VARIABLE SCWPIC_QM_FILES)
 endif()
 
 # YYC MARK:
@@ -155,7 +155,7 @@ set_target_properties(${EXE_NAME} PROPERTIES AUTOUIC_OPTIONS "-a")
 # can not find our header files if there are custom widgets inside UI file.
 target_include_directories(${EXE_NAME} PRIVATE app/)
 
-target_sources(${EXE_NAME} PRIVATE ${PPIC_QM_FILES})
+target_sources(${EXE_NAME} PRIVATE ${SCWPIC_QM_FILES})
 
 target_link_libraries (${EXE_NAME} Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg Qt${QT_VERSION_MAJOR}::SvgWidgets)
 
@@ -189,7 +189,7 @@ if (WIN32)
 endif ()
 
 # Helper macros for parsing and setting project version from `git describe --long` result
-macro (ppic_set_version_via_describe _describe_long)
+macro (scwpic_set_version_via_describe _describe_long)
     string (
         REGEX REPLACE
         "^([0-9a-z.]*)-[0-9]+-g[0-9a-f]*$"
@@ -213,7 +213,7 @@ macro (ppic_set_version_via_describe _describe_long)
 endmacro ()
 
 # Version setup
-target_compile_definitions(${EXE_NAME} PRIVATE PPIC_VERSION_STRING="${CMAKE_PROJECT_VERSION}")
+target_compile_definitions(${EXE_NAME} PRIVATE SCWPIC_VERSION_STRING="${CMAKE_PROJECT_VERSION}")
 if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
     find_package(Git)
     set_package_properties(Git PROPERTIES TYPE OPTIONAL PURPOSE "Determine exact build version.")
@@ -224,7 +224,7 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
             OUTPUT_VARIABLE _git_describe_long
         )
         string (REGEX REPLACE "\n" "" _git_describe_long "${_git_describe_long}")
-        ppic_set_version_via_describe(${_git_describe_long})
+        scwpic_set_version_via_describe(${_git_describe_long})
         target_compile_definitions(${EXE_NAME} PRIVATE
             GIT_DESCRIBE_VERSION_STRING="${_git_describe_long}"
         )
@@ -238,22 +238,22 @@ if (WIN32)
     )
 
     # Setup Inno Setup script file
-    set (PPIC_INNO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/inno-metadata)
+    set (SCWPIC_INNO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/inno-metadata)
     execute_process (
         COMMAND ${UV_EXECUTABLE} tool run metaglot render inno
-                --manifest ${CMAKE_SOURCE_DIR}/dist/ppic.iss.in.toml
+                --manifest ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/inno/*.po
-                --iss-template ${CMAKE_SOURCE_DIR}/dist/ppic.iss.in.liquid
-                --isl-template ${CMAKE_SOURCE_DIR}/dist/ppic.isl.liquid
-                --iss-path ppic.iss.in
+                --iss-template ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.liquid
+                --isl-template ${CMAKE_SOURCE_DIR}/dist/scwpic.isl.liquid
+                --iss-path scwpic.iss.in
                 --isl-path "Strings/{{ lang }}.isl"
-                --output ${PPIC_INNO_OUTPUT_DIR}
+                --output ${SCWPIC_INNO_OUTPUT_DIR}
         RESULT_VARIABLE METAGLOT_INNO_RESULT
     )
     if (NOT METAGLOT_INNO_RESULT EQUAL 0)
         message (FATAL_ERROR "Failed to render Inno Setup script via MetaGlot (exit code: ${METAGLOT_INNO_RESULT}).")
     endif ()
-    configure_file (${PPIC_INNO_OUTPUT_DIR}/ppic.iss.in ${PPIC_INNO_OUTPUT_DIR}/ppic.iss @ONLY)
+    configure_file (${SCWPIC_INNO_OUTPUT_DIR}/scwpic.iss.in ${SCWPIC_INNO_OUTPUT_DIR}/scwpic.iss @ONLY)
 elseif (APPLE)
     # Include icon to project
     set_source_files_properties(dist/sarasacw-picture.icns PROPERTIES
@@ -262,7 +262,7 @@ elseif (APPLE)
     target_sources(${EXE_NAME} PRIVATE dist/sarasacw-picture.icns)
 
     # Setup Info.plist related directory.
-    set (PPIC_PLIST_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/plist-metadata)
+    set (SCWPIC_PLIST_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/plist-metadata)
     # Render Info.plist and its strings.
     execute_process (
         COMMAND ${UV_EXECUTABLE} tool run metaglot render plist
@@ -272,15 +272,15 @@ elseif (APPLE)
                 --strings-template ${CMAKE_SOURCE_DIR}/dist/InfoPlist.strings.liquid
                 --plist-path Info.plist.in
                 --strings-path "Resources/{{ lang }}.lproj/InfoPlist.strings"
-                --output ${PPIC_PLIST_OUTPUT_DIR}
+                --output ${SCWPIC_PLIST_OUTPUT_DIR}
         RESULT_VARIABLE METAGLOT_PLIST_RESULT
     )
     if (NOT METAGLOT_PLIST_RESULT EQUAL 0)
         message (FATAL_ERROR "Failed to render Info.plist metadata via MetaGlot (exit code: ${METAGLOT_PLIST_RESULT}).")
     endif ()
     # Include these to project.
-    file (GLOB PPIC_PLIST_STRINGS_FILES ${PPIC_PLIST_OUTPUT_DIR}/Resources/*.lproj/InfoPlist.strings)
-    foreach (plist_strings_file ${PPIC_PLIST_STRINGS_FILES})
+    file (GLOB SCWPIC_PLIST_STRINGS_FILES ${SCWPIC_PLIST_OUTPUT_DIR}/Resources/*.lproj/InfoPlist.strings)
+    foreach (plist_strings_file ${SCWPIC_PLIST_STRINGS_FILES})
         get_filename_component (plist_lproj_dir ${plist_strings_file} DIRECTORY)
         get_filename_component (plist_lproj_name ${plist_lproj_dir} NAME)
         set_source_files_properties (${plist_strings_file} PROPERTIES
@@ -291,9 +291,9 @@ elseif (APPLE)
     # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
     set_target_properties(${EXE_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_INFO_PLIST ${PPIC_PLIST_OUTPUT_DIR}/Info.plist.in
-        MACOSX_BUNDLE_INFO_STRING "${PROJECT_VERSION}, Copyright (C) 2026 Gary Wang"
-        MACOSX_BUNDLE_GUI_IDENTIFIER net.blumia.pineapple-pictures
+        MACOSX_BUNDLE_INFO_PLIST ${SCWPIC_PLIST_OUTPUT_DIR}/Info.plist.in
+        MACOSX_BUNDLE_INFO_STRING "${PROJECT_VERSION}, Copyright (C) 2026 Sarasa's Chip Workshop"
+        MACOSX_BUNDLE_GUI_IDENTIFIER org.sarasaschipworkshop.picture
         MACOSX_BUNDLE_ICON_FILE sarasacw-picture.icns # contains the .icns file name, *without* the path.
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
@@ -310,13 +310,13 @@ elseif (UNIX)
     )
 
     # generate and install desktop entry file
-    set (PPIC_DESKTOP_FILE ${CMAKE_CURRENT_BINARY_DIR}/net.blumia.pineapple-pictures.desktop)
+    set (SCWPIC_DESKTOP_FILE ${CMAKE_CURRENT_BINARY_DIR}/org.sarasaschipworkshop.picture.desktop)
     execute_process (
         COMMAND ${UV_EXECUTABLE} tool run metaglot render desktop
-                --manifest ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.desktop.toml
+                --manifest ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.desktop.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/desktop/*.po
-                --template ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.desktop.liquid
-                --output ${PPIC_DESKTOP_FILE}
+                --template ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.desktop.liquid
+                --output ${SCWPIC_DESKTOP_FILE}
         RESULT_VARIABLE METAGLOT_DESKTOP_RESULT
     )
     if (NOT METAGLOT_DESKTOP_RESULT EQUAL 0)
@@ -324,18 +324,18 @@ elseif (UNIX)
     endif ()
 
     install (
-        FILES ${PPIC_DESKTOP_FILE}
+        FILES ${SCWPIC_DESKTOP_FILE}
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications"
     )
 
     # generate and install app metadata file for appstream (and some other stuff using this metadata like snapcraft)
-    set (PPIC_METAINFO_FILE ${CMAKE_CURRENT_BINARY_DIR}/net.blumia.pineapple-pictures.metainfo.xml)
+    set (SCWPIC_METAINFO_FILE ${CMAKE_CURRENT_BINARY_DIR}/org.sarasaschipworkshop.picture.metainfo.xml)
     execute_process (
         COMMAND ${UV_EXECUTABLE} tool run metaglot render appstream
-                --manifest ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.metainfo.xml.toml
+                --manifest ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.metainfo.xml.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/appstream/*.po
-                --template ${CMAKE_SOURCE_DIR}/dist/net.blumia.pineapple-pictures.metainfo.xml.liquid
-                --output ${PPIC_METAINFO_FILE}
+                --template ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.metainfo.xml.liquid
+                --output ${SCWPIC_METAINFO_FILE}
         RESULT_VARIABLE METAGLOT_METAINFO_RESULT
     )
     if (NOT METAGLOT_METAINFO_RESULT EQUAL 0)
@@ -343,7 +343,7 @@ elseif (UNIX)
     endif ()
 
     install (
-        FILES ${PPIC_METAINFO_FILE}
+        FILES ${SCWPIC_METAINFO_FILE}
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo"
     )
 endif()
@@ -367,7 +367,7 @@ if (TRANSLATION_RESOURCE_EMBEDDING)
 elseif (WIN32)
     set (QM_FILE_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}/translations")
 else()
-    set (QM_FILE_INSTALL_DIR "${CMAKE_INSTALL_FULL_DATADIR}/pineapple-pictures/translations")
+    set (QM_FILE_INSTALL_DIR "${CMAKE_INSTALL_FULL_DATADIR}/sarasacw-picture/translations")
     target_compile_definitions(${EXE_NAME}
         PRIVATE QM_FILE_INSTALL_ABSOLUTE_DIR=${QM_FILE_INSTALL_DIR}
     )
@@ -375,7 +375,7 @@ endif()
 
 if (DEFINED QM_FILE_INSTALL_DIR)
     install(
-        FILES ${PPIC_QM_FILES}
+        FILES ${SCWPIC_QM_FILES}
         DESTINATION ${QM_FILE_INSTALL_DIR}
     )
 endif()
@@ -383,10 +383,10 @@ feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAG
 
 # CPACK: General Settings
 set (CPACK_GENERATOR "TBZ2")
-set (CPACK_PACKAGE_NAME "pineapple-pictures")
+set (CPACK_PACKAGE_NAME "sarasacw-picture")
 set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Yet another image viewer")
-set (CPACK_PACKAGE_VENDOR "Gary Wang")
-set (CPACK_PACKAGE_CONTACT "https://github.com/BLumia/pineapple-pictures/issues/")
+set (CPACK_PACKAGE_VENDOR "Sarasa's Chip Workshop")
+set (CPACK_PACKAGE_CONTACT "https://github.com/SarasasChipWorkshop/sarasacw-picture/issues/")
 if (WIN32)
     # ...
 elseif (APPLE)
