@@ -20,8 +20,8 @@ using namespace Qt::Literals::StringLiterals;
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setApplicationName(u"Pineapple Pictures"_s);
-    QCoreApplication::setApplicationVersion(PPIC_VERSION_STRING);
+    QCoreApplication::setApplicationName(u"SCW Photo Viewer"_s);
+    QCoreApplication::setApplicationVersion(SCWPIC_VERSION_STRING);
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Settings::instance()->hiDpiScaleFactorBehavior());
 
     QApplication a(argc, argv);
@@ -34,11 +34,11 @@ int main(int argc, char *argv[])
 #else
     const QString qmDir = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("translations");
 #endif
-    if (translator.load(QLocale(), u"PineapplePictures"_s, u"_"_s, qmDir)) {
+    if (translator.load(QLocale(), u"SarasaCWPicture"_s, u"_"_s, qmDir)) {
         QCoreApplication::installTranslator(&translator);
     }
 
-    QGuiApplication::setApplicationDisplayName(QCoreApplication::translate("main", "Pineapple Pictures"));
+    QGuiApplication::setApplicationDisplayName(QCoreApplication::translate("main", "SCW Photo Viewer"));
 
     // commandline options
     QCommandLineOption supportedImageFormats(u"supported-image-formats"_s, QCoreApplication::translate("main", "List supported image format suffixes, and quit program."));
