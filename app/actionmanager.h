@@ -22,7 +22,6 @@ public:
     void setupAction(MainWindow * mainWindow);
     void setupShortcuts();
 
-public slots:
     void updateActionState(PlaylistManager* pm, GraphicsView* gv);
 
 public:

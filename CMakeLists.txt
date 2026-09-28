@@ -144,6 +144,13 @@ else()
 endif()
 
 # YYC MARK:
+# We use this to disable that Qt UIC generate code like `QMetaObject::connectSlotsByName(foobar);`
+# for the header file of `.ui` file, which cause this application outputs log at runtime like
+# `qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_actionXxx_triggered()`,
+# because we only use UIC for building user interface and all signals and actions are managed by ourselves.
+set_target_properties(${EXE_NAME} PROPERTIES AUTOUIC_OPTIONS "-a")
+
+# YYC MARK:
 # This is essential, otherwise Qt UIC generated UI header file
 # can not find our header files if there are custom widgets inside UI file.
 target_include_directories(${EXE_NAME} PRIVATE app/)
