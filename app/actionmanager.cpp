@@ -146,7 +146,8 @@ void ActionManager::setupAction(MainWindow *mainWindow)
 
 void ActionManager::setupShortcuts()
 {
-    actionCopyPixmap->setShortcut(QKeySequence::Copy);
+    actionCopyPixmap->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
+    actionCopyFilePath->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
 
     actionPrevPicture->setShortcuts({
         QKeySequence(Qt::Key_Left),
@@ -157,13 +158,20 @@ void ActionManager::setupShortcuts()
         QKeySequence(Qt::Key_PageDown),
     });
 
-    actionActualSize->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_0));
+    actionFitToScreen->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_0));
+    actionActualSize->setShortcut(QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_0));
+
     actionZoomIn->setShortcut(QKeySequence::ZoomIn);
     actionZoomOut->setShortcut(QKeySequence::ZoomOut);
 
-    actionTrash->setShortcut(QKeySequence::Delete);
-    actionProperties->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_I));
+    actionFlipHorizontal->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_M));
+    actionFlipVertical->setShortcut(QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_M));
 
+    actionRotateClockwise->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Comma));
+    actionRotateCounterClockwise->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Period));
+
+    actionTrash->setShortcut(QKeySequence::Delete);
+    actionProperties->setShortcut(QKeySequence(Qt::ALT | Qt::Key_Enter));
     actionSettings->setShortcut(QKeySequence::Preferences);
     actionHelp->setShortcut(QKeySequence::HelpContents);
 }
