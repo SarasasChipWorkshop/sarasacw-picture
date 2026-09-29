@@ -2,7 +2,7 @@ version = 1
 source_language = "en"
 
 [strings.1000]
-msgid = "Pineapple Pictures"
+msgid = "SCW Photo Viewer"
 context = "Explorer"
 comment = "Application friendly name shown by Explorer, e.g. in the 'Open with' menu."
 
@@ -119,9 +119,9 @@ msgid = "Scitex Continuous Tone"
 comment = "File type name for: sct"
 
 [strings.file_description]
-msgid = "Pineapple Pictures - Image Viewer"
+msgid = "Yet another legacy Windows Photo Viewer with cross-platform support."
 comment = "File description of the executable."
 
 [strings.product_name]
-msgid = "Pineapple Pictures"
+msgid = "SCW Photo Viewer"
 comment = "Display name of the product."

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component type="desktop-application">
-  <id>net.blumia.pineapple-pictures</id>
+  <id>org.sarasaschipworkshop.picture</id>
   <name>{{ default.strings.name | xml_escape }}</name>
 {% for lang in languages %}
   <name xml:lang="{{ lang.lang }}">{{ lang.strings.name | xml_escape }}</name>
@@ -17,44 +17,21 @@
     <p xml:lang="{{ lang.lang }}">{{ lang.strings.description | xml_escape }}</p>
 {% endfor %}
   </description>
-  <developer id="net.blumia">
+  <developer id="org.sarasaschipworkshop">
     <name>{{ default.strings.developer_name | xml_escape }}</name>
 {% for lang in languages %}
     <name xml:lang="{{ lang.lang }}">{{ lang.strings.developer_name | xml_escape }}</name>
 {% endfor %}
   </developer>
-  <launchable type="desktop-id">net.blumia.pineapple-pictures.desktop</launchable>
-  <url type="homepage">https://github.com/BLumia/pineapple-pictures</url>
-  <url type="bugtracker">https://github.com/BLumia/pineapple-pictures/issues</url>
-  <url type="donation">https://ko-fi.com/blumia</url>
-  <url type="translate">https://hosted.weblate.org/projects/pineapple-pictures/</url>
-  <url type="vcs-browser">https://github.com/BLumia/pineapple-pictures</url>
+  <launchable type="desktop-id">org.sarasaschipworkshop.picture.desktop</launchable>
+  <url type="homepage">https://github.com/SarasasChipWorkshop/sarasacw-picture</url>
+  <url type="bugtracker">https://github.com/SarasasChipWorkshop/sarasacw-picture/issues</url>
+  <url type="translate">https://github.com/SarasasChipWorkshop/sarasacw-picture</url>
+  <url type="vcs-browser">https://github.com/SarasasChipWorkshop/sarasacw-picture</url>
   <provides>
-    <binary>ppic</binary>
+    <binary>scwpic</binary>
   </provides>
-  <screenshots>
-    <screenshot type="default">
-      <caption>{{ default.strings.screenshot_caption_main | xml_escape }}</caption>
-{% for lang in languages %}
-      <caption xml:lang="{{ lang.lang }}">{{ lang.strings.screenshot_caption_main | xml_escape }}</caption>
-{% endfor %}
-      <image type="source" width="1503" height="640">https://pineapple-pictures.sourceforge.io/ppic-gui-static.png</image>
-    </screenshot>
-    <screenshot>
-      <caption>{{ default.strings.screenshot_caption_raster | xml_escape }}</caption>
-{% for lang in languages %}
-      <caption xml:lang="{{ lang.lang }}">{{ lang.strings.screenshot_caption_raster | xml_escape }}</caption>
-{% endfor %}
-      <image type="source" width="771" height="553">https://pineapple-pictures.sourceforge.io/ppic-zoom-raster.png</image>
-    </screenshot>
-    <screenshot>
-      <caption>{{ default.strings.screenshot_caption_vector | xml_escape }}</caption>
-{% for lang in languages %}
-      <caption xml:lang="{{ lang.lang }}">{{ lang.strings.screenshot_caption_vector | xml_escape }}</caption>
-{% endfor %}
-      <image type="source" width="771" height="553">https://pineapple-pictures.sourceforge.io/ppic-zoom-svg.png</image>
-    </screenshot>
-  </screenshots>
+  <!-- TODO: Add new screenshots for SCW Photo Viewer here, in an AppStream <screenshots> section, once screenshots are available. -->
   <releases>
     <release type="stable" version="1.6.0" date="2026-08-22T00:00:00Z">
       <description>

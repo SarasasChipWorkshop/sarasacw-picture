@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pineapple-pictures\n"
+"Project-Id-Version: sarasacw-picture\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8,16 +8,16 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Display name of the application, referenced as ms-resource:AppDisplayName.
-msgid "Pineapple Pictures"
-msgstr "菠萝看图"
+msgid "SCW Photo Viewer"
+msgstr "SCW 照片查看器"
 
 #. Publisher display name, referenced as ms-resource:PublisherDisplayName.
-msgid "Chestnut Software"
+msgid "Sarasa's Chip Workshop"
 msgstr ""
 
 #. Application description, referenced as ms-resource:AppDescription.
-msgid "Pineapple Pictures - Image Viewer"
-msgstr ""
+msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
+msgstr "又一个支持跨平台的怀旧版 Windows 照片查看器。"
 
 #. Display name of the JPEG file type association (jpg, jpeg, jfif), referenced as ms-resource:FileTypeJpegDisplayName.
 msgid "JPEG Image"
