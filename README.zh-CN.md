@@ -1,7 +1,7 @@
-# Sarasas Chip Workshop 照片查看器
+# Sarasa's Chip Workshop 照片查看器
 
 > [!IMPORTANT]
-> SarasaCW 照片查看器还在重构中。在这条信息被移除之前请不要使用它。
+> SCW 照片查看器还在重构中。在这条信息被移除之前请不要使用它。
 
 简单轻量的、具有跨平台支持的、经典样式的 Windows 照片查看器。
 
@@ -11,14 +11,14 @@
 
 <!--
 TODO: Add main window illustration in future.
-![SarasaCW 照片查看器 - 主窗口](https://repository-images.githubusercontent.com/211888654/e8697600-e370-11eb-9b2a-b71e05262954)
+![SCW 照片查看器 - 主窗口](https://repository-images.githubusercontent.com/211888654/e8697600-e370-11eb-9b2a-b71e05262954)
 -->
 
 ## 简介
 
-Sarasas Chip Workshop 照片查看器（简称 SarasaCW 照片查看器）是一个轻量级的图片查看器。支持跨平台。界面风格类似于经典的 Windows 照片查看器。它可以让你快速轻松地浏览 JPEG、PNG、GIF、SVG、PSD、KRA、XCF、TGA、HDR、AVIF 以及其他一些常用的图片格式，且无需改变你长期的 Windows 使用习惯。
+Sarasa's Chip Workshop 照片查看器（简称 SCW 照片查看器）是一个轻量级的图片查看器。支持跨平台。界面风格类似于经典的 Windows 照片查看器。它可以让你快速轻松地浏览 JPEG、PNG、GIF、SVG、PSD、KRA、XCF、TGA、HDR、AVIF 以及其他一些常用的图片格式，且无需改变你长期的 Windows 使用习惯。
 
-SarasaCW 照片查看器是[菠萝看图](https://github.com/BLumia/pineapple-pictures)的**硬分叉**，该分叉自菠萝看图 1.4.1 版本开始。
+SCW 照片查看器是[菠萝看图](https://github.com/BLumia/pineapple-pictures)的**硬分叉**，该分叉自菠萝看图 1.4.1 版本开始。
 
 ## 安装
 
@@ -59,4 +59,4 @@ $ cmake --build . # 如果你使用 Makefile 作为 CMake 生成器，也可以�
 
 ## 许可协议
 
-SarasaCW 照片查看器整体使用 MIT 协议进行发布。项目所随的部分源文件可能具备不同但与之兼容的许可协议。
+SCW 照片查看器整体使用 MIT 协议进行发布。项目所随的部分源文件可能具备不同但与之兼容的许可协议。

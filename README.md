@@ -1,7 +1,7 @@
-# Sarasas Chip Workshop Picture
+# Sarasa's Chip Workshop Photo Viewer
 
 > [!IMPORTANT]
-> SarasaCW Picture are still in refactoring. Please do not use it until this message removes.
+> SCW Photo Viewer is still in refactoring. Please do not use it until this message removes.
 
 Yet another legacy Windows Photo Viewer with cross-platform support.
 
@@ -11,14 +11,14 @@ Yet another legacy Windows Photo Viewer with cross-platform support.
 
 <!--
 TODO: Add main window illustration in future.
-![SarasaCW Picture - Main Window](https://repository-images.githubusercontent.com/211888654/e8697600-e370-11eb-9b2a-b71e05262954)
+![SCW Photo Viewer - Main Window](https://repository-images.githubusercontent.com/211888654/e8697600-e370-11eb-9b2a-b71e05262954)
 -->
 
 ## Summary
 
-Sarasas Chip Workshop Picture (abbr. SarasaCW Picture) is a lightweight image viewer that has cross-platform support and similar user interface about legacy Windows Photo Viewer. It allows you view JPEG, PNG, GIF, SVG, PSD, KRA, XCF, TGA, HDR, AVIF and some other frequently used image formats files quickly and easily without changing your long-term Windows usage experience.
+Sarasa's Chip Workshop Photo Viewer (abbr. SCW Photo Viewer) is a lightweight image viewer that has cross-platform support and similar user interface about legacy Windows Photo Viewer. It allows you view JPEG, PNG, GIF, SVG, PSD, KRA, XCF, TGA, HDR, AVIF and some other frequently used image formats files quickly and easily without changing your long-term Windows usage experience.
 
-SarasaCW Picture is the **hard fork** of [Pineapple Pictures](https://github.com/BLumia/pineapple-pictures) since Pineapple Pictures 1.4.1 version.
+SCW Photo Viewer is the **hard fork** of [Pineapple Pictures](https://github.com/BLumia/pineapple-pictures) since Pineapple Pictures 1.4.1 version.
 
 ## Installation
 
@@ -59,4 +59,4 @@ It's possible to build it under Windows, Linux, macOS, and maybe other desktop p
 
 ## License
 
-SarasaCW Picture as a whole is licensed under MIT license. Individual files may have a different, but compatible license.
+SCW Photo Viewer as a whole is licensed under MIT license. Individual files may have a different, but compatible license.
