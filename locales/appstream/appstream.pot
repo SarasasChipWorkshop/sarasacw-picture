@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: MetaGlot/polib\n"
 
 #. Display name of the application.
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""
 
 #. One-line summary shown in software centers.
@@ -21,23 +21,11 @@ msgstr ""
 
 #. Description paragraph shown in the details page.
 msgid ""
-"Pineapple Pictures is a lightweight and easy-to-use image viewer that comes "
+"SCW Photo Viewer is a lightweight and easy-to-use image viewer that comes "
 "with a handy navigation thumbnail when zoom-in, and doesn't contain any "
 "image management support."
 msgstr ""
 
 #. Name of the application developers.
-msgid "Gary (BLumia) Wang et al."
-msgstr ""
-
-#. Caption of the primary screenshot.
-msgid "Main window when an image file is loaded"
-msgstr ""
-
-#. Caption of the raster image zooming screenshot.
-msgid "Zooming in a raster image"
-msgstr ""
-
-#. Caption of the vector image zooming screenshot.
-msgid "Zooming in a vector image"
+msgid "Sarasa's Chip Workshop"
 msgstr ""

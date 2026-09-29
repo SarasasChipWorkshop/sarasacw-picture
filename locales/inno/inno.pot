@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: MetaGlot/polib\n"
 
 #. Display name of the application, used in the installer UI.
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""
 
 #. Group caption for the extra installer task options.

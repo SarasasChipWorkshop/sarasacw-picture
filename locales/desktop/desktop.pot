@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: MetaGlot/polib\n"
 
 #. Display name of the application.
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""
 
 #. Generic name describing the application category.
@@ -20,7 +20,7 @@ msgid "Image Viewer"
 msgstr ""
 
 #. Tooltip-like description of the application.
-msgid "Pineapple Pictures is a lightweight image viewer"
+msgid "SCW Photo Viewer is a lightweight image viewer"
 msgstr ""
 
 #. Search keywords. Semicolon separated list; the trailing semicolon is
