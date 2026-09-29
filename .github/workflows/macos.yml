@@ -37,7 +37,7 @@ jobs:
         cmake --build --preset conan-release
     - name: Deploy
       run: |
-        macdeployqt ./ppic.app -dmg
+        macdeployqt ./scwpic.app -dmg
         ls
     - uses: actions/upload-artifact@v6
       with:
