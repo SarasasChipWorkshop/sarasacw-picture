@@ -2,7 +2,7 @@ version = 1
 source_language = "en"
 
 [strings.app_name]
-msgid = "Pineapple Pictures"
+msgid = "SCW Photo Viewer"
 comment = "Display name of the application."
 
 [strings.file_type_jpeg]

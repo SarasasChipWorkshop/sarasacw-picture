@@ -2,7 +2,7 @@ version = 1
 source_language = "en"
 
 [strings.MyAppName]
-msgid = "Pineapple Pictures"
+msgid = "SCW Photo Viewer"
 comment = "Display name of the application, used in the installer UI."
 
 [strings.MyOther]

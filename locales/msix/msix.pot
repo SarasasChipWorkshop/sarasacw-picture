@@ -12,15 +12,15 @@ msgstr ""
 "X-Generator: MetaGlot/polib\n"
 
 #. Display name of the application, referenced as ms-resource:AppDisplayName.
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""
 
 #. Publisher display name, referenced as ms-resource:PublisherDisplayName.
-msgid "Chestnut Software"
+msgid "Sarasa's Chip Workshop"
 msgstr ""
 
 #. Application description, referenced as ms-resource:AppDescription.
-msgid "Pineapple Pictures - Image Viewer"
+msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
 msgstr ""
 
 #. Display name of the JPEG file type association (jpg, jpeg, jfif),

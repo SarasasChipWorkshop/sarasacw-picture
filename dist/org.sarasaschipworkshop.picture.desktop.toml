@@ -2,7 +2,7 @@ version = 1
 source_language = "en"
 
 [strings.name]
-msgid = "Pineapple Pictures"
+msgid = "SCW Photo Viewer"
 comment = "Display name of the application."
 
 [strings.generic_name]
@@ -10,7 +10,7 @@ msgid = "Image Viewer"
 comment = "Generic name describing the application category."
 
 [strings.comment]
-msgid = "Pineapple Pictures is a lightweight image viewer"
+msgid = "SCW Photo Viewer is a lightweight image viewer"
 comment = "Tooltip-like description of the application."
 
 [strings.keywords]

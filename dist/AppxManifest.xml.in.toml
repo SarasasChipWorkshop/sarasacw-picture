@@ -2,15 +2,15 @@ version = 1
 source_language = "en_US"
 
 [strings.app_display_name]
-msgid = "Pineapple Pictures"
+msgid = "SCW Photo Viewer"
 comment = "Display name of the application, referenced as ms-resource:AppDisplayName."
 
 [strings.publisher_display_name]
-msgid = "Chestnut Software"
+msgid = "Sarasa's Chip Workshop"
 comment = "Publisher display name, referenced as ms-resource:PublisherDisplayName."
 
 [strings.app_description]
-msgid = "Pineapple Pictures - Image Viewer"
+msgid = "Yet another legacy Windows Photo Viewer with cross-platform support."
 comment = "Application description, referenced as ms-resource:AppDescription."
 
 [strings.file_type_jpeg]
