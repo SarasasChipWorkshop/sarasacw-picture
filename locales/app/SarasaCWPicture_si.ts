@@ -85,72 +85,67 @@
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="56"/>
-        <source>Logo designer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../app/aboutdialog.cpp" line="57"/>
         <source>Built with Qt %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="58"/>
+        <location filename="../../app/aboutdialog.cpp" line="57"/>
         <source>Source code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="61"/>
+        <location filename="../../app/aboutdialog.cpp" line="60"/>
         <source>Contributors</source>
         <translation>සහදායකයින්</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="62"/>
+        <location filename="../../app/aboutdialog.cpp" line="61"/>
         <source>List of contributors on GitHub</source>
         <translation>ගිට්හබ් හි සහදායකයින්ගේ ලැයිස්තුව</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="63"/>
+        <location filename="../../app/aboutdialog.cpp" line="62"/>
         <source>Thanks to all people who contributed to this project.</source>
         <translation>මෙම ව්යාපෘතියට දායක වූ සියලු දෙනාටම ස්තූතියි.</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="64"/>
+        <location filename="../../app/aboutdialog.cpp" line="63"/>
         <source>Translators</source>
         <translation>පරිවර්තකයින්</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="65"/>
+        <location filename="../../app/aboutdialog.cpp" line="64"/>
         <source>I would like to thank the following people who volunteered to translate this application.</source>
         <translation>මෙම යෙදුම පරිවර්තනය කිරීමට ස්වේච්ඡාවෙන් ඉදිරිපත් වූ පහත සඳහන් පුද්ගලයින්ට මම ස්තූතිවන්ත වෙමි.</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="68"/>
+        <location filename="../../app/aboutdialog.cpp" line="67"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="69"/>
+        <location filename="../../app/aboutdialog.cpp" line="68"/>
         <source>This application is released under the MIT License.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="70"/>
+        <location filename="../../app/aboutdialog.cpp" line="69"/>
         <source>License Verbatim Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="73"/>
+        <location filename="../../app/aboutdialog.cpp" line="72"/>
         <source>Third-party Libraries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="74"/>
+        <location filename="../../app/aboutdialog.cpp" line="73"/>
         <source>This application is built on the following free software libraries.</source>
         <comment>Free as in freedom</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="75"/>
+        <location filename="../../app/aboutdialog.cpp" line="74"/>
         <source>Some of them are optional and might not be included with this distribution depending on the build environment.</source>
         <translation type="unfinished"></translation>
     </message>

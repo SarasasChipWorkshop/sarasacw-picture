@@ -53,7 +53,6 @@ AboutDialog::AboutDialog(QWidget *parent)
         .arg(tr("Version: %1").arg(APP_VERSION_ARG))
         .arg(tr("Upstream author"))
         .arg(tr("Hard fork author"))
-        .arg(tr("Logo designer"))
         .arg(tr("Built with Qt %1 (%2)").arg(QT_VERSION_ARG).arg(QT_ARCH_ARG))
         .arg(tr("Source code"));
 
