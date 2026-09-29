@@ -13,7 +13,7 @@ msgstr ""
 
 #. Application friendly name shown by Explorer, e.g. in the 'Open with' menu.
 msgctxt "Explorer"
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""
 
 #. File type name for: jpg, jpeg, jfif
@@ -129,9 +129,9 @@ msgid "Scitex Continuous Tone"
 msgstr ""
 
 #. File description of the executable.
-msgid "Pineapple Pictures - Image Viewer"
+msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
 msgstr ""
 
 #. Display name of the product.
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""

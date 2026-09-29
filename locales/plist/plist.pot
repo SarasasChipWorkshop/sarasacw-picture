@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: MetaGlot/polib\n"
 
 #. Display name of the application.
-msgid "Pineapple Pictures"
+msgid "SCW Photo Viewer"
 msgstr ""
 
 #. Name of the JPEG document type (jpg, jpeg, jfif).

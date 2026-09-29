@@ -1,6 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pineapple-pictures\n"
+"Project-Id-Version: sarasacw-picture\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8,17 +9,21 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Display name of the application.
-msgid "Pineapple Pictures"
-msgstr "菠萝看图"
+msgid "SCW Photo Viewer"
+msgstr "SCW 照片查看器"
 
 #. Generic name describing the application category.
 msgid "Image Viewer"
 msgstr "图像查看器"
 
 #. Tooltip-like description of the application.
-msgid "Pineapple Pictures is a lightweight image viewer"
-msgstr "菠萝看图是一个轻量级的图像查看器"
+msgid "SCW Photo Viewer is a lightweight image viewer"
+msgstr "SCW 照片查看器是一个轻量级的图像查看器"
 
-#. Search keywords. Semicolon separated list; the trailing semicolon is required.
+#. Search keywords. Semicolon separated list; the trailing semicolon is
+#. required.
 msgid "Picture;Image;Viewer;Jpg;Jpeg;Png;"
 msgstr ""
+
+#~ msgid "Pineapple Pictures"
+#~ msgstr "菠萝看图"

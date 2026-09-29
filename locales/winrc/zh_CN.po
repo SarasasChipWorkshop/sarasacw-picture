@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pineapple-pictures\n"
+"Project-Id-Version: sarasacw-picture\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -10,8 +10,8 @@ msgstr ""
 
 #. Application friendly name shown by Explorer, e.g. in the 'Open with' menu.
 msgctxt "Explorer"
-msgid "Pineapple Pictures"
-msgstr "菠萝看图"
+msgid "SCW Photo Viewer"
+msgstr "SCW 照片查看器"
 
 #. File type name for: jpg, jpeg, jfif
 msgid "JPEG Image"
@@ -126,9 +126,19 @@ msgid "Scitex Continuous Tone"
 msgstr "Scitex 连续色调图像"
 
 #. File description of the executable.
-msgid "Pineapple Pictures - Image Viewer"
-msgstr "菠萝看图 - 图像查看器"
+msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
+msgstr "又一个支持跨平台的怀旧版 Windows 照片查看器。"
 
 #. Display name of the product.
-msgid "Pineapple Pictures"
-msgstr "菠萝看图"
+msgid "SCW Photo Viewer"
+msgstr "SCW 照片查看器"
+
+#~ msgctxt "Explorer"
+#~ msgid "Pineapple Pictures"
+#~ msgstr "菠萝看图"
+
+#~ msgid "Pineapple Pictures - Image Viewer"
+#~ msgstr "菠萝看图 - 图像查看器"
+
+#~ msgid "Pineapple Pictures"
+#~ msgstr "菠萝看图"
