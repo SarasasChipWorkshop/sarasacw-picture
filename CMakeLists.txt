@@ -254,6 +254,25 @@ if (WIN32)
         message (FATAL_ERROR "Failed to render Inno Setup script via MetaGlot (exit code: ${METAGLOT_INNO_RESULT}).")
     endif ()
     configure_file (${SCWPIC_INNO_OUTPUT_DIR}/scwpic.iss.in ${SCWPIC_INNO_OUTPUT_DIR}/scwpic.iss @ONLY)
+
+    # Setup MSIX metadata. NOTE: the package cannot be built yet: the logo assets
+    # referenced by the manifest are not provided (marked with TODO comments).
+    set (SCWPIC_MSIX_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/msix-metadata)
+    execute_process (
+        COMMAND ${UV_EXECUTABLE} tool run metaglot render msix
+                --manifest ${CMAKE_SOURCE_DIR}/dist/AppxManifest.xml.in.toml
+                --po ${CMAKE_SOURCE_DIR}/locales/msix/*.po
+                --manifest-template ${CMAKE_SOURCE_DIR}/dist/AppxManifest.xml.in.liquid
+                --resources-template ${CMAKE_SOURCE_DIR}/dist/Resources.resjson.liquid
+                --manifest-path AppxManifest.xml.in
+                --resources-path "Strings/{{ lang }}/Resources.resjson"
+                --output ${SCWPIC_MSIX_OUTPUT_DIR}
+        RESULT_VARIABLE METAGLOT_MSIX_RESULT
+    )
+    if (NOT METAGLOT_MSIX_RESULT EQUAL 0)
+        message (FATAL_ERROR "Failed to render MSIX metadata via MetaGlot (exit code: ${METAGLOT_MSIX_RESULT}).")
+    endif ()
+    configure_file (${SCWPIC_MSIX_OUTPUT_DIR}/AppxManifest.xml.in ${SCWPIC_MSIX_OUTPUT_DIR}/AppxManifest.xml @ONLY)
 elseif (APPLE)
     # Include icon to project
     set_source_files_properties(dist/sarasacw-picture.icns PROPERTIES

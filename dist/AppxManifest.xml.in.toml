@@ -1,0 +1,126 @@
+version = 1
+source_language = "en_US"
+
+[strings.app_display_name]
+msgid = "Pineapple Pictures"
+comment = "Display name of the application, referenced as ms-resource:AppDisplayName."
+
+[strings.publisher_display_name]
+msgid = "Chestnut Software"
+comment = "Publisher display name, referenced as ms-resource:PublisherDisplayName."
+
+[strings.app_description]
+msgid = "Pineapple Pictures - Image Viewer"
+comment = "Application description, referenced as ms-resource:AppDescription."
+
+[strings.file_type_jpeg]
+msgid = "JPEG Image"
+comment = "Display name of the JPEG file type association (jpg, jpeg, jfif), referenced as ms-resource:FileTypeJpegDisplayName."
+
+[strings.file_type_gif]
+msgid = "GIF Animation Image"
+comment = "Display name of the GIF file type association, referenced as ms-resource:FileTypeGifDisplayName."
+
+[strings.file_type_png]
+msgid = "PNG Image"
+comment = "Display name of the PNG file type association (png, apng), referenced as ms-resource:FileTypePngDisplayName."
+
+[strings.file_type_svg]
+msgid = "Scalable Vector Graphics"
+comment = "Display name of the SVG file type association, referenced as ms-resource:FileTypeSvgDisplayName."
+
+[strings.file_type_webp]
+msgid = "WebP Image"
+comment = "Display name of the WebP file type association, referenced as ms-resource:FileTypeWebpDisplayName."
+
+[strings.file_type_avif]
+msgid = "AV1 Image File"
+comment = "Display name of the AVIF file type association, referenced as ms-resource:FileTypeAvifDisplayName."
+
+[strings.file_type_ico]
+msgid = "Windows Icon Image"
+comment = "Display name of the ICO file type association, referenced as ms-resource:FileTypeIcoDisplayName."
+
+[strings.file_type_icns]
+msgid = "Apple Icon Image"
+comment = "Display name of the ICNS file type association, referenced as ms-resource:FileTypeIcnsDisplayName."
+
+[strings.file_type_psd]
+msgid = "Photoshop Document"
+comment = "Display name of the Photoshop file type association (psd, psb, pdd, psdt), referenced as ms-resource:FileTypePsdDisplayName."
+
+[strings.file_type_kra]
+msgid = "Krita Document"
+comment = "Display name of the Krita file type association, referenced as ms-resource:FileTypeKraDisplayName."
+
+[strings.file_type_xcf]
+msgid = "GIMP Document"
+comment = "Display name of the GIMP file type association, referenced as ms-resource:FileTypeXcfDisplayName."
+
+[strings.file_type_tga]
+msgid = "TARGA Image"
+comment = "Display name of the TARGA file type association, referenced as ms-resource:FileTypeTgaDisplayName."
+
+[strings.file_type_tif]
+msgid = "Tagged Image File Format"
+comment = "Display name of the TIFF file type association (tif, tiff), referenced as ms-resource:FileTypeTifDisplayName."
+
+[strings.file_type_bmp]
+msgid = "Bitmap"
+comment = "Display name of the BMP file type association, referenced as ms-resource:FileTypeBmpDisplayName."
+
+[strings.file_type_wbmp]
+msgid = "Wireless Bitmap"
+comment = "Display name of the WBMP file type association, referenced as ms-resource:FileTypeWbmpDisplayName."
+
+[strings.file_type_dds]
+msgid = "DirectDraw Surface"
+comment = "Display name of the DDS file type association, referenced as ms-resource:FileTypeDdsDisplayName."
+
+[strings.file_type_hdr]
+msgid = "High Dynamic Range Image"
+comment = "Display name of the HDR file type association (hdr, exr), referenced as ms-resource:FileTypeHdrDisplayName."
+
+[strings.file_type_iff]
+msgid = "Interchange File Format"
+comment = "Display name of the IFF file type association, referenced as ms-resource:FileTypeIffDisplayName."
+
+[strings.file_type_pic]
+msgid = "Softimage Picture"
+comment = "Display name of the Softimage PIC file type association, referenced as ms-resource:FileTypePicDisplayName."
+
+[strings.file_type_pcx]
+msgid = "PiCture eXchange PC Paintbrush Image"
+comment = "Display name of the PCX file type association, referenced as ms-resource:FileTypePcxDisplayName."
+
+[strings.file_type_qoi]
+msgid = "Quite OK Image"
+comment = "Display name of the QOI file type association, referenced as ms-resource:FileTypeQoiDisplayName."
+
+[strings.file_type_ras]
+msgid = "Sun Raster Image"
+comment = "Display name of the Sun Raster file type association (ras, sun), referenced as ms-resource:FileTypeRasDisplayName."
+
+[strings.file_type_ora]
+msgid = "OpenRaster Image"
+comment = "Display name of the OpenRaster file type association, referenced as ms-resource:FileTypeOraDisplayName."
+
+[strings.file_type_ani]
+msgid = "Animated Cursor"
+comment = "Display name of the ANI file type association, referenced as ms-resource:FileTypeAniDisplayName."
+
+[strings.file_type_pfm]
+msgid = "Portable Float Map"
+comment = "Display name of the Portable Float Map file type association (pfm, phm), referenced as ms-resource:FileTypePfmDisplayName."
+
+[strings.file_type_rgb]
+msgid = "Silicon Graphics Image"
+comment = "Display name of the Silicon Graphics file type association (rgb, rgba, bw, sgi), referenced as ms-resource:FileTypeRgbDisplayName."
+
+[strings.file_type_pxr]
+msgid = "Pixar Raster Image"
+comment = "Display name of the Pixar file type association, referenced as ms-resource:FileTypePxrDisplayName."
+
+[strings.file_type_sct]
+msgid = "Scitex Continuous Tone"
+comment = "Display name of the Scitex CT file type association, referenced as ms-resource:FileTypeSctDisplayName."
