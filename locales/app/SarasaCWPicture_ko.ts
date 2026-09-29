@@ -98,72 +98,67 @@
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="56"/>
-        <source>Logo designer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../app/aboutdialog.cpp" line="57"/>
         <source>Built with Qt %1 (%2)</source>
         <translation>Qt %1(%2)로 빌드됨</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="58"/>
+        <location filename="../../app/aboutdialog.cpp" line="57"/>
         <source>Source code</source>
         <translation>소스 코드</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="61"/>
+        <location filename="../../app/aboutdialog.cpp" line="60"/>
         <source>Contributors</source>
         <translation>기여자</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="62"/>
+        <location filename="../../app/aboutdialog.cpp" line="61"/>
         <source>List of contributors on GitHub</source>
         <translation>GitHub의 기여자 목록</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="63"/>
+        <location filename="../../app/aboutdialog.cpp" line="62"/>
         <source>Thanks to all people who contributed to this project.</source>
         <translation>이 프로젝트에 기여해주신 모든 분들께 감사드립니다.</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="64"/>
+        <location filename="../../app/aboutdialog.cpp" line="63"/>
         <source>Translators</source>
         <translation>번역자</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="65"/>
+        <location filename="../../app/aboutdialog.cpp" line="64"/>
         <source>I would like to thank the following people who volunteered to translate this application.</source>
         <translation>이 응용 프로그램 번역에 자원해 주신 다음 분들께 감사의 말씀을 전합니다.</translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="68"/>
+        <location filename="../../app/aboutdialog.cpp" line="67"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="69"/>
+        <location filename="../../app/aboutdialog.cpp" line="68"/>
         <source>This application is released under the MIT License.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="70"/>
+        <location filename="../../app/aboutdialog.cpp" line="69"/>
         <source>License Verbatim Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="73"/>
+        <location filename="../../app/aboutdialog.cpp" line="72"/>
         <source>Third-party Libraries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="74"/>
+        <location filename="../../app/aboutdialog.cpp" line="73"/>
         <source>This application is built on the following free software libraries.</source>
         <comment>Free as in freedom</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/aboutdialog.cpp" line="75"/>
+        <location filename="../../app/aboutdialog.cpp" line="74"/>
         <source>Some of them are optional and might not be included with this distribution depending on the build environment.</source>
         <translation type="unfinished"></translation>
     </message>
