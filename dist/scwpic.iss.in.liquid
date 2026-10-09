@@ -48,14 +48,27 @@ SolidCompression=yes
 WizardStyle=modern
 
 [Languages]
+{% comment %}
+YYC MARK:
+The base messages file pairing (the official full translation that provides
+the language identity) is derived from MetaGlot's best-effort conversion of
+the PO language tag to the conventional Inno Setup language name (lang.lang).
+The English source language maps to "Default" and languages unknown to
+MetaGlot convert to nothing; both fall back to "compiler:Default.isl" and
+inherit the English language identity, so pair such a language with its base
+file explicitly (e.g. via a "case" on "lang.name") when adding one. The
+incremental custom messages file is named after the conventional name (or
+the PO language tag when no conventional name exists); keep it in sync with
+the "--isl-path" argument in CMakeLists.txt.
+{% endcomment -%}
 {% for lang in langs -%}
-{% case lang -%}
-{% when 'zh_CN' -%}
-{% assign base = 'compiler:Languages\ChineseSimplified.isl' -%}
-{% else -%}
+{%- if lang.lang and lang.lang != 'Default' -%}
+{% assign base = 'compiler:Languages\' | append: lang.lang | append: '.isl' -%}
+{%- else -%}
 {% assign base = 'compiler:Default.isl' -%}
-{% endcase -%}
-Name: "{{ lang }}"; MessagesFile: "{{ base }},Strings\{{ lang }}.isl"
+{%- endif -%}
+{% assign incremental = lang.lang | default: lang.name -%}
+Name: "{{ lang.name }}"; MessagesFile: "{{ base }},Strings\{{ incremental }}.isl"
 {% endfor -%}
 
 [Tasks]
