@@ -35,7 +35,7 @@ SCW 照片查看器是[菠萝看图](https://github.com/BLumia/pineapple-picture
 当前状态，我们需要先确保如下依赖可用：
 
 - `cmake`：我们所使用的构建系统
-- `python3`、`uv` 和 [`metaglot`](https://github.com/SarasasChipWorkshop/metaglot)：我们所使用的元数据本地化处理器
+- `python3` 和 [`metaglot`](https://github.com/SarasasChipWorkshop/metaglot)：我们所使用的元数据本地化处理器，推荐使用 `uv tool` 进行隔离式安装（相较于 pip 那种全局式安装）
 - 包含 `qt6-svg` 与 `qt6-tools` 组件的 `qt6`：此应用基于 Qt
 - `libexiv2`：用以获取和显示更多的图像元信息（可选，推荐）
 

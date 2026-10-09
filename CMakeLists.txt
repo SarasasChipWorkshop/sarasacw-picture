@@ -99,16 +99,16 @@ set (EXE_NAME scwpic)
 file (GLOB SCWPIC_TS_FILES locales/app/*.ts)
 set (SCWPIC_CPP_FILES_FOR_I18N ${SCWPIC_CPP_FILES})
 
-find_program (UV_EXECUTABLE uv)
-if (NOT UV_EXECUTABLE)
-    message (FATAL_ERROR "uv is required to run the metaglot tool, install it from https://docs.astral.sh/uv/")
+find_program (METAGLOT_EXECUTABLE metaglot)
+if (NOT METAGLOT_EXECUTABLE)
+    message (FATAL_ERROR "metaglot is required to render the localized metadata, install it from https://github.com/SarasasChipWorkshop/metaglot")
 endif ()
 
 if (WIN32)
     # Setup Windows RC files
     set (SCWPIC_RC_TEMPLATE_FILE ${CMAKE_CURRENT_BINARY_DIR}/sarasacw-picture.rc.in)
     execute_process (
-        COMMAND ${UV_EXECUTABLE} tool run metaglot render rc
+        COMMAND ${METAGLOT_EXECUTABLE} render rc
                 --manifest ${CMAKE_SOURCE_DIR}/dist/sarasacw-picture.rc.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/winrc/*.po
                 --template ${CMAKE_SOURCE_DIR}/dist/sarasacw-picture.rc.in.liquid
@@ -240,7 +240,7 @@ if (WIN32)
     # Setup Inno Setup script file
     set (SCWPIC_INNO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/inno-metadata)
     execute_process (
-        COMMAND ${UV_EXECUTABLE} tool run metaglot render inno
+        COMMAND ${METAGLOT_EXECUTABLE} render inno
                 --manifest ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/inno/*.po
                 --iss-template ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.liquid
@@ -259,7 +259,7 @@ if (WIN32)
     # referenced by the manifest are not provided (marked with TODO comments).
     set (SCWPIC_MSIX_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/msix-metadata)
     execute_process (
-        COMMAND ${UV_EXECUTABLE} tool run metaglot render msix
+        COMMAND ${METAGLOT_EXECUTABLE} render msix
                 --manifest ${CMAKE_SOURCE_DIR}/dist/AppxManifest.xml.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/msix/*.po
                 --manifest-template ${CMAKE_SOURCE_DIR}/dist/AppxManifest.xml.in.liquid
@@ -284,7 +284,7 @@ elseif (APPLE)
     set (SCWPIC_PLIST_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/plist-metadata)
     # Render Info.plist and its strings.
     execute_process (
-        COMMAND ${UV_EXECUTABLE} tool run metaglot render plist
+        COMMAND ${METAGLOT_EXECUTABLE} render plist
                 --manifest ${CMAKE_SOURCE_DIR}/dist/Info.plist.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/plist/*.po
                 --plist-template ${CMAKE_SOURCE_DIR}/dist/Info.plist.in.liquid
@@ -331,7 +331,7 @@ elseif (UNIX)
     # generate and install desktop entry file
     set (SCWPIC_DESKTOP_FILE ${CMAKE_CURRENT_BINARY_DIR}/org.sarasaschipworkshop.picture.desktop)
     execute_process (
-        COMMAND ${UV_EXECUTABLE} tool run metaglot render desktop
+        COMMAND ${METAGLOT_EXECUTABLE} render desktop
                 --manifest ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.desktop.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/desktop/*.po
                 --template ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.desktop.liquid
@@ -350,7 +350,7 @@ elseif (UNIX)
     # generate and install app metadata file for appstream (and some other stuff using this metadata like snapcraft)
     set (SCWPIC_METAINFO_FILE ${CMAKE_CURRENT_BINARY_DIR}/org.sarasaschipworkshop.picture.metainfo.xml)
     execute_process (
-        COMMAND ${UV_EXECUTABLE} tool run metaglot render appstream
+        COMMAND ${METAGLOT_EXECUTABLE} render appstream
                 --manifest ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.metainfo.xml.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/appstream/*.po
                 --template ${CMAKE_SOURCE_DIR}/dist/org.sarasaschipworkshop.picture.metainfo.xml.liquid
