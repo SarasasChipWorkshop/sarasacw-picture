@@ -246,7 +246,7 @@ if (WIN32)
                 --iss-template ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.liquid
                 --isl-template ${CMAKE_SOURCE_DIR}/dist/scwpic.isl.liquid
                 --iss-path scwpic.iss.in
-                --isl-path "Strings/{{ lang }}.isl"
+                --isl-path "Strings/{{ lang | default: name }}.isl"
                 --output ${SCWPIC_INNO_OUTPUT_DIR}
         RESULT_VARIABLE METAGLOT_INNO_RESULT
     )
