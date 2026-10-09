@@ -35,7 +35,7 @@ The new feature request of this application are freezed now because this applica
 Current state, we need:
 
 - `cmake`: as the build system.
-- `python3`, `uv` and [`metaglot`](https://github.com/SarasasChipWorkshop/metaglot): as the metadata localization processor.
+- `python3` and [`metaglot`](https://github.com/SarasasChipWorkshop/metaglot): as the metadata localization processor. An isolated install via `uv tool` (as opposed to a global install like pip) is recommended.
 - `qt6` with `qt6-svg` and `qt6-tools`: since the app is using Qt.
 - `libexiv2`: able to display more image metadata. (optional, but recommended)
 
