@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > SCW 照片查看器还在重构中。在这条信息被移除之前请不要使用它。
 
-简单轻量的、具有跨平台支持的、经典样式的 Windows 照片查看器。
+跨平台的、经典 Windows 照片查看器样式的照片查看器。
 
 [![](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/windows.yml/badge.svg)](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/windows.yml)
 [![](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/macos.yml/badge.svg)](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/macos.yml)
