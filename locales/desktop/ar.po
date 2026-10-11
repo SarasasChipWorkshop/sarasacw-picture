@@ -1,0 +1,30 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MetaGlot/polib\n"
+"Language: ar\n"
+
+#. Display name of the application.
+msgid "SCW Photo Viewer"
+msgstr ""
+
+#. Generic name describing the application category.
+msgid "Image Viewer"
+msgstr ""
+
+#. Tooltip-like description of the application.
+msgid "SCW Photo Viewer is a lightweight image viewer"
+msgstr ""
+
+#. Search keywords. Semicolon separated list; the trailing semicolon is
+#. required.
+msgid "Picture;Image;Viewer;Jpg;Jpeg;Png;"
+msgstr ""
