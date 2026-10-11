@@ -127,7 +127,7 @@ msgstr "Scitex 连续色调图像"
 
 #. File description of the executable.
 msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
-msgstr "又一个支持跨平台的怀旧版 Windows 照片查看器。"
+msgstr "跨平台的、经典 Windows 照片查看器样式的照片查看器。"
 
 #. Display name of the product.
 msgid "SCW Photo Viewer"
