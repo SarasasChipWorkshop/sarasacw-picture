@@ -1,0 +1,167 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MetaGlot/polib\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+
+#. Display name of the application, referenced as ms-resource:AppDisplayName.
+msgid "SCW Photo Viewer"
+msgstr ""
+
+#. Publisher display name, referenced as ms-resource:PublisherDisplayName.
+msgid "Sarasa's Chip Workshop"
+msgstr ""
+
+#. Application description, referenced as ms-resource:AppDescription.
+msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
+msgstr ""
+
+#. Display name of the JPEG file type association (jpg, jpeg, jfif),
+#. referenced as ms-resource:FileTypeJpegDisplayName.
+msgid "JPEG Image"
+msgstr ""
+
+#. Display name of the GIF file type association, referenced as ms-
+#. resource:FileTypeGifDisplayName.
+msgid "GIF Animation Image"
+msgstr ""
+
+#. Display name of the PNG file type association (png, apng), referenced as
+#. ms-resource:FileTypePngDisplayName.
+msgid "PNG Image"
+msgstr ""
+
+#. Display name of the SVG file type association, referenced as ms-
+#. resource:FileTypeSvgDisplayName.
+msgid "Scalable Vector Graphics"
+msgstr ""
+
+#. Display name of the WebP file type association, referenced as ms-
+#. resource:FileTypeWebpDisplayName.
+msgid "WebP Image"
+msgstr ""
+
+#. Display name of the AVIF file type association, referenced as ms-
+#. resource:FileTypeAvifDisplayName.
+msgid "AV1 Image File"
+msgstr ""
+
+#. Display name of the ICO file type association, referenced as ms-
+#. resource:FileTypeIcoDisplayName.
+msgid "Windows Icon Image"
+msgstr ""
+
+#. Display name of the ICNS file type association, referenced as ms-
+#. resource:FileTypeIcnsDisplayName.
+msgid "Apple Icon Image"
+msgstr ""
+
+#. Display name of the Photoshop file type association (psd, psb, pdd, psdt),
+#. referenced as ms-resource:FileTypePsdDisplayName.
+msgid "Photoshop Document"
+msgstr ""
+
+#. Display name of the Krita file type association, referenced as ms-
+#. resource:FileTypeKraDisplayName.
+msgid "Krita Document"
+msgstr ""
+
+#. Display name of the GIMP file type association, referenced as ms-
+#. resource:FileTypeXcfDisplayName.
+msgid "GIMP Document"
+msgstr ""
+
+#. Display name of the TARGA file type association, referenced as ms-
+#. resource:FileTypeTgaDisplayName.
+msgid "TARGA Image"
+msgstr ""
+
+#. Display name of the TIFF file type association (tif, tiff), referenced as
+#. ms-resource:FileTypeTifDisplayName.
+msgid "Tagged Image File Format"
+msgstr ""
+
+#. Display name of the BMP file type association, referenced as ms-
+#. resource:FileTypeBmpDisplayName.
+msgid "Bitmap"
+msgstr ""
+
+#. Display name of the WBMP file type association, referenced as ms-
+#. resource:FileTypeWbmpDisplayName.
+msgid "Wireless Bitmap"
+msgstr ""
+
+#. Display name of the DDS file type association, referenced as ms-
+#. resource:FileTypeDdsDisplayName.
+msgid "DirectDraw Surface"
+msgstr ""
+
+#. Display name of the HDR file type association (hdr, exr), referenced as ms-
+#. resource:FileTypeHdrDisplayName.
+msgid "High Dynamic Range Image"
+msgstr ""
+
+#. Display name of the IFF file type association, referenced as ms-
+#. resource:FileTypeIffDisplayName.
+msgid "Interchange File Format"
+msgstr ""
+
+#. Display name of the Softimage PIC file type association, referenced as ms-
+#. resource:FileTypePicDisplayName.
+msgid "Softimage Picture"
+msgstr ""
+
+#. Display name of the PCX file type association, referenced as ms-
+#. resource:FileTypePcxDisplayName.
+msgid "PiCture eXchange PC Paintbrush Image"
+msgstr ""
+
+#. Display name of the QOI file type association, referenced as ms-
+#. resource:FileTypeQoiDisplayName.
+msgid "Quite OK Image"
+msgstr ""
+
+#. Display name of the Sun Raster file type association (ras, sun), referenced
+#. as ms-resource:FileTypeRasDisplayName.
+msgid "Sun Raster Image"
+msgstr ""
+
+#. Display name of the OpenRaster file type association, referenced as ms-
+#. resource:FileTypeOraDisplayName.
+msgid "OpenRaster Image"
+msgstr ""
+
+#. Display name of the ANI file type association, referenced as ms-
+#. resource:FileTypeAniDisplayName.
+msgid "Animated Cursor"
+msgstr ""
+
+#. Display name of the Portable Float Map file type association (pfm, phm),
+#. referenced as ms-resource:FileTypePfmDisplayName.
+msgid "Portable Float Map"
+msgstr ""
+
+#. Display name of the Silicon Graphics file type association (rgb, rgba, bw,
+#. sgi), referenced as ms-resource:FileTypeRgbDisplayName.
+msgid "Silicon Graphics Image"
+msgstr ""
+
+#. Display name of the Pixar file type association, referenced as ms-
+#. resource:FileTypePxrDisplayName.
+msgid "Pixar Raster Image"
+msgstr ""
+
+#. Display name of the Scitex CT file type association, referenced as ms-
+#. resource:FileTypeSctDisplayName.
+msgid "Scitex Continuous Tone"
+msgstr ""

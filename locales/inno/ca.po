@@ -1,0 +1,30 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MetaGlot/polib\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Display name of the application, used in the installer UI.
+msgid "SCW Photo Viewer"
+msgstr ""
+
+#. Group caption for the extra installer task options.
+msgid "Other:"
+msgstr ""
+
+#. Installer task description. %1 is the application name.
+msgid "Associate %1 with its supported file types."
+msgstr ""
+
+#. Status message shown while installing the VC++ runtime.
+msgid "Installing Microsoft Visual C++ Redistributable..."
+msgstr ""

@@ -1,0 +1,38 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MetaGlot/polib\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Display name of the application.
+msgid "SCW Photo Viewer"
+msgstr ""
+
+#. Name of the JPEG document type (jpg, jpeg, jfif).
+msgid "JPEG Image"
+msgstr ""
+
+#. Name of the PNG document type.
+msgid "PNG Image"
+msgstr ""
+
+#. Name of the WebP document type.
+msgid "WebP Image"
+msgstr ""
+
+#. Name of the GIF document type.
+msgid "GIF Image"
+msgstr ""
+
+#. Name of the SVG document type.
+msgid "SVG Image"
+msgstr ""

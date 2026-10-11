@@ -1,0 +1,139 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MetaGlot/polib\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Application friendly name shown by Explorer, e.g. in the 'Open with' menu.
+msgctxt "Explorer"
+msgid "SCW Photo Viewer"
+msgstr ""
+
+#. File type name for: jpg, jpeg, jfif
+msgid "JPEG Image"
+msgstr ""
+
+#. File type name for: gif
+msgid "GIF Animation Image"
+msgstr ""
+
+#. File type name for: png
+msgid "PNG Image"
+msgstr ""
+
+#. File type name for: svg
+msgid "Scalable Vector Graphics"
+msgstr ""
+
+#. File type name for: webp
+msgid "WebP Image"
+msgstr ""
+
+#. File type name for: avif
+msgid "AV1 Image File"
+msgstr ""
+
+#. File type name for: ico
+msgid "Windows Icon Image"
+msgstr ""
+
+#. File type name for: icns
+msgid "Apple Icon Image"
+msgstr ""
+
+#. File type name for: psd, psb, pdd, psdt
+msgid "Photoshop Document"
+msgstr ""
+
+#. File type name for: kra
+msgid "Krita Document"
+msgstr ""
+
+#. File type name for: xcf
+msgid "GIMP Document"
+msgstr ""
+
+#. File type name for: tga
+msgid "TARGA Image"
+msgstr ""
+
+#. File type name for: tif, tiff
+msgid "Tagged Image File Format"
+msgstr ""
+
+#. File type name for: bmp
+msgid "Bitmap"
+msgstr ""
+
+#. File type name for: wbmp
+msgid "Wireless Bitmap"
+msgstr ""
+
+#. File type name for: dds
+msgid "DirectDraw Surface"
+msgstr ""
+
+#. File type name for: hdr
+msgid "High Dynamic Range Image"
+msgstr ""
+
+#. File type name for: iff
+msgid "Interchange File Format"
+msgstr ""
+
+#. File type name for: pic
+msgid "Softimage Picture"
+msgstr ""
+
+#. File type name for: pcx
+msgid "PiCture eXchange PC Paintbrush Image"
+msgstr ""
+
+#. File type name for: qoi
+msgid "Quite OK Image"
+msgstr ""
+
+#. File type name for: ras, sun
+msgid "Sun Raster Image"
+msgstr ""
+
+#. File type name for: ora
+msgid "OpenRaster Image"
+msgstr ""
+
+#. File type name for: ani
+msgid "Animated Cursor"
+msgstr ""
+
+#. File type name for: pfm, phm
+msgid "Portable Float Map"
+msgstr ""
+
+#. File type name for: rgb, rgba, bw, sgi
+msgid "Silicon Graphics Image"
+msgstr ""
+
+#. File type name for: pxr
+msgid "Pixar Raster Image"
+msgstr ""
+
+#. File type name for: sct
+msgid "Scitex Continuous Tone"
+msgstr ""
+
+#. File description of the executable.
+msgid "Yet another legacy Windows Photo Viewer with cross-platform support."
+msgstr ""
+
+#. Display name of the product.
+msgid "SCW Photo Viewer"
+msgstr ""
