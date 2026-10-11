@@ -275,10 +275,10 @@ if (WIN32)
     configure_file (${SCWPIC_MSIX_OUTPUT_DIR}/AppxManifest.xml.in ${SCWPIC_MSIX_OUTPUT_DIR}/AppxManifest.xml @ONLY)
 elseif (APPLE)
     # Include icon to project
-    set_source_files_properties(dist/sarasacw-picture.icns PROPERTIES
+    set_source_files_properties(dist/macos-icons/sarasacw-picture.icns PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources"
     )
-    target_sources(${EXE_NAME} PRIVATE dist/sarasacw-picture.icns)
+    target_sources(${EXE_NAME} PRIVATE dist/macos-icons/sarasacw-picture.icns)
 
     # Setup Info.plist related directory.
     set (SCWPIC_PLIST_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/plist-metadata)
