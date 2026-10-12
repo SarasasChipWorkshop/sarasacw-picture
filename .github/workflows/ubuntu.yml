@@ -28,7 +28,8 @@ jobs:
         run: |
           cd build
           sudo apt install ./*.deb
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
-          name: ubuntu-26.04-deb-package
+          name: scwpic-ubuntu-26.04
           path: build/*.deb
+          archive: false
