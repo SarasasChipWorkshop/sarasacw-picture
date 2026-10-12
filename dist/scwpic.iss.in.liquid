@@ -62,17 +62,22 @@ WizardStyle=modern
 YYC MARK:
 The base messages file pairing (the official full translation that provides
 the language identity) is derived from MetaGlot's best-effort conversion of
-the PO language tag to the conventional Inno Setup language name (lang.lang).
-The English source language maps to "Default" and languages unknown to
-MetaGlot convert to nothing; both fall back to "compiler:Default.isl" and
-inherit the English language identity, so pair such a language with its base
-file explicitly (e.g. via a "case" on "lang.name") when adding one. The
-incremental custom messages file is named after the conventional name (or
-the PO language tag when no conventional name exists); keep it in sync with
-the "--isl-path" argument in CMakeLists.txt.
+the PO language tag to the conventional Inno Setup language name (lang.lang)
+and its officiality (lang.is_official). Only the official translations come
+with an Inno Setup installation; the community provided conventional names,
+as well as the languages unknown to MetaGlot (which convert to nothing), are
+deliberately not used and fall back to "compiler:Default.isl", so the script
+compiles and the installer works with a bare Inno Setup installation. Pair
+such a language with its base file explicitly (e.g. via a "case" on
+"lang.name") when adding one. The incremental custom messages file is named
+after the conventional name (or the PO language tag when no conventional
+name exists); keep it in sync with the "--isl-path" argument in
+CMakeLists.txt.
 {% endcomment -%}
 {% for lang in langs -%}
-{%- if lang.lang and lang.lang != 'Default' -%}
+{%- if lang.lang == 'Default' -%}
+{% assign base = 'compiler:Default.isl' -%}
+{%- elsif lang.is_official -%}
 {% assign base = 'compiler:Languages\' | append: lang.lang | append: '.isl' -%}
 {%- else -%}
 {% assign base = 'compiler:Default.isl' -%}
