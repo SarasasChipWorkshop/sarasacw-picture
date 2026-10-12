@@ -241,6 +241,7 @@ if (WIN32)
     set (SCWPIC_INNO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/inno-metadata)
     execute_process (
         COMMAND ${METAGLOT_EXECUTABLE} render inno
+                --inno-version 6
                 --manifest ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/inno/*.po
                 --iss-template ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.liquid
