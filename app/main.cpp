@@ -78,7 +78,11 @@ int main(int argc, char *argv[])
     // Handle dock icon clicks to show hidden window
     a.connect(&a, &QApplication::applicationStateChanged, [&w](Qt::ApplicationState state) {
         if (state == Qt::ApplicationActive && w.isHidden()) {
-            w.showFiles({});
+            // YYC MARK: 
+            // We can't use `{}` because there is an ambiguity between 2 overloads:
+            // `void showFiles(const QStringList& files);` and `void showFiles(const QList<QUrl>& urls);`.
+            QStringList emptyFileList;
+            w.showFiles(emptyFileList);
             w.galleryCurrent(false);
             w.showNormal();
             w.raise();
