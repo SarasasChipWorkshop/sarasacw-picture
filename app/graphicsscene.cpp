@@ -35,14 +35,16 @@ static const QColor& ColorSchemaToTextForeground(Qt::ColorScheme colorScheme) {
 #endif // defined(Q_OS_WIN)
 
     switch (colorScheme) {
-    case Qt::ColorScheme::Dark:
+    case Qt::ColorScheme::Dark: {
         static QColor WHITE = QColor("White");
         return WHITE;
+    }
     case Qt::ColorScheme::Light:
     case Qt::ColorScheme::Unknown:
-    default:
+    default: {
         static QColor BLACK = QColor("Black");
         return BLACK;
+    }
     }
 }
 
