@@ -91,7 +91,7 @@ jobs:
         cmake --build build_dependencies/kimageformats --config Release --target=install || goto :error
         echo ::endgroup::
         :: ------ app ------
-        echo ::group::===== App (Build'n'Install) =====
+        echo ::group::===== App Build =====
         cmake -Bbuild . || goto :error
         cmake --build build --config Release || goto :error
         cmake --install build --config Release --prefix "%PWD%\build" || goto :error
@@ -101,14 +101,24 @@ jobs:
         robocopy ./dependencies_bin/bin build/bin *.dll
         if ErrorLevel 8 goto :error
         copy LICENSE build\bin
-        copy build\inno-metadata\scwpic.iss build\bin\scwpic.iss
-        robocopy build\inno-metadata\Strings build\bin\Strings
-        if ErrorLevel 8 goto :error
-        iscc /Q build\bin\scwpic.iss || goto :error
+        mkdir pack
+        echo ::group::===== App InnoSetup Pack =====
+        mkdir pack\inno
+        iscc "/DPublishDir=%CD%\build\bin" "/DOutputDir=%CD%\pack\inno" build\inno-metadata\scwpic.iss || goto :error
+        echo ::endgroup::
+        echo ::group::===== App MSIX Pack =====
+        :: TODO
+        echo ::endgroup::
         exit /B 0
         :error
         exit /B 1
     - uses: actions/upload-artifact@v6
       with:
         name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake-setup"
-        path: build/bin/scwpic-setup.exe
+        path: pack/inno/scwpic-setup.exe
+    # TODO: Enable when start to support MSIX pack.
+    # - uses: actions/upload-artifact@v6
+    #   with:
+    #     name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake"
+    #     path: pack/msix/scwpic.msix
+
