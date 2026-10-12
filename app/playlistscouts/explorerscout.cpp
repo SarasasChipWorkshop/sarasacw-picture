@@ -13,6 +13,15 @@
 
 #include <optional>
 
+// YYC MARK:
+// <exdisp.h> is not self-contained: it only includes <rpc.h>/<rpcndr.h> before
+// emitting `typedef interface ...` forward declarations, while the `interface`
+// macro (defined as `struct` for C++) lives in <combaseapi.h>, which is pulled
+// in via the <objbase.h> chain. Without this prelude, MSVC fails to parse those
+// forward declarations (C2146/C2371) and every IShellWindows usage breaks.
+// (Qt headers do not include <windows.h>, so nothing else provides it here.)
+#include <objbase.h>
+
 #include <exdisp.h>     // IShellWindows, CLSID_ShellWindows
 #include <servprov.h>   // IServiceProvider
 #include <shlguid.h>    // SID_STopLevelBrowser
