@@ -39,7 +39,8 @@ jobs:
       run: |
         macdeployqt ./scwpic.app -dmg
         ls
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       with:
-        name: "macos-bundle"
+        name: "scwpic-macos-latest"
         path: "*.dmg"
+        archive: false

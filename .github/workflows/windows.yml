@@ -112,13 +112,15 @@ jobs:
         exit /B 0
         :error
         exit /B 1
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       with:
         name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake-setup"
         path: pack/inno/scwpic-setup.exe
+        archive: false
     # TODO: Enable when start to support MSIX pack.
-    # - uses: actions/upload-artifact@v6
+    # - uses: actions/upload-artifact@v7
     #   with:
     #     name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake"
     #     path: pack/msix/scwpic.msix
+    #     archive: false
 
