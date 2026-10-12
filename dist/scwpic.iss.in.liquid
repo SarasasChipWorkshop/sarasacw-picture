@@ -1,4 +1,14 @@
-; Script for generating the SCW Photo Viewer installer.
+; Inno Setup script for the Windows installer of SCW Photo Viewer.
+;
+;   ISCC.exe /DPublishDir=<publish-dir> /DOutputDir=<dist-dir> path\to\this.iss
+;
+
+#ifndef PublishDir
+#error PublishDir must be specified when running this script. It specifies the directory from which Inno Setup retrieves the artifacts to be packaged.
+#endif
+#ifndef OutputDir
+#error OutputDir must be specified when running this script. It specifies the directory in which Inno Setup writes the generated setup package.
+#endif
 
 #define MyAppName "SCW Photo Viewer"
 #define MyAppVersion "@PROJECT_VERSION@"
@@ -38,11 +48,11 @@ ArchitecturesInstallIn64BitMode=x64compatible
 ChangesAssociations=yes
 DefaultGroupName={cm:MyAppName}
 AllowNoIcons=yes
-LicenseFile=LICENSE
+LicenseFile={#PublishDir}\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=.
+OutputDir={#OutputDir}
 OutputBaseFilename=scwpic-setup
 SolidCompression=yes
 WizardStyle=modern
@@ -77,11 +87,13 @@ Name: "associatewithfiles"; Description: "{cm:MyAssociateWithFiles,{#MyAppName}}
 
 [Files]
 ; YYC MARK:
-; This file MUST be placed with "scwpic.exe" before compiling this script.
-; Otherwise exception will be thrown.
-Source: "{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "*"; Excludes: "vc_redist.x64.exe,scwpic-setup.exe,scwpic.iss,Strings"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "vc_redist.x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
+; This script is compiled in place and retrieves the artifacts to be packaged
+; from the directory given by the "PublishDir" define, which must contain
+; "scwpic.exe", "vc_redist.x64.exe" and the "LICENSE" file. Otherwise
+; exception will be thrown.
+Source: "{#PublishDir}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#PublishDir}\*"; Excludes: "vc_redist.x64.exe"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#PublishDir}\vc_redist.x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
