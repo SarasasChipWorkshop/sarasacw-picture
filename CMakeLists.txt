@@ -238,10 +238,12 @@ if (WIN32)
     )
 
     # Setup Inno Setup script file
+    set (INNO_SETUP_VERSION "7" CACHE STRING "Major version of Inno Setup that packages the installer; decides which language files count as official in the metaglot inno rendering.")
+    set_property (CACHE INNO_SETUP_VERSION PROPERTY STRINGS 6 7)
     set (SCWPIC_INNO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/inno-metadata)
     execute_process (
         COMMAND ${METAGLOT_EXECUTABLE} render inno
-                --inno-version 6
+                --inno-version ${INNO_SETUP_VERSION}
                 --manifest ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.toml
                 --po ${CMAKE_SOURCE_DIR}/locales/inno/*.po
                 --iss-template ${CMAKE_SOURCE_DIR}/dist/scwpic.iss.in.liquid

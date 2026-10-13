@@ -92,7 +92,10 @@ jobs:
         echo ::endgroup::
         :: ------ app ------
         echo ::group::===== App Build =====
-        cmake -Bbuild . || goto :error
+        :: YYC MARK: The GitHub runner preinstalls Inno Setup 6.7.1; align the metaglot
+        :: inno rendering with it via the Inno Setup version cache variable.
+        :: May remove or change it once GitHub updates its preinstalls to Inno Setup 7 series.
+        cmake -Bbuild . -DINNO_SETUP_VERSION=6 || goto :error
         cmake --build build --config Release || goto :error
         cmake --install build --config Release --prefix "%PWD%\build" || goto :error
         echo ::endgroup::
