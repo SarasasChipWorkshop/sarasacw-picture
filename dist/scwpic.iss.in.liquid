@@ -63,27 +63,32 @@ YYC MARK:
 The base messages file pairing (the official full translation that provides
 the language identity) is derived from MetaGlot's best-effort conversion of
 the PO language tag to the conventional Inno Setup language name (lang.lang)
-and its officiality (lang.is_official). Only the official translations come
-with an Inno Setup installation; the community provided conventional names,
-as well as the languages unknown to MetaGlot (which convert to nothing), are
-deliberately not used and fall back to "compiler:Default.isl", so the script
-compiles and the installer works with a bare Inno Setup installation. Pair
-such a language with its base file explicitly (e.g. via a "case" on
-"lang.name") when adding one. The incremental custom messages file is named
-after the conventional name (or the PO language tag when no conventional
-name exists); keep it in sync with the "--isl-path" argument in
-CMakeLists.txt.
+and its officiality (lang.is_official). A language without an official base
+file - a community provided conventional name, or a language unknown to
+MetaGlot which converts to nothing - is dropped instead of falling back:
+every [Languages] entry inherits the language identity of its base file, and
+"compiler:Default.isl" carries the English identity, so a fallback entry
+would flood the setup language selection dialog with duplicate English
+items. To keep such a language, ship its base messages file with the
+installer and pair it explicitly (e.g. via a "case" on "lang.name"). The
+incremental custom messages file is named after the conventional name; keep
+it in sync with the "--isl-path" argument in CMakeLists.txt. The path
+rendering loop is independent of the dropping decision, so a dropped
+language still gets an (unreferenced) messages file written.
 {% endcomment -%}
 {% for lang in langs -%}
+{%- if lang.is_official -%}
 {%- if lang.lang == 'Default' -%}
 {% assign base = 'compiler:Default.isl' -%}
-{%- elsif lang.is_official -%}
-{% assign base = 'compiler:Languages\' | append: lang.lang | append: '.isl' -%}
 {%- else -%}
-{% assign base = 'compiler:Default.isl' -%}
+{% assign base = 'compiler:Languages\' | append: lang.lang | append: '.isl' -%}
 {%- endif -%}
-{% assign incremental = lang.lang | default: lang.name -%}
-Name: "{{ lang.name }}"; MessagesFile: "{{ base }},Strings\{{ incremental }}.isl"
+Name: "{{ lang.name }}"; MessagesFile: "{{ base }},Strings\{{ lang.lang }}.isl"
+{% else -%}
+{%- comment -%}
+unofficial or unmapped: dropped, since a Default.isl fallback would duplicate the English identity in the Select Language dialog
+{%- endcomment -%}
+{% endif -%}
 {% endfor -%}
 
 [Tasks]
