@@ -94,11 +94,9 @@ Name: "associatewithfiles"; Description: "{cm:MyAssociateWithFiles,{#MyAppName}}
 ; YYC MARK:
 ; This script is compiled in place and retrieves the artifacts to be packaged
 ; from the directory given by the "PublishDir" define, which must contain
-; "scwpic.exe", "vc_redist.x64.exe" and the "LICENSE" file. Otherwise
-; exception will be thrown.
+; "scwpic.exe" and the "LICENSE" file. Otherwise exception will be thrown.
 Source: "{#PublishDir}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#PublishDir}\*"; Excludes: "vc_redist.x64.exe"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#PublishDir}\vc_redist.x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
+Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -389,4 +387,3 @@ Name: "{autodesktop}\{cm:MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#MyAppName}}"; Flags: nowait postinstall skipifsilent
-Filename: "{tmp}\vc_redist.x64.exe"; Parameters: "/install /quiet /norestart"; StatusMsg: "{cm:MyInstallVcRedist}"; Flags: waituntilterminated

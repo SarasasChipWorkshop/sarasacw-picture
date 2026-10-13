@@ -20,9 +20,8 @@ msgstr "其他："
 msgid "Associate %1 with its supported file types."
 msgstr "将 %1 与其支持的文件类型关联。"
 
-#. Status message shown while installing the VC++ runtime.
-msgid "Installing Microsoft Visual C++ Redistributable..."
-msgstr "正在安装 Microsoft Visual C++ 运行库..."
+#~ msgid "Installing Microsoft Visual C++ Redistributable..."
+#~ msgstr "正在安装 Microsoft Visual C++ 运行库..."
 
 #~ msgid "Pineapple Pictures"
 #~ msgstr "菠萝看图"
