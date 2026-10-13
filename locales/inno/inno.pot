@@ -22,7 +22,3 @@ msgstr ""
 #. Installer task description. %1 is the application name.
 msgid "Associate %1 with its supported file types."
 msgstr ""
-
-#. Status message shown while installing the VC++ runtime.
-msgid "Installing Microsoft Visual C++ Redistributable..."
-msgstr ""
