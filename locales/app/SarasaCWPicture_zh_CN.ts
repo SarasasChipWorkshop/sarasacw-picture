@@ -51,49 +51,49 @@
     <message>
         <location filename="../../app/aboutdialog.cpp" line="30"/>
         <source>General Help</source>
-        <translation type="unfinished"></translation>
+        <translation>常规帮助</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="32"/>
         <source>Passing in a single image file will load all the images in that directory and start viewing from that image.</source>
-        <translation type="unfinished"></translation>
+        <translation>传入单张图片文件会加载该目录下的所有图片，并从那张图片开始浏览。</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="33"/>
         <source>Passing in multiple image files lets you view them one by one.</source>
-        <translation type="unfinished"></translation>
+        <translation>传入多张图片文件则可以逐一查看它们。</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="36"/>
         <source>Context Menu Help</source>
-        <translation type="unfinished"></translation>
+        <translation>菜单项帮助</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="37"/>
         <source>Keep transformation</source>
         <comment>The same meaning of MainWindow&apos;s Keep transformation.</comment>
-        <translation type="unfinished">保持视图变换</translation>
+        <translation>保持视图变换</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="39"/>
         <source>Checkerboard</source>
         <comment>The same meaning of MainWindow&apos;s Checkerboard.</comment>
-        <translation type="unfinished"></translation>
+        <translation>棋盘格</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="40"/>
         <source>Checkerboard light and dark theme can be adjusted in the configuration window, or easily switch it by holding Shift and clicking the button.</source>
-        <translation type="unfinished"></translation>
+        <translation>棋盘格明暗主题可以在配置窗口中调整，或者按住 Shift 点击按钮进行快捷切换。</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="54"/>
         <source>Upstream author</source>
-        <translation type="unfinished"></translation>
+        <translation>上游作者</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="55"/>
         <source>Hard fork author</source>
-        <translation type="unfinished"></translation>
+        <translation>硬分叉作者</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="56"/>
@@ -133,33 +133,33 @@
     <message>
         <location filename="../../app/aboutdialog.cpp" line="67"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>软件许可证</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="68"/>
         <source>This application is released under the MIT License.</source>
-        <translation type="unfinished"></translation>
+        <translation>该应用是在 MIT 许可协议下发布的。</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="69"/>
         <source>License Verbatim Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>许可证逐字副本</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="72"/>
         <source>Third-party Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>第三方程序库</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="73"/>
         <source>This application is built on the following free software libraries.</source>
         <comment>Free as in freedom</comment>
-        <translation type="unfinished"></translation>
+        <translation>该应用程序采用了下列自由软件程序库进行构建。</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="74"/>
         <source>Some of them are optional and might not be included with this distribution depending on the build environment.</source>
-        <translation type="unfinished"></translation>
+        <translation>其中一些是可选的，可能会根据构建环境的不同，不包含在本发行版中。</translation>
     </message>
     <message>
         <source>%1 is built on the following free software libraries:</source>
@@ -248,7 +248,7 @@
         <location filename="../../app/graphicsscene.cpp" line="132"/>
         <source>Drag image here</source>
         <comment>The same meaning of MainWindow&apos;s hint.</comment>
-        <translation type="unfinished">拖放图片至此</translation>
+        <translation>拖放图片至此</translation>
     </message>
 </context>
 <context>
@@ -292,7 +292,7 @@
     <message>
         <location filename="../../app/mainwindow.ui" line="145"/>
         <source>&amp;Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>变换(&amp;T)</translation>
     </message>
     <message>
         <source>Image data is invalid</source>
@@ -330,7 +330,7 @@
     <message>
         <location filename="../../app/mainwindow.cpp" line="250"/>
         <source>Drag image here</source>
-        <translation type="unfinished">拖放图片至此</translation>
+        <translation>拖放图片至此</translation>
     </message>
     <message>
         <location filename="../../app/mainwindow.cpp" line="495"/>
@@ -360,22 +360,22 @@
     <message>
         <location filename="../../app/actionmanager.cpp" line="111"/>
         <source>Fit to screen</source>
-        <translation type="unfinished"></translation>
+        <translation>按窗口大小显示</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="112"/>
         <source>Fit by width</source>
-        <translation type="unfinished"></translation>
+        <translation>自适应宽度</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="113"/>
         <source>Fit by height</source>
-        <translation type="unfinished"></translation>
+        <translation>自适应高度</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="118"/>
         <source>Flip &amp;Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>垂直翻转(&amp;V)</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="138"/>
@@ -968,7 +968,7 @@
     <message>
         <location filename="../../app/settingsdialog.ui" line="25"/>
         <source>Show navigation view</source>
-        <translation type="unfinished"></translation>
+        <translation>显示导航窗</translation>
     </message>
     <message>
         <location filename="../../app/settingsdialog.ui" line="53"/>
@@ -1009,7 +1009,7 @@
     <message>
         <location filename="../../app/main.cpp" line="41"/>
         <source>SCW Photo Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>SCW 照片查看器</translation>
     </message>
     <message>
         <location filename="../../app/main.cpp" line="44"/>
