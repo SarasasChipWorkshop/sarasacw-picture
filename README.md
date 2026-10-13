@@ -9,10 +9,7 @@ Yet another legacy Windows Photo Viewer with cross-platform support.
 [![](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/macos.yml/badge.svg)](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/macos.yml)
 [![](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/ubuntu.yml)
 
-<!--
-TODO: Add main window illustration in future.
-![SCW Photo Viewer - Main Window](https://repository-images.githubusercontent.com/211888654/e8697600-e370-11eb-9b2a-b71e05262954)
--->
+![SCW Photo Viewer - Main Window](https://github.com/user-attachments/assets/4b5b1def-8542-4445-a44d-078cefedcd96)
 
 ## Summary
 
