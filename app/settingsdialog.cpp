@@ -49,34 +49,39 @@ private:
     Pairs pairs;
 };
 
-static EnumComboBoxTransformer<Settings::MouseWheelBehavior, QString> MW_OPTIONS {
-    {
-        { Settings::MouseWheelBehavior::Zoom, QCoreApplication::translate("SettingsDialog", "Zoom in and out") },
-        { Settings::MouseWheelBehavior::Switch, QCoreApplication::translate("SettingsDialog", "View next or previous item") }
-    }
-};
-
-static EnumComboBoxTransformer<Settings::WindowSizeBehavior, QString> IWS_OPTIONS {
-    {
-        { Settings::WindowSizeBehavior::Maximized, QCoreApplication::translate("SettingsDialog", "Maximized") },
-        { Settings::WindowSizeBehavior::Windowed, QCoreApplication::translate("SettingsDialog", "Windowed") }
-    }
-};
-
-static EnumComboBoxTransformer<Qt::HighDpiScaleFactorRoundingPolicy, QString> HIDPI_OPTIONS {
-    {
-        { Qt::HighDpiScaleFactorRoundingPolicy::Round, QCoreApplication::translate("SettingsDialog", "Round (Integer scaling)", "This option means round up for .5 and above") },
-        { Qt::HighDpiScaleFactorRoundingPolicy::Ceil, QCoreApplication::translate("SettingsDialog", "Ceil (Integer scaling)", "This option means always round up") },
-        { Qt::HighDpiScaleFactorRoundingPolicy::Floor, QCoreApplication::translate("SettingsDialog", "Floor (Integer scaling)", "This option means always round down") },
-        { Qt::HighDpiScaleFactorRoundingPolicy::PassThrough, QCoreApplication::translate("SettingsDialog", "Follow system (Fractional scaling)", "This option means don't round") }
-    }
-};
-
 SettingsDialog::SettingsDialog(QWidget *parent)
     : QDialog(parent), ui(new QT_PREPEND_NAMESPACE(Ui::SettingsDialog))
 {
     ui->setupUi(this);
     setWindowFlag(Qt::WindowContextHelpButtonHint, false);
+
+    // YYC MARK:
+    // These transformers must stay as function-local statics: their initialization
+    // evaluates QCoreApplication::translate(), which returns translated text only
+    // after the QTranslator is installed in main(). Namespace-scope statics would
+    // be initialized before that and always keep the untranslated source text.
+    static EnumComboBoxTransformer<Settings::MouseWheelBehavior, QString> MW_OPTIONS {
+        {
+            { Settings::MouseWheelBehavior::Zoom, QCoreApplication::translate("SettingsDialog", "Zoom in and out") },
+            { Settings::MouseWheelBehavior::Switch, QCoreApplication::translate("SettingsDialog", "View next or previous item") }
+        }
+    };
+
+    static EnumComboBoxTransformer<Settings::WindowSizeBehavior, QString> IWS_OPTIONS {
+        {
+            { Settings::WindowSizeBehavior::Maximized, QCoreApplication::translate("SettingsDialog", "Maximized") },
+            { Settings::WindowSizeBehavior::Windowed, QCoreApplication::translate("SettingsDialog", "Windowed") }
+        }
+    };
+
+    static EnumComboBoxTransformer<Qt::HighDpiScaleFactorRoundingPolicy, QString> HIDPI_OPTIONS {
+        {
+            { Qt::HighDpiScaleFactorRoundingPolicy::Round, QCoreApplication::translate("SettingsDialog", "Round (Integer scaling)", "This option means round up for .5 and above") },
+            { Qt::HighDpiScaleFactorRoundingPolicy::Ceil, QCoreApplication::translate("SettingsDialog", "Ceil (Integer scaling)", "This option means always round up") },
+            { Qt::HighDpiScaleFactorRoundingPolicy::Floor, QCoreApplication::translate("SettingsDialog", "Floor (Integer scaling)", "This option means always round down") },
+            { Qt::HighDpiScaleFactorRoundingPolicy::PassThrough, QCoreApplication::translate("SettingsDialog", "Follow system (Fractional scaling)", "This option means don't round") }
+        }
+    };
 
     auto* settings = Settings::instance();
     ui->m_showNavigatorView->setChecked(Settings::instance()->showNavigatorView());
