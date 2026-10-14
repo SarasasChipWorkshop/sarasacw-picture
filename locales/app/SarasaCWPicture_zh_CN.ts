@@ -360,17 +360,17 @@
     <message>
         <location filename="../../app/actionmanager.cpp" line="111"/>
         <source>Fit to screen</source>
-        <translation>按窗口大小显示</translation>
+        <translation>适应窗口大小</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="112"/>
         <source>Fit by width</source>
-        <translation>自适应宽度</translation>
+        <translation>适应窗口宽度</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="113"/>
         <source>Fit by height</source>
-        <translation>自适应高度</translation>
+        <translation>适应窗口高度</translation>
     </message>
     <message>
         <location filename="../../app/actionmanager.cpp" line="118"/>
