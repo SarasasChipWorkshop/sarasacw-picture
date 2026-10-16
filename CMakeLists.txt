@@ -258,8 +258,7 @@ if (WIN32)
     endif ()
     configure_file (${SCWPIC_INNO_OUTPUT_DIR}/scwpic.iss.in ${SCWPIC_INNO_OUTPUT_DIR}/scwpic.iss @ONLY)
 
-    # Setup MSIX metadata. NOTE: the package cannot be built yet: the logo assets
-    # referenced by the manifest are not provided (marked with TODO comments).
+    # Setup MSIX metadata.
     set (SCWPIC_MSIX_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/msix-metadata)
     execute_process (
         COMMAND ${METAGLOT_EXECUTABLE} render msix
