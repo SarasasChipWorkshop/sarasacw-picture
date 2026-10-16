@@ -110,7 +110,19 @@ jobs:
         iscc "/DPublishDir=%CD%\build\bin" "/DOutputDir=%CD%\pack\inno" build\inno-metadata\scwpic.iss || goto :error
         echo ::endgroup::
         echo ::group::===== App MSIX Pack =====
-        :: TODO
+        mkdir pack\msix\staging
+        robocopy build\msix-metadata pack\msix\staging AppxManifest.xml
+        if ErrorLevel 8 goto :error
+        robocopy build\msix-metadata\Strings pack\msix\staging\Strings /E
+        if ErrorLevel 8 goto :error
+        robocopy dist\winmsix-icons pack\msix\staging\Assets /E
+        if ErrorLevel 8 goto :error
+        robocopy build\bin pack\msix\staging\MyApp /E
+        if ErrorLevel 8 goto :error
+        MakePri.exe createconfig /cf pack\msix\priconfig.xml /dq en-US /o || goto :error
+        pwsh -NoProfile -ExecutionPolicy Bypass -File dist\strip-priconfig-packaging-node.ps1 -Path pack\msix\priconfig.xml -Verbose || goto :error
+        MakePri.exe new /pr pack\msix\staging /cf pack\msix\priconfig.xml /mn pack\msix\staging\AppxManifest.xml /of pack\msix\staging\resources.pri /o || goto :error
+        MakeAppx.exe pack /l /o /v /d pack\msix\staging /p pack\msix\scwpic.msix || goto :error
         echo ::endgroup::
         exit /B 0
         :error
@@ -120,10 +132,9 @@ jobs:
         name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake-setup"
         path: pack/inno/scwpic-setup.exe
         archive: false
-    # TODO: Enable when start to support MSIX pack.
-    # - uses: actions/upload-artifact@v7
-    #   with:
-    #     name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake"
-    #     path: pack/msix/scwpic.msix
-    #     archive: false
+    - uses: actions/upload-artifact@v7
+      with:
+        name: "scwpic-windows-msvc${{ matrix.vs }}-qt${{ matrix.qt_ver }}-cmake"
+        path: pack/msix/scwpic.msix
+        archive: false
 
