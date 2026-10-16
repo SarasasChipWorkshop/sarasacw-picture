@@ -122,7 +122,7 @@ jobs:
         MakePri.exe createconfig /cf pack\msix\priconfig.xml /dq en-US /o || goto :error
         pwsh -NoProfile -ExecutionPolicy Bypass -File dist\strip-priconfig-packaging-node.ps1 -Path pack\msix\priconfig.xml -Verbose || goto :error
         MakePri.exe new /pr pack\msix\staging /cf pack\msix\priconfig.xml /mn pack\msix\staging\AppxManifest.xml /of pack\msix\staging\resources.pri /o || goto :error
-        MakeAppx.exe pack /l /o /v /d pack\msix\staging /p pack\msix\scwpic.msix || goto :error
+        MakeAppx.exe pack /l /o /v /h SHA512 /d pack\msix\staging /p pack\msix\scwpic.msix || goto :error
         echo ::endgroup::
         exit /B 0
         :error
