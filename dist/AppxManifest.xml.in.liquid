@@ -10,8 +10,7 @@
   <Properties>
     <DisplayName>ms-resource:AppDisplayName</DisplayName>
     <PublisherDisplayName>ms-resource:PublisherDisplayName</PublisherDisplayName>
-    <!-- TODO: the store logo asset is not provided yet; the path below assumes it exists. -->
-    <Logo>Assets\Square44x44Logo.png</Logo>
+    <Logo>Assets\SarasasChipWorkshop.Picture.StoreLogo.png</Logo>
   </Properties>
 
   <Resources>
@@ -29,19 +28,17 @@
   </Capabilities>
 
   <Applications>
-    <Application Id="SarasaCWPicture" Executable="scwpic.exe" EntryPoint="Windows.FullTrustApplication">
-      <!-- TODO: the app logo assets are not provided yet; the Square44x44Logo and Square150x150Logo paths below assume they exist. -->
+    <Application Id="SarasaCWPicture" Executable="MyApp\scwpic.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
         DisplayName="ms-resource:AppDisplayName"
         Description="ms-resource:AppDescription"
         BackgroundColor="transparent"
-        Square44x44Logo="Assets\Square44x44Logo.png"
-        Square150x150Logo="Assets\Square150x150Logo.png" />
+        Square44x44Logo="Assets\SarasasChipWorkshop.Picture.Square44x44Logo.png"
+        Square150x150Logo="Assets\SarasasChipWorkshop.Picture.Square150x150Logo.png" />
       <Extensions>
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="jpegimages">
             <uap:DisplayName>ms-resource:FileTypeJpegDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.jfif</uap:FileType>
@@ -53,7 +50,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="gifimages">
             <uap:DisplayName>ms-resource:FileTypeGifDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\gif.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.gif</uap:FileType>
@@ -63,7 +59,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="pngimages">
             <uap:DisplayName>ms-resource:FileTypePngDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.apng</uap:FileType>
@@ -74,7 +69,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="svgimages">
             <uap:DisplayName>ms-resource:FileTypeSvgDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.svg</uap:FileType>
@@ -84,7 +78,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="webpimages">
             <uap:DisplayName>ms-resource:FileTypeWebpDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.webp</uap:FileType>
@@ -94,7 +87,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="avifimages">
             <uap:DisplayName>ms-resource:FileTypeAvifDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.avif</uap:FileType>
@@ -104,7 +96,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="icoimages">
             <uap:DisplayName>ms-resource:FileTypeIcoDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.ico</uap:FileType>
@@ -114,7 +105,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="icnsimages">
             <uap:DisplayName>ms-resource:FileTypeIcnsDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.icns</uap:FileType>
@@ -124,7 +114,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="psdimages">
             <uap:DisplayName>ms-resource:FileTypePsdDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.pdd</uap:FileType>
@@ -137,7 +126,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="kraimages">
             <uap:DisplayName>ms-resource:FileTypeKraDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.kra</uap:FileType>
@@ -147,7 +135,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="xcfimages">
             <uap:DisplayName>ms-resource:FileTypeXcfDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.xcf</uap:FileType>
@@ -157,7 +144,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="tgaimages">
             <uap:DisplayName>ms-resource:FileTypeTgaDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.tga</uap:FileType>
@@ -167,7 +153,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="tifimages">
             <uap:DisplayName>ms-resource:FileTypeTifDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.tif</uap:FileType>
@@ -178,7 +163,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="bmpimages">
             <uap:DisplayName>ms-resource:FileTypeBmpDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.bmp</uap:FileType>
@@ -188,7 +172,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="wbmpimages">
             <uap:DisplayName>ms-resource:FileTypeWbmpDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.wbmp</uap:FileType>
@@ -198,7 +181,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="ddsimages">
             <uap:DisplayName>ms-resource:FileTypeDdsDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.dds</uap:FileType>
@@ -208,7 +190,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="hdrimages">
             <uap:DisplayName>ms-resource:FileTypeHdrDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.exr</uap:FileType>
@@ -219,7 +200,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="iffimages">
             <uap:DisplayName>ms-resource:FileTypeIffDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.iff</uap:FileType>
@@ -229,7 +209,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="picimages">
             <uap:DisplayName>ms-resource:FileTypePicDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.pic</uap:FileType>
@@ -239,7 +218,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="pcximages">
             <uap:DisplayName>ms-resource:FileTypePcxDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.pcx</uap:FileType>
@@ -249,7 +227,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="qoiimages">
             <uap:DisplayName>ms-resource:FileTypeQoiDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\png.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.qoi</uap:FileType>
@@ -259,7 +236,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="rasimages">
             <uap:DisplayName>ms-resource:FileTypeRasDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.ras</uap:FileType>
@@ -270,7 +246,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="oraimages">
             <uap:DisplayName>ms-resource:FileTypeOraDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\bmp.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.ora</uap:FileType>
@@ -280,7 +255,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="aniimages">
             <uap:DisplayName>ms-resource:FileTypeAniDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\gif.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.ani</uap:FileType>
@@ -290,7 +264,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="pfmimages">
             <uap:DisplayName>ms-resource:FileTypePfmDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.pfm</uap:FileType>
@@ -301,7 +274,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="rgbimages">
             <uap:DisplayName>ms-resource:FileTypeRgbDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.bw</uap:FileType>
@@ -314,7 +286,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="pxrimages">
             <uap:DisplayName>ms-resource:FileTypePxrDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.pxr</uap:FileType>
@@ -324,7 +295,6 @@
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="sctimages">
             <uap:DisplayName>ms-resource:FileTypeSctDisplayName</uap:DisplayName>
-            <!-- TODO: the file association logo asset is not provided yet; the path below assumes it exists. -->
             <uap:Logo>Assets\FileAssoc\jpg.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.sct</uap:FileType>
