@@ -1,45 +1,57 @@
 version = 1
-SPDX-PackageName = "Pineapple Pictures"
-SPDX-PackageDownloadLocation = "https://github.com/BLumia/pineapple-pictures"
+SPDX-PackageName = "sarasacw-picture"
+SPDX-PackageDownloadLocation = "https://github.com/SarasasChipWorkshop/sarasacw-picture.git"
 
 [[annotations]]
-path = [".gitattributes", ".git-blame-ignore-revs", ".gitignore", "appveyor.yml", ".github/**"]
+path = [".gitattributes", ".git-blame-ignore-revs", ".gitignore", ".github/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "None"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ["README**.md", "NEWS", "assets/**.rc.in", "assets/**.qrc", "dist/appstream/**", "dist/**.in", "dist/**.desktop", "dist/**.rc.in.toml", "dist/**.rc.in.liquid"]
+path = ["README**.md", "NEWS", "assets/**.qrc"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "None"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ["locales/app/**.ts", "locales/winrc/**", "assets/plain/translators.html"]
+path = ["LICENSE"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["2026 BLumia", "2026 Sarasa's Chip Workshop"]
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["app/**.ui"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Sarasa's Chip Workshop"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["assets/htmls/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["2026 Gary Wang", "2026 Sarasa's Chip Workshop"]
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["assets/icons/**.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Sarasa's Chip Workshop"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["dist/**.liquid", "dist/**.toml", "dist/**.ps1"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Sarasa's Chip Workshop"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["dist/**.png", "dist/**.ico", "dist/**.icns"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Sarasa's Chip Workshop"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["locales/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Translators from hosted.weblate.org"
-SPDX-License-Identifier = "MIT"
-
-[[annotations]]
-path = ["dist/msix/**.svg", "dist/msix/**.toml"]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Gary Wang"
-SPDX-License-Identifier = "MIT"
-
-[[annotations]]
-path = ["app/translations/**.ts", "assets/plain/translators.html"]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 yyc12345"
-SPDX-License-Identifier = "MIT"
-
-[[annotations]]
-path = "assets/icons/**.svg"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2022 Gary Wang"
-SPDX-License-Identifier = "MIT"
-
-[[annotations]]
-path = "assets/icons/app-icon.**"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2020 Lovelyblack"
 SPDX-License-Identifier = "MIT"
