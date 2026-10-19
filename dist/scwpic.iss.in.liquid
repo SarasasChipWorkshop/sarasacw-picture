@@ -171,7 +171,7 @@ Root: HKA; Subkey: "Software\Classes\Applications\scwpic.exe\SupportedTypes"; Va
 ; Per family: one ProgId shared by its extensions, always registered. Default
 ; value and FriendlyTypeName both carry the indirect string; DefaultIcon
 ; references the embedded icon by resource ID (101 app, 102 bmp, 103 gif,
-; 104 jpg, 105 png). Only the OpenWithProgids line(s) at the end of each
+; 104 jpg, 105 png, 106 svg). Only the OpenWithProgids line(s) at the end of each
 ; family block claim the actual association and are gated by the installer
 ; task "associatewithfiles".
 
@@ -199,10 +199,10 @@ Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Png\shell\open\command"; Va
 Root: HKA; Subkey: "Software\Classes\.png\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Png"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.apng\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Png"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; SVG (string 1004, icon 105 - transparency capable)
+; SVG (string 1004, icon 106 - vector)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Svg"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1004"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Svg"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1004"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Svg\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-105"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Svg\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Svg\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.svg\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Svg"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
@@ -220,17 +220,17 @@ Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Avif\DefaultIcon"; ValueTyp
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Avif\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.avif\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Avif"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; ICO (string 1007, icon 105 - transparency capable)
+; ICO (string 1007, icon 106 - icon format)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ico"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1007"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ico"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1007"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ico\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-105"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ico\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ico\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.ico\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Ico"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; ICNS (string 1008, icon 105 - transparency capable)
+; ICNS (string 1008, icon 106 - icon format)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Icns"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1008"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Icns"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1008"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Icns\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-105"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Icns\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Icns\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.icns\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Icns"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
@@ -258,10 +258,10 @@ Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Xcf\DefaultIcon"; ValueType
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Xcf\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.xcf\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Xcf"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; TARGA (string 1012, icon 102 - artwork)
+; TARGA (string 1012, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Tga"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1012"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Tga"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1012"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Tga\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-102"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Tga\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Tga\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.tga\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Tga"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
@@ -302,24 +302,24 @@ Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Hdr\shell\open\command"; Va
 Root: HKA; Subkey: "Software\Classes\.hdr\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Hdr"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.exr\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Hdr"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; IFF (string 1018, icon 104 - fallback)
+; IFF (string 1018, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Iff"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1018"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Iff"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1018"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Iff\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Iff\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Iff\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.iff\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Iff"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; Softimage PIC (string 1019, icon 104 - fallback)
+; Softimage PIC (string 1019, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pic"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1019"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pic"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1019"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pic\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pic\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pic\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.pic\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Pic"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; PCX (string 1020, icon 104 - fallback)
+; PCX (string 1020, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pcx"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1020"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pcx"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1020"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pcx\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pcx\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pcx\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.pcx\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Pcx"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
@@ -330,10 +330,10 @@ Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Qoi\DefaultIcon"; ValueType
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Qoi\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.qoi\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Qoi"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; Sun Raster family (string 1022, icon 104 - fallback)
+; Sun Raster family (string 1022, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ras"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1022"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ras"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1022"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ras\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ras\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Ras\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.ras\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Ras"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.sun\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Ras"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
@@ -360,27 +360,27 @@ Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pfm\shell\open\command"; Va
 Root: HKA; Subkey: "Software\Classes\.pfm\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Pfm"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.phm\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Pfm"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; Silicon Graphics family (string 1026, icon 104 - fallback)
+; Silicon Graphics family (string 1026, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Rgb"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1026"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Rgb"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1026"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Rgb\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Rgb\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Rgb\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.rgb\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Rgb"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.rgba\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Rgb"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.bw\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Rgb"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 Root: HKA; Subkey: "Software\Classes\.sgi\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Rgb"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; Pixar (string 1027, icon 104 - fallback)
+; Pixar (string 1027, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pxr"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1027"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pxr"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1027"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pxr\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pxr\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Pxr\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.pxr\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Pxr"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 
-; Scitex CT (string 1028, icon 104 - fallback)
+; Scitex CT (string 1028, icon 106 - archaic)
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Sct"; ValueType: string; ValueName: ""; ValueData: "@{app}\scwpic.exe,-1028"; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Sct"; ValueType: string; ValueName: "FriendlyTypeName"; ValueData: "@{app}\scwpic.exe,-1028"
-Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Sct\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-104"
+Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Sct\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\scwpic.exe,-106"
 Root: HKA; Subkey: "Software\Classes\SarasaCWPicture.Sct\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\scwpic.exe"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\.sct\OpenWithProgids"; ValueType: string; ValueName: "SarasaCWPicture.Sct"; ValueData: ""; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: associatewithfiles
 

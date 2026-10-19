@@ -36,10 +36,11 @@ The image formats supported by this application are varied. Considering the work
 
 The assignment follows a categorization:
 
-- Photographic and legacy scanline raster formats use the `jpg` icon.
+- Photographic and high dynamic range formats use the `jpg` icon.
 - Formats that can carry transparency use the `png` icon.
 - Bitmap artwork produced by graphics editors uses the `bmp` icon.
 - Formats that contain animation use the `gif` icon.
+- Vector formats, archaic formats, and icon formats use the `svg` icon.
 
 ### MSIX Package
 
@@ -48,31 +49,31 @@ The assignment follows a categorization:
 | JPEG | `jpg` | `.jpg`, `.jpeg`, `.jfif` |
 | GIF | `gif` | `.gif` |
 | PNG | `png` | `.png`, `.apng` |
-| SVG | `png` | `.svg` |
+| SVG | `svg` | `.svg` |
 | WebP | `png` | `.webp` |
 | AVIF | `png` | `.avif` |
-| ICO | `png` | `.ico` |
-| ICNS | `png` | `.icns` |
+| ICO | `svg` | `.ico` |
+| ICNS | `svg` | `.icns` |
 | PSD | `bmp` | `.psd`, `.psb`, `.pdd`, `.psdt` |
 | KRA | `bmp` | `.kra` |
 | XCF | `bmp` | `.xcf` |
-| TARGA | `bmp` | `.tga` |
+| TARGA | `svg` | `.tga` |
 | TIFF | `jpg` | `.tif`, `.tiff` |
 | BMP | `bmp` | `.bmp` |
 | WBMP | `bmp` | `.wbmp` |
 | DDS | `bmp` | `.dds` |
 | HDR | `jpg` | `.hdr`, `.exr` |
-| IFF | `jpg` | `.iff` |
-| PIC | `jpg` | `.pic` |
-| PCX | `jpg` | `.pcx` |
+| IFF | `svg` | `.iff` |
+| PIC | `svg` | `.pic` |
+| PCX | `svg` | `.pcx` |
 | QOI | `png` | `.qoi` |
-| Sun Raster | `jpg` | `.ras`, `.sun` |
+| Sun Raster | `svg` | `.ras`, `.sun` |
 | ORA | `bmp` | `.ora` |
 | ANI | `gif` | `.ani` |
 | PFM | `jpg` | `.pfm`, `.phm` |
-| SGI | `jpg` | `.bw`, `.rgb`, `.rgba`, `.sgi` |
-| PXR | `jpg` | `.pxr` |
-| SCT | `jpg` | `.sct` |
+| SGI | `svg` | `.bw`, `.rgb`, `.rgba`, `.sgi` |
+| PXR | `svg` | `.pxr` |
+| SCT | `svg` | `.sct` |
 
 ### Inno Setup Installer
 
@@ -81,31 +82,31 @@ The assignment follows a categorization:
 | JPEG | `jpg` | `.jpg`, `.jpeg`, `.jfif` |
 | GIF | `gif` | `.gif` |
 | PNG | `png` | `.png`, `.apng` |
-| SVG | `png` | `.svg` |
+| SVG | `svg` | `.svg` |
 | WebP | `png` | `.webp` |
 | AVIF | `png` | `.avif` |
-| ICO | `png` | `.ico` |
-| ICNS | `png` | `.icns` |
+| ICO | `svg` | `.ico` |
+| ICNS | `svg` | `.icns` |
 | PSD | `bmp` | `.psd`, `.psb`, `.pdd`, `.psdt` |
 | KRA | `bmp` | `.kra` |
 | XCF | `bmp` | `.xcf` |
-| TARGA | `bmp` | `.tga` |
+| TARGA | `svg` | `.tga` |
 | TIFF | `jpg` | `.tif`, `.tiff` |
 | BMP | `bmp` | `.bmp` |
 | WBMP | `bmp` | `.wbmp` |
 | DDS | `bmp` | `.dds` |
 | HDR | `jpg` | `.hdr`, `.exr` |
-| IFF | `jpg` | `.iff` |
-| PIC | `jpg` | `.pic` |
-| PCX | `jpg` | `.pcx` |
+| IFF | `svg` | `.iff` |
+| PIC | `svg` | `.pic` |
+| PCX | `svg` | `.pcx` |
 | QOI | `png` | `.qoi` |
-| Sun Raster | `jpg` | `.ras`, `.sun` |
+| Sun Raster | `svg` | `.ras`, `.sun` |
 | ORA | `bmp` | `.ora` |
 | ANI | `gif` | `.ani` |
 | PFM | `jpg` | `.pfm`, `.phm` |
-| SGI | `jpg` | `.bw`, `.rgb`, `.rgba`, `.sgi` |
-| PXR | `jpg` | `.pxr` |
-| SCT | `jpg` | `.sct` |
+| SGI | `svg` | `.bw`, `.rgb`, `.rgba`, `.sgi` |
+| PXR | `svg` | `.pxr` |
+| SCT | `svg` | `.sct` |
 
 ### FreeDesktop Desktop Entry
 
