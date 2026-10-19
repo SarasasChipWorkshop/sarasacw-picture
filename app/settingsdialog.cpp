@@ -98,27 +98,19 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     Qt::HighDpiScaleFactorRoundingPolicy hidpi = settings->hiDpiScaleFactorBehavior();
     ui->m_hiDpiRoundingPolicyBehavior->setCurrentIndex(HIDPI_OPTIONS.to_index(hidpi));
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
-# define QCHECKBOX_CHECKSTATECHANGED QCheckBox::checkStateChanged
-# define QT_CHECKSTATE Qt::CheckState
-#else
-# define QCHECKBOX_CHECKSTATECHANGED QCheckBox::stateChanged
-# define QT_CHECKSTATE int
-#endif // QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
-
-    connect(ui->m_showNavigatorView, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_showNavigatorView, &QCheckBox::checkStateChanged, this, [ = ](Qt::CheckState state){
         Settings::instance()->setShowNavigatorView(state == Qt::Checked);
     });
 
-    connect(ui->m_useLightCheckerboard, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_useLightCheckerboard, &QCheckBox::checkStateChanged, this, [ = ](Qt::CheckState state){
         Settings::instance()->setUseLightCheckerboard(state == Qt::Checked);
     });
 
-    connect(ui->m_loopGallery, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_loopGallery, &QCheckBox::checkStateChanged, this, [ = ](Qt::CheckState state){
         Settings::instance()->setLoopGallery(state == Qt::Checked);
     });
 
-    connect(ui->m_svgTiny12Only, &QCHECKBOX_CHECKSTATECHANGED, this, [ = ](QT_CHECKSTATE state){
+    connect(ui->m_svgTiny12Only, &QCheckBox::checkStateChanged, this, [ = ](Qt::CheckState state){
         Settings::instance()->setSvgTiny12Only(state == Qt::Checked);
     });
 

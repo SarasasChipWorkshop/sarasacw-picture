@@ -57,7 +57,6 @@ void GraphicsView::showFileFromPath(const QString &filePath)
         } else if (!imageReader.canRead()) {
             showText(tr("Image data is invalid or currently unsupported"));
         } else {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
             QImage && img = imageReader.read();
             if (img.isNull()) {
                 showText(tr("Image data is invalid or currently unsupported"));
@@ -68,15 +67,6 @@ void GraphicsView::showFileFromPath(const QString &filePath)
                 img.setDevicePixelRatio(devicePixelRatioF());
                 showImage(img);
             }
-#else
-            QPixmap && pixmap = QPixmap::fromImageReader(&imageReader);
-            if (pixmap.isNull()) {
-                showText(tr("Image data is invalid or currently unsupported"));
-            } else {
-                pixmap.setDevicePixelRatio(devicePixelRatioF());
-                showImage(pixmap);
-            }
-#endif // QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
         }
     }
 }
@@ -366,17 +356,12 @@ QTransform GraphicsView::resetScale(const QTransform & orig)
 
 void GraphicsView::updateStyle(Qt::ColorScheme colorScheme) {
     // YYC MARK:
-    // If we are using Windows 10 and lower system or Qt which do not support "Windows 11"
-    // theme (lower than Qt 6.7), we should only support light mode.
+    // If we are using Windows 10 and lower system, we should only support light mode.
     // Because Qt's dark-mode-aware "Windows 11" theme is only well-supported on Windows 11.
 #if defined(Q_OS_WIN)
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    colorScheme = Qt::ColorScheme::Light;
-#else
     if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows11) {
         colorScheme = Qt::ColorScheme::Light;
     }
-#endif // QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
 #endif // defined(Q_OS_WIN)
 
     switch (colorScheme) {

@@ -257,11 +257,7 @@ void MainWindow::galleryCurrent(bool fromFileWatcher)
 
 QStringList MainWindow::supportedImageFormats()
 {
-    QStringList formatFilters {
-#if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
-        QStringLiteral("*.jfif")
-#endif // QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
-    };
+    QStringList formatFilters;
     for (const QByteArray &item : QImageReader::supportedImageFormats()) {
         formatFilters.append(QStringLiteral("*.") % QString::fromLocal8Bit(item));
     }

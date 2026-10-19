@@ -21,17 +21,12 @@
 
 static const QColor& ColorSchemaToTextForeground(Qt::ColorScheme colorScheme) {
     // YYC MARK:
-    // If we are using Windows 10 and lower system or Qt which do not support "Windows 11"
-    // theme (lower than Qt 6.7), we should only support light mode.
+    // If we are using Windows 10 and lower system, we should only support light mode.
     // Because Qt's dark-mode-aware "Windows 11" theme is only well-supported on Windows 11.
 #if defined(Q_OS_WIN)
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    colorScheme = Qt::ColorScheme::Light;
-#else
     if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows11) {
         colorScheme = Qt::ColorScheme::Light;
     }
-#endif // QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
 #endif // defined(Q_OS_WIN)
 
     switch (colorScheme) {
@@ -164,11 +159,9 @@ void GraphicsScene::showSvg(const QString &filepath)
     this->clear();
     QGraphicsSvgItem * svgItem = new QGraphicsSvgItem();
     QSvgRenderer * render = new QSvgRenderer(svgItem);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
     if (Settings::instance()->svgTiny12Only()) {
         render->setOptions(QtSvg::Tiny12FeaturesOnly);
     }
-#endif // QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
     render->load(filepath);
     svgItem->setSharedRenderer(render);
     this->addItem(svgItem);
