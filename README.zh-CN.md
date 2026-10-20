@@ -9,7 +9,7 @@
 [![](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/macos.yml/badge.svg)](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/macos.yml)
 [![](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/SarasasChipWorkshop/sarasacw-picture/actions/workflows/ubuntu.yml)
 
-![SCW 照片查看器 - 主窗口](https://github.com/user-attachments/assets/4b5b1def-8542-4445-a44d-078cefedcd96)
+![SCW 照片查看器 - 主窗口](https://github.com/user-attachments/assets/a58ac355-24e5-4262-9eea-c55956d89689)
 
 ## 简介
 
