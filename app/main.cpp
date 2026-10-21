@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 #else
     const QString qmDir = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("translations");
 #endif
-    if (translator.load(QLocale(), u"SarasaCWPicture"_s, u"_"_s, qmDir)) {
+    if (translator.load(QLocale(), u"SCWPicture"_s, u"_"_s, qmDir)) {
         QCoreApplication::installTranslator(&translator);
     }
 
