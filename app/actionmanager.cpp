@@ -17,7 +17,7 @@
 static QIcon loadHidpiIcon(const QString &resp, QSize sz = QSize(32, 32))
 {
     QPixmap pm = QPixmap(resp);
-    pm.scaled(sz * qApp->devicePixelRatio(), Qt::KeepAspectRatio);
+    pm = pm.scaled(sz * qApp->devicePixelRatio(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     pm.setDevicePixelRatio(qApp->devicePixelRatio());
     return QIcon(pm);
 }
